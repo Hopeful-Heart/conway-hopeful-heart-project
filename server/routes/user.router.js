@@ -56,7 +56,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
   res.send(req.user);
 });
 
-router.get("/allusers", (req, res) => {
+router.get("/allusers", rejectUnauthenticated, (req, res) => {
   // Gets all users from db to be shown in the search list of users
   const sqlQuery = `SELECT * FROM "user";`;
 

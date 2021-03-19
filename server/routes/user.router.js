@@ -72,6 +72,19 @@ router.get("/allusers", rejectUnauthenticated, (req, res) => {
     });
 });
 
+router.get("/userbyid/:id", (req, res) => {
+  // Gets a user by id
+  const sqlQuery = `SELECT * FROM "user" WHERE "id" = $1;`;
+
+  pool.query(sqlQuery, [req.params.id]).then(response => {
+    console.log('Retrived user successfully');
+    res.send(response.rows).status(200);
+  }).catch(err => {
+    console.log('Error in getting user by id', err);
+    res.sendStatus(500);
+  });
+});
+
 router.put("/authorized", rejectUnauthenticated, (req, res) => {
   // Updates the authrorized account column
   const sqlQuery = `UPDATE "user" SET "approved_user" = $1 WHERE "id" = $2;`;
@@ -81,7 +94,7 @@ router.put("/authorized", rejectUnauthenticated, (req, res) => {
     res.sendStatus(204);
   }).catch(err => {
     console.log('Error in updating authorized user', err);
-    res.sendStatus(204);
+    res.sendStatus(500);
   });
 });
 

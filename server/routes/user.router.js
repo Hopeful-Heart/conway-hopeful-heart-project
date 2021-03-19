@@ -76,13 +76,16 @@ router.get("/pendinguser", (req, res) => {
   // Gets all users where apprved_user column is false
   const sqlQuery = `SELECT * FROM "user" WHERE "approved_user" = 'false';`;
 
-  pool.query(sqlQuery).then(response => {
-    console.log('Retrieved pending users succesfully');
-    res.send(response.rows).status(200);
-  }).catch(err => {
-    console.log('Error in getting pending users', err);
-    res.sendStatus(500);
-  });
+  pool
+    .query(sqlQuery)
+    .then((response) => {
+      console.log("Retrieved pending users succesfully");
+      res.send(response.rows).status(200);
+    })
+    .catch((err) => {
+      console.log("Error in getting pending users", err);
+      res.sendStatus(500);
+    });
 });
 
 router.get("/:id", (req, res) => {

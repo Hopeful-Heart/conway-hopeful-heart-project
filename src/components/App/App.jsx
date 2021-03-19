@@ -12,6 +12,7 @@ import Nav from "../Nav/Nav";
 import Footer from "../Footer/Footer";
 
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import PendingProtectedRoute from '../ProtectedRoute/PendingProtectedRoute';
 
 import HomePage from "../HomePage/HomePage";
 import EventsPage from "../EventsPage/EventsPage";
@@ -21,6 +22,7 @@ import AdminPage from "../AdminPage/AdminPage";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
+import PendingPage from '../PendingPage/PendingPage';
 
 import "./App.css";
 
@@ -43,45 +45,45 @@ function App() {
             Visiting localhost:3000/user will show the HomePage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
-          <ProtectedRoute
+          <PendingProtectedRoute
             // logged in shows HomePage else shows LoginPage
             exact
             path="/home"
           >
             <HomePage />
-          </ProtectedRoute>
+          </PendingProtectedRoute>
 
-          <ProtectedRoute
+          <PendingProtectedRoute
             // logged in shows EventsPage else shows LoginPage
             exact
             path="/events"
           >
             <EventsPage />
-          </ProtectedRoute>
+          </PendingProtectedRoute>
 
-          <ProtectedRoute
+          <PendingProtectedRoute
             // logged in shows AllUsersPage else shows LoginPage
             exact
             path="/allusers"
           >
             <AllUsersPage />
-          </ProtectedRoute>
+          </PendingProtectedRoute>
 
-          <ProtectedRoute
+          <PendingProtectedRoute
             // logged in shows OtherUserDetailsPage else shows LoginPage
             exact
             path="/otheruserdetails"
           >
             <OtherUserDetailsPage />
-          </ProtectedRoute>
+          </PendingProtectedRoute>
 
-          <ProtectedRoute
+          <PendingProtectedRoute
             // logged in shows AdminPage else shows LoginPage
             exact
             path="/admin"
           >
             <AdminPage />
-          </ProtectedRoute>
+          </PendingProtectedRoute>
 
           {/* When a value is supplied for the authRedirect prop the user will
             be redirected to the path supplied when logged in, otherwise they will
@@ -117,6 +119,16 @@ function App() {
             authRedirect="/home"
           >
             <LandingPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // with authRedirect:
+            // - if logged in, redirects to "/home"
+            // - else shows LandingPage at "/landing"
+            exact
+            path="/pending"
+          >
+            <PendingPage />
           </ProtectedRoute>
 
           {/* If none of the other routes matched, we will show a 404. */}

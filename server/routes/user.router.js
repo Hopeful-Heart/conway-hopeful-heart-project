@@ -72,7 +72,7 @@ router.get("/allusers", (req, res) => {
     });
 });
 
-router.get("/pendinguser", (req, res) => {
+router.get("/pendinguser", rejectUnauthenticated, (req, res) => {
   // Gets all users where apprved_user column is false
   const sqlQuery = `SELECT * FROM "user" WHERE "approved_user" = 'false';`;
 
@@ -88,7 +88,7 @@ router.get("/pendinguser", (req, res) => {
     });
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", rejectUnauthenticated, (req, res) => {
   // Gets a user by id
   const sqlQuery = `SELECT * FROM "user" WHERE "id" = $1;`;
 

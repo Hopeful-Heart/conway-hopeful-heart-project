@@ -21,10 +21,10 @@ router.get('/', (req, res) => {
  */
 router.post('/', rejectUnauthenticated, (req, res) => {
   const queryText = `
-    INSERT INTO "events" ( "user_id", "name", "date", "location", "description", "type" )
-    VALUES ($1, $2, $3, $4, $5, $6);
+    INSERT INTO "events" ( "user_id", "name", "date", "location", "description", "type", "link" )
+    VALUES ($1, $2, $3, $4, $5, $6, $7);
   `
-  pool.query(queryText, [req.user.id, req.body.name, req.body.date, req.body.location, req.body.description, req.body.type]).then(result => {
+  pool.query(queryText, [req.user.id, req.body.name, req.body.date, req.body.location, req.body.description, req.body.type, req.body.link]).then(result => {
     res.send(result.rows)
   }).catch(err => {
     res.send(500)

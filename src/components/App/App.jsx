@@ -122,10 +122,11 @@ function App() {
 
           <ProtectedRoute
             // with authRedirect:
-            // - if logged in, redirects to "/pending"
-            // - else shows PendingPage at "/landing"
+            // - if logged in, redirects to "/home"
+            // - else shows PendingPage at "/pending"
             exact
             path="/pending"
+            authRedirect="/home"
           >
             <PendingPage />
           </ProtectedRoute>

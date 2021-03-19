@@ -34,7 +34,7 @@ function ProtectedRoute(props) {
     // if the user is logged in (only logged in users have ids)
     // show the component that is protected
     ComponentToShow = PendingPage;
-  } else if (user.id) {
+  } else if (user.approved_user === true) {
     // if they are not logged in, check the loginMode on Redux State
     // if the mode is 'login', show the LoginPage
     ComponentToShow = ComponentToProtect;

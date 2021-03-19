@@ -6,19 +6,19 @@ CREATE TABLE "user" (
     "id" SERIAL PRIMARY KEY,
     "email" VARCHAR (80) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL,
-    "first-name" VARCHAR (100) NOT NULL,
-    "last-name" VARCHAR (100) NOT NULL,
-    "profile-pic" VARCHAR (1000) NOT NULL,
+    "first_name" VARCHAR (100) NOT NULL,
+    "last_name" VARCHAR (100) NOT NULL,
+    "profile_pic" VARCHAR (1000) NOT NULL,
     "phone" VARCHAR (100) NOT NULL,
     "state" VARCHAR (100) NOT NULL,    
     "city" VARCHAR (100) DEFAULT NULL,
-    "child-first-name" VARCHAR (100) DEFAULT NULL,
-    "child-last-name" VARCHAR (100) DEFAULT NULL,
-    "special-sentiment" VARCHAR (700) DEFAULT NULL,
-    "second-photo" VARCHAR (1000) DEFAULT NULL,
+    "child_first_name" VARCHAR (100) DEFAULT NULL,
+    "child_last_name" VARCHAR (100) DEFAULT NULL,
+    "special_sentiment" VARCHAR (700) DEFAULT NULL,
+    "second_photo" VARCHAR (1000) DEFAULT NULL,
     "story" VARCHAR (1000) DEFAULT NULL,
-    "approved-user" BOOLEAN DEFAULT FALSE,
-    "admin-user" BOOLEAN DEFAULT FALSE
+    "approved_user" BOOLEAN DEFAULT FALSE,
+    "admin_user" BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE "events" (
@@ -30,7 +30,7 @@ CREATE TABLE "events" (
     "description" VARCHAR (500) NOT NULL,
     "type" VARCHAR (100) NOT NULL,
     "link" VARCHAR (1000) DEFAULT NULL, 
-    "admin-approved" BOOLEAN DEFAULT FALSE
+    "admin_approved" BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE "journal" (

@@ -8,12 +8,6 @@ const userStrategy = require('../strategies/user.strategy');
 
 const router = express.Router();
 
-// Handles Ajax request for user information if user is authenticated
-router.get('/', rejectUnauthenticated, (req, res) => {
-  // Send back user object from the session (previously queried from the database)
-  res.send(req.user);
-});
-
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
@@ -45,6 +39,25 @@ router.post('/logout', (req, res) => {
   // Use passport's built-in method to log out the user
   req.logout();
   res.sendStatus(200);
+});
+
+// Handles Ajax request for user information if user is authenticated
+router.get('/', rejectUnauthenticated, (req, res) => {
+  // Send back user object from the session (previously queried from the database)
+  res.send(req.user);
+});
+
+router.get('/allusers', rejectUnauthenticated, (req, res) => {
+  // Gets all users from db to be shown in the search list of users
+  const sqlQuery = `SELECT * FROM "user";`;
+
+  pool.query(sqlQuery).then(response => {
+    console.log('Retrieved users successfully');
+    res.send(response.rows).status(200);
+  }).catch(err => {
+    console.log('Error in getting users', err);
+    res.sendStatus(500);
+  });
 });
 
 module.exports = router;

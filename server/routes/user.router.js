@@ -56,7 +56,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
   res.send(req.user);
 });
 
-router.get("/allusers", rejectUnauthenticated, (req, res) => {
+router.get("/allusers", (req, res) => {
   // Gets all users from db to be shown in the search list of users
   const sqlQuery = `SELECT * FROM "user";`;
 
@@ -72,17 +72,52 @@ router.get("/allusers", rejectUnauthenticated, (req, res) => {
     });
 });
 
+router.get("/pendinguser", rejectUnauthenticated, (req, res) => {
+  // Gets all users where apprved_user column is false
+  const sqlQuery = `SELECT * FROM "user" WHERE "approved_user" = 'false';`;
+
+  pool
+    .query(sqlQuery)
+    .then((response) => {
+      console.log("Retrieved pending users succesfully");
+      res.send(response.rows).status(200);
+    })
+    .catch((err) => {
+      console.log("Error in getting pending users", err);
+      res.sendStatus(500);
+    });
+});
+
+router.get("/:id", rejectUnauthenticated, (req, res) => {
+  // Gets a user by id
+  const sqlQuery = `SELECT * FROM "user" WHERE "id" = $1;`;
+
+  pool
+    .query(sqlQuery, [req.params.id])
+    .then((response) => {
+      console.log("Retrived user successfully");
+      res.send(response.rows).status(200);
+    })
+    .catch((err) => {
+      console.log("Error in getting user by id", err);
+      res.sendStatus(500);
+    });
+});
+
 router.put("/authorized", rejectUnauthenticated, (req, res) => {
   // Updates the authrorized account column
   const sqlQuery = `UPDATE "user" SET "approved_user" = $1 WHERE "id" = $2;`;
 
-  pool.query(sqlQuery, [req.body.boolean, req.user.id]).then(() => {
-    console.log('Updated authorized user successfully');
-    res.sendStatus(204);
-  }).catch(err => {
-    console.log('Error in updating authorized user', err);
-    res.sendStatus(204);
-  });
+  pool
+    .query(sqlQuery, [req.body.boolean, req.user.id])
+    .then(() => {
+      console.log("Updated authorized user successfully");
+      res.sendStatus(204);
+    })
+    .catch((err) => {
+      console.log("Error in updating authorized user", err);
+      res.sendStatus(500);
+    });
 });
 
 module.exports = router;

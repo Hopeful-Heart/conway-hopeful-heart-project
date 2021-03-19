@@ -22,4 +22,6 @@ jobs:
     - name: npm install
       run: npm install
     - name: test
-      run: npm test
+      run: npm test --passWithNoTests
+              
+

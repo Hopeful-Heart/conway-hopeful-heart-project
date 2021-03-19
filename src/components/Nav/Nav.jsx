@@ -27,7 +27,7 @@ function Nav() {
           {loginLinkData.text}
         </Link>
 
-        {user.id && (
+        {user.id && user.approved_user === true && (
           <>
             <Link className="navLink" to="/events">
               Events
@@ -36,6 +36,11 @@ function Nav() {
             <Link className="navLink" to="/allusers">
               All Users
             </Link>
+          </>
+        )}
+
+        {user.id && (
+          <>
 
             <LogOutButton className="navLink" />
           </>

@@ -6,6 +6,7 @@ const router = express.Router();
  * GET route template
  */
 router.get('/', (req, res) => {
+  // Gets all events
   const queryText = `
     SELECT * FROM "events";
   `
@@ -20,6 +21,7 @@ router.get('/', (req, res) => {
  * POST route template
  */
 router.post('/', rejectUnauthenticated, (req, res) => {
+  // Creates a new event
   const queryText = `
     INSERT INTO "events" ( "user_id", "name", "date", "location", "description", "type", "link" )
     VALUES ($1, $2, $3, $4, $5, $6, $7);
@@ -34,6 +36,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 });
 
 router.delete('/:id', rejectUnauthenticated, (req,res) => {
+  // Deletes an event by id
   const queryText = ` 
     DELETE FROM "events" WHERE "id"=$1;
   `

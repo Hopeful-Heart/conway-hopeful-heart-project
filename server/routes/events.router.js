@@ -9,10 +9,10 @@ const router = express.Router();
 router.post("/", rejectUnauthenticated, (req, res) => {
   // Creates a new event
   const queryText = `
-    INSERT INTO "events" ( "user_id", "name", "date", "location", "description", "type", "link" )
-    VALUES ($1, $2, $3, $4, $5, $6, $7);
+    INSERT INTO "events" ( "user_id", "name", "date", "location", "description", "type", "link", "admin_approved" )
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
   `;
-  console.log(req.body)
+
   pool
     .query(queryText, [
       req.user.id,
@@ -22,9 +22,10 @@ router.post("/", rejectUnauthenticated, (req, res) => {
       req.body.description,
       req.body.type,
       req.body.link,
+      req.user.admin_user ? true : false,
     ])
-    .then((result) => {
-      res.send(result.rows);
+    .then(() => {
+      res.sendStatus(201);
     })
     .catch((err) => {
       res.send(500);
@@ -38,6 +39,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
   const queryText = `
     SELECT * FROM "events";
   `;
+
   pool
     .query(queryText)
     .then((result) => {
@@ -48,11 +50,28 @@ router.get("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
+//GET all events that are admin approved
+router.get("/approved", (req, res) => {
+  const sqlQuery = `SELECT * FROM EVENTS WHERE "admin_approved" = 'TRUE';`;
+
+  pool
+    .query(sqlQuery)
+    .then((response) => {
+      console.log("Retrieved admin-approved events successfully");
+      res.send(response.rows).status(200);
+    })
+    .catch((err) => {
+      console.log("Error in getting admin approved events", err);
+      res.sendStatus(500);
+    });
+});
+
 //GET for event by id
 router.get("/:id", rejectUnauthenticated, (req, res) => {
   const queryText = `
   SELECT * FROM "events" WHERE "id"=$1;
   `;
+
   pool
     .query(queryText, [req.params.id])
     .then((result) => {
@@ -69,6 +88,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
   SELECT * FROM "events"
   WHERE "date" <= NOW() + interval '10 days';
   `;
+
   //sets params to look out the next 10 days
   pool
     .query(queryText)
@@ -86,6 +106,7 @@ router.delete("/:id", rejectUnauthenticated, (req, res) => {
   const queryText = ` 
     DELETE FROM "events" WHERE "id"=$1;
   `;
+
   pool.query(queryText).then((result) => {
     res.sendStatus(204);
   });

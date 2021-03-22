@@ -52,7 +52,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 
 //GET all events that are admin approved
 router.get("/approved", (req, res) => {
-  const sqlQuery = `SELECT * FROM EVENTS WHERE "admin_approved" = 'TRUE';`;
+  const sqlQuery = `SELECT * FROM "events" WHERE "admin_approved" = 'true';`;
 
   pool
     .query(sqlQuery)

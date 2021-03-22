@@ -17,6 +17,7 @@ function LandingPage() {
     history.push('/login');
   };
 
+  
   return (
     <div style={{ fontFamily: "Avenir" }} className="container">
       <div className="grid">

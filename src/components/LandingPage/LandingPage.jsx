@@ -17,11 +17,11 @@ function LandingPage() {
     history.push('/login');
   };
 
-  
+
   return (
-    <div style={{ fontFamily: "Avenir" }} className="container">
+    <div className="container">
       <div className="grid">
-        <div style={{ fontFamily: "Avenir" }} className="grid-col grid-col_7">
+        <div className="grid-col grid-col_7">
           <h2 style={{textAlign:'center'}}>
               Welcome
           </h2>

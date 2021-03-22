@@ -8,7 +8,7 @@ import "./Footer.css";
 
 function Footer() {
   return (
-    <footer style={{fontFamily:"Avenir"}}>
+    <footer>
       Powered By{" "}
       <a href="https://www.emergingacademy.org/">Emerging Digital Academy</a>
       <br />

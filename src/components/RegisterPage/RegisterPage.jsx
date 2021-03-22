@@ -7,7 +7,7 @@ function RegisterPage() {
   const history = useHistory();
 
   return (
-    <div style={{fontFamily:"Avenir"}}>
+    <div >
       <RegisterForm />
       <center>
         <button

@@ -7,7 +7,7 @@ import React from 'react';
 
 function EventsPage() {
   return (
-    <div  style={{fontFamily:"Avenir"}} className="container">
+    <div className="container">
       <p>Events Page</p>
     </div>
   );

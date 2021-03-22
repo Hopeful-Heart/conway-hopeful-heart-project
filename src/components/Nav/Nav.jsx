@@ -19,7 +19,7 @@ function Nav() {
   }
 
   return (
-    <div style={{fontFamily:"Avenir"}} className="nav">
+    <div className="nav">
       <Link to="/landing">
         <img style={{height:75}} src={whiteTitle}></img>
         {/* <h2 className="nav-title">Hope Heart Project: Family Connections</h2> */}

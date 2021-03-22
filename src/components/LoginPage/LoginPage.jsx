@@ -6,7 +6,7 @@ function LoginPage() {
   const history = useHistory();
 
   return (
-    <div style={{fontFamily:"Avenir"}}>
+    <div>
       <LoginForm />
       <center>
         <button

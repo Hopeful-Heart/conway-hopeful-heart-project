@@ -7,7 +7,7 @@ function PendingPages() {
   const dispatch = useDispatch();
 
   return (
-    <div className="container">
+    <div style={{fontFamily:"Avenir"}} className="container">
       <h2>Your Account is pending acceptance</h2>
       <br />
       <button

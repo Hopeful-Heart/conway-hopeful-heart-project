@@ -7,7 +7,7 @@ import React from 'react';
 
 function AdminPage() {
   return (
-    <div className="container">
+    <div style={{fontFamily:"Avenir"}} className="container">
       <p>Admin Page</p>
     </div>
   );

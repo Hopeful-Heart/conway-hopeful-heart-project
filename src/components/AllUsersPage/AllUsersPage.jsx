@@ -7,7 +7,7 @@ import React from 'react';
 
 function AllUsersPage() {
   return (
-    <div className="container">
+    <div style={{fontFamily:"Avenir"}} className="container">
       <p>All Users Page</p>
     </div>
   );

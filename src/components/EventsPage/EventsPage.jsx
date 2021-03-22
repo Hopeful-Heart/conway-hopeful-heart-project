@@ -1,4 +1,9 @@
-import React from 'react';
+import Calendar from "react-calendar";
+
+import AddEventForm from "./AddEventForm";
+
+import "./EventsPage.css";
+import "react-calendar/dist/Calendar.css";
 
 // This is one of our simplest components
 // It doesn't have local state
@@ -8,7 +13,10 @@ import React from 'react';
 function EventsPage() {
   return (
     <div className="container">
-      <p>Events Page</p>
+      <Calendar calendarType="US" minDetail="month" />
+      <br />
+      <br />
+      <AddEventForm />
     </div>
   );
 }

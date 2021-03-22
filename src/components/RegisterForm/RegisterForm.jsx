@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 function RegisterForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [pic, setPic] = useState("");
+  const [newUser, setNewUser] = useState({
+    email: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+    phone: "",
+    city: "",
+    state: "",
+    pic: "",
+  });
+
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
 
@@ -18,16 +21,7 @@ function RegisterForm() {
 
     dispatch({
       type: "REGISTER",
-      payload: {
-        email: email,
-        password: password,
-        firstName: firstName,
-        lastName: lastName,
-        phone: phone,
-        city: city,
-        state: state,
-        pic: pic,
-      },
+      payload: newUser,
     });
   }; // end registerUser
 
@@ -45,9 +39,11 @@ function RegisterForm() {
           <input
             type="text"
             name="First Name"
-            value={firstName}
+            value={newUser.firstName}
             required
-            onChange={(event) => setFirstName(event.target.value)}
+            onChange={(event) =>
+              setNewUser({ ...newUser, firstName: event.target.value })
+            }
           />
         </label>
       </div>
@@ -57,9 +53,11 @@ function RegisterForm() {
           <input
             type="text"
             name="Last Name"
-            value={lastName}
+            value={newUser.lastName}
             required
-            onChange={(event) => setLastName(event.target.value)}
+            onChange={(event) =>
+              setNewUser({ ...newUser, lastName: event.target.value })
+            }
           />
         </label>
       </div>
@@ -69,9 +67,11 @@ function RegisterForm() {
           <input
             type="text"
             name="Phone Number"
-            value={phone}
+            value={newUser.phone}
             required
-            onChange={(event) => setPhone(event.target.value)}
+            onChange={(event) =>
+              setNewUser({ ...newUser, phone: event.target.value })
+            }
           />
         </label>
       </div>
@@ -81,8 +81,10 @@ function RegisterForm() {
           <input
             type="text"
             name="City"
-            value={city}
-            onChange={(event) => setCity(event.target.value)}
+            value={newUser.city}
+            onChange={(event) =>
+              setNewUser({ ...newUser, city: event.target.value })
+            }
           />
         </label>
       </div>
@@ -92,9 +94,11 @@ function RegisterForm() {
           <input
             type="text"
             name="State"
-            value={state}
+            value={newUser.state}
             required
-            onChange={(event) => setState(event.target.value)}
+            onChange={(event) =>
+              setNewUser({ ...newUser, state: event.target.value })
+            }
           />
         </label>
       </div>
@@ -104,9 +108,11 @@ function RegisterForm() {
           <input
             type="text"
             name="Profile Pic"
-            value={pic}
+            value={newUser.pic}
             required
-            onChange={(event) => setPic(event.target.value)}
+            onChange={(event) =>
+              setNewUser({ ...newUser, pic: event.target.value })
+            }
           />
         </label>
       </div>
@@ -116,9 +122,11 @@ function RegisterForm() {
           <input
             type="email"
             name="email"
-            value={email}
+            value={newUser.email}
             required
-            onChange={(event) => setEmail(event.target.value)}
+            onChange={(event) =>
+              setNewUser({ ...newUser, email: event.target.value })
+            }
           />
         </label>
       </div>
@@ -128,9 +136,11 @@ function RegisterForm() {
           <input
             type="password"
             name="password"
-            value={password}
+            value={newUser.password}
             required
-            onChange={(event) => setPassword(event.target.value)}
+            onChange={(event) =>
+              setNewUser({ ...newUser, password: event.target.value })
+            }
           />
         </label>
       </div>

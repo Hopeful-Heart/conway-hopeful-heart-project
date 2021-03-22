@@ -7,9 +7,8 @@ function RegisterPage() {
   const history = useHistory();
 
   return (
-    <div>
+    <div >
       <RegisterForm />
-
       <center>
         <button
           type="button"

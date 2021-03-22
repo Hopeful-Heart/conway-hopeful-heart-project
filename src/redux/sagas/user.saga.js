@@ -24,8 +24,18 @@ function* fetchUser() {
   }
 }
 
+function* updateUserAuthorized(action) {
+  try {
+    yield axios.put(`/api/user/authorized/`, { boolean: action.payload });
+    yield put({ type: 'FETCH_USER' });
+  } catch (error) {
+    console.log('Unable to update authorized user', error);
+  };
+};
+
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
-}
+  yield takeLatest('UPDATE_AUTHORIZED_USER', updateUserAuthorized);
+};
 
 export default userSaga;

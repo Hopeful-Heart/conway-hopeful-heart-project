@@ -16,6 +16,8 @@ CREATE TABLE "user" (
     "child_last_name" VARCHAR (100) DEFAULT NULL,
     "special_sentiment" VARCHAR (700) DEFAULT NULL,
     "second_photo" VARCHAR (1000) DEFAULT NULL,
+    "birthday" DATE DEFAULT NULL,
+    "memorial-day" DATE DEFAULT NULL,
     "story" VARCHAR (1000) DEFAULT NULL,
     "approved_user" BOOLEAN DEFAULT FALSE,
     "admin_user" BOOLEAN DEFAULT FALSE

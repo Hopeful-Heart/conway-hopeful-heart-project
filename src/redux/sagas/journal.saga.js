@@ -3,7 +3,7 @@ import axios from "axios";
 
 function* fetchJournalSaga(action) {
   try {
-    const response = yield axios.get("/api/journal/");
+    const response = yield axios.get(`/api/journal/${action.payload}`);
     yield put({ type: "SET_JOURNAL_LIST", payload: response.data });
   } catch (error) {
     console.log("Error in fetching journal", error);

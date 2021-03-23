@@ -1,10 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import {useSelector, useDispatch} from 'react-redux';
 
 function HomePage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
+  const [entry, setEntry] = useState('');
   const events = useSelector((store) => store.events.eventsListReducer);
   const journals = useSelector((store) => store.journal.journalListReducer);
 
@@ -32,6 +33,20 @@ function HomePage() {
       )
   } else {
     journalsList = <h3>No Entries Yet</h3>
+  }
+
+  const addJournal = (event) => {
+    event.preventDefault();
+
+    dispatch({
+      type: "ADD_JOURNAL",
+      payload: {
+        content: entry,
+        id: user.id,
+      }
+    })
+
+    setEntry('');
   }
 
   return (
@@ -100,8 +115,15 @@ function HomePage() {
         <div className="row">
           <h2>Journal</h2>
           <div className="journal-entries">
-            <input type="text" placeholder="What's on your mind?"/>
-            <button>Submit</button>
+            <form onSubmit={addJournal}>
+            <input 
+            type="text" 
+            placeholder="What's on your mind?"
+            value={entry}
+            onChange={(e) => {setEntry(e.target.value)}}
+            />
+            <button type="submit">Submit</button>
+            </form>
             {journalsList}
           </div>
         </div>

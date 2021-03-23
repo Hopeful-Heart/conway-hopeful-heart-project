@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
+import moment from 'moment';
 
 function HomePage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
@@ -20,7 +21,7 @@ function HomePage() {
   const [bday, setBday] = useState(`${user.birthday}`);
   const [story, setStory] = useState(`${user.story}`);
   const [sentiment, setSentiment] = useState(`${user.special_sentiment}`);
-  const [memDay, setMemDay] = useState(`${user.memorial_date}`);
+  const [memDay, setMemDay] = useState(`${user.memorial_day}`);
   const events = useSelector((store) => store.events.eventsListReducer);
   const journals = useSelector((store) => store.journal.journalListReducer);
 
@@ -36,7 +37,7 @@ function HomePage() {
 
   if (events[0]) {
       eventsList = events.map(event =>
-        (<td key={event.id}>{event.date} - {event.name}</td>)
+        (<td key={event.id}>{moment(event.date).format('MMMM Do YYYY, h:mm a')} - {event.name}</td>)
       )
   } else {
       eventsList = <td>No Upcoming Events</td>
@@ -93,27 +94,12 @@ function HomePage() {
   const saveChild = () => {
     setchildEditScreen(false);
 
-    if (childFirstName === null) {
-      setChildFirstName('');
-    }
-    if (childLastName === null) {
-      setChildLastName('');
-    }
-    if (childImg === null) {
-      setChildImg('');
-    }
-    if (bday === null || bday === undefined) {
-      setBday('000-00-00T00:00:00.000Z');
-    }
-    if (memDay === null || memDay === undefined) {
-      setMemDay('000-00-00T00:00:00.000Z');
-    }
-    if (story === null) {
-      setStory('');
-    }
-    if (sentiment === null || sentiment === undefined) {
-      setSentiment('');
-    }
+    // if (bday === null || bday === undefined) {
+    //   setBday('000-00-00T00:00:00.000Z');
+    // }
+    // if (memDay === null || memDay === undefined) {
+    //   setMemDay('000-00-00T00:00:00.000Z');
+    // }
 
     dispatch({
       type: "UPDATE_CHILD_INFO",
@@ -314,10 +300,10 @@ function HomePage() {
             </div>
             <div className="child-info-col">
               <div className="child-info-row">
-                <h3>Remembering <br />{user.child_first_name} {user.child_last_name}</h3>
+              <h3>Remembering <br />{user.child_first_name} {user.child_last_name}</h3>
               </div>
               <div className="child-info-row">
-                <h5>{user.birthday} - {user.memorial_day}</h5>
+                      <h5>{moment(user.birthday).format('MMMM Do YYYY')} - {moment(user.memorial_day).format('MMMM Do YYYY')}</h5>
               </div>
             </div>
           <div className="child-story">

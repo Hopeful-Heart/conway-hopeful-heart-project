@@ -12,8 +12,8 @@ function* fetchEventsSaga(action) {
 
 function* addEventsSaga(action) {
   try {
-    const response = yield axios.post("/api/events")
-    yield put({ type: "FETCH_EVENTS", payload: response.data});
+    yield axios.post("/api/events", action.payload);
+    yield put({ type: "FETCH_EVENTS" });
   } catch (error) {
     console.log("error adding event", error);
   }

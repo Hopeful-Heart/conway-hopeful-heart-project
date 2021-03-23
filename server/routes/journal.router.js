@@ -12,7 +12,7 @@ router.get("/", (req, res) => {
   // GET route code here
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", rejectUnauthenticated, (req, res) => {
   // GET jobs by id for details page
   id = req.params.id;
   const queryText = `SELECT * FROM "journal" WHERE "user_id" = ${id}`;

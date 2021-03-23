@@ -1,17 +1,24 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
 function HomePage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
-  const events = useSelector((store) => store.events);
-  const journals = useSelector((store) => store.journal);
+  const events = useSelector((store) => store.events.eventsListReducer);
+  const journals = useSelector((store) => store.journal.journalListReducer);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch({ type: "FETCH_EVENTS" });
+    dispatch({ type: "FETCH_JOURNAL", payload: user.id });
+  }, [])
 
   let eventsList;
   let journalsList;
 
-  if (events.id) {
+  if (events[0]) {
       eventsList = events.map(event =>
         (<td key={event.id}>{event.date} - {event.name}</td>)
       )
@@ -19,7 +26,7 @@ function HomePage() {
       eventsList = <td>No Upcoming Events</td>
   }
 
-  if (events.id) {
+  if (events[0]) {
     journalsList = journals.map(entry =>
         (<p key={entry.id}>{entry.content}</p>)
       )

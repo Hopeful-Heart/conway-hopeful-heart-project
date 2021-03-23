@@ -1,11 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
 import {useSelector, useDispatch} from 'react-redux';
 
 function HomePage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
   const [entry, setEntry] = useState('');
+  const [editScreen, seteditScreen] = useState(false);
+  const [img, setImg] = useState(`${user.profile_pic}`);
+  const [firstName, setFirstName] = useState(`${user.first_name}`);
+  const [lastName, setLastName] = useState(`${user.last_name}`);
+  const [state, setState] = useState(`${user.state}`);
+  const [phone, setPhone] = useState(`${user.phone}`);
+  const [email, setEmail] = useState(`${user.email}`);
   const events = useSelector((store) => store.events.eventsListReducer);
   const journals = useSelector((store) => store.journal.journalListReducer);
 
@@ -49,30 +55,111 @@ function HomePage() {
     setEntry('');
   }
 
+  const editParent = () => {
+    seteditScreen(true);
+  }
+
+  const saveParent = () => {
+    seteditScreen(false);
+
+    dispatch({
+      type: "UPDATE_PARENT_INFO",
+      payload: {
+        firstName: firstName,
+        lastName: lastName,
+        img: img,
+        state: state,
+        phone: phone,
+        email: email,
+        id: user.id,
+      }
+    })
+  }
+
   return (
     <div className="container">
       <div className="col">
         <div className="row">
-          <div className="parent-info-container">
-            <div className="parent-info-col">
-              <img src={user.profile_pic} />
+          {
+          editScreen 
+          ?
+          <>
+            <div className="parent-info-container">
+              <div className="parent-info-col">
+                <input
+                  type="text"
+                  placeholder="image url"
+                  value={img}
+                  onChange={(e) => { setImg(e.target.value) }}
+                />
+              </div>
+              <div className="parent-info-col">
+                <div className="parent-info-row">
+                  <input
+                    type="text"
+                    placeholder="First Name"
+                    value={firstName}
+                    onChange={(e) => { setFirstName(e.target.value) }}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Last Name"
+                    value={lastName}
+                    onChange={(e) => { setLastName(e.target.value) }}
+                  />
+                </div>
+                <div className="parent-info-row">
+                  <input
+                    type="text"
+                    placeholder="State"
+                    value={state}
+                    onChange={(e) => { setState(e.target.value) }}
+                  />
+                </div>
+                <div className="parent-info-row">
+                  <input
+                    type="text"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => { setEmail(e.target.value) }}
+                  />
+                </div>
+                <div className="parent-info-row">
+                  <input
+                    type="text"
+                    placeholder="Phone Number"
+                    value={phone}
+                    onChange={(e) => { setPhone(e.target.value) }}
+                  />
+                </div>
+              </div>
             </div>
-            <div className="parent-info-col">
-              <div className="parent-info-row">
-                <h3>{user.first_name} {user.last_name}</h3>
+            <button onClick={saveParent}>Save</button>
+          </> 
+          : 
+          <>
+            <div className="parent-info-container">
+              <div className="parent-info-col">
+                <img src={user.profile_pic} />
               </div>
-              <div className="parent-info-row">
-                <h5>{user.state}</h5>
-              </div>
-              <div className="parent-info-row">
-                <h5>{user.email}</h5>
-              </div>
-              <div className="parent-info-row">
-                <h5>{user.phone}</h5>
+              <div className="parent-info-col">
+                <div className="parent-info-row">
+                  <h3>{user.first_name} {user.last_name}</h3>
+                </div>
+                <div className="parent-info-row">
+                  <h5>{user.state}</h5>
+                </div>
+                <div className="parent-info-row">
+                  <h5>{user.email}</h5>
+                </div>
+                <div className="parent-info-row">
+                  <h5>{user.phone}</h5>
+                </div>
               </div>
             </div>
-          </div>
-          <button>Edit Profile Info</button>
+            <button onClick={editParent}>Edit Profile Info</button>
+          </>
+          }
         </div>
         <div className="row">
           <table>

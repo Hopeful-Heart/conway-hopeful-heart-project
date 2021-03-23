@@ -33,9 +33,19 @@ function* updateUserAuthorized(action) {
   };
 };
 
+function* updateParentInfo(action) {
+  try {
+    yield axios.put(`/api/user/parentinfo/`, { user: action.payload });
+    yield put({ type: 'FETCH_USER' });
+  } catch (error) {
+    console.log('Unable to update parent info', error);
+  };
+};
+
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
   yield takeLatest('UPDATE_AUTHORIZED_USER', updateUserAuthorized);
+  yield takeLatest('UPDATE_PARENT_INFO', updateParentInfo);
 };
 
 export default userSaga;

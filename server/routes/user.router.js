@@ -120,4 +120,22 @@ router.put("/authorized", rejectUnauthenticated, (req, res) => {
     });
 });
 
+router.put("/parentinfo", rejectUnauthenticated, (req, res) => {
+  // Updates the authrorized account column
+  let user = req.body.user;
+  console.log(user);
+  const sqlQuery = `UPDATE "user" SET "email" = $1, "first_name" = $2, "last_name" = $3, "profile_pic" = $4, "phone" = $5, "state" = $6 WHERE "id" = $7;`;
+
+  pool
+    .query(sqlQuery, [user.email, user.firstName, user.lastName, user.img, user.phone, user.state, user.id])
+    .then(() => {
+      console.log("Updated authorized user successfully");
+      res.sendStatus(204);
+    })
+    .catch((err) => {
+      console.log("Error in updating authorized user", err);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;

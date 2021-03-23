@@ -1,3 +1,19 @@
-.react-calendar{
-    margin: auto;
+.react-calendar {
+  width: 70rem !important;
+  margin: auto;
+  font-family: Avenir !important;
+}
+
+.react-calendar__tile {
+  height: 7rem;
+  display: flex;
+}
+
+.react-calendar__tile--active {
+  background: #e6e6e6 !important;
+  color: initial !important;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: #d10000 !important;
 }

@@ -22,13 +22,13 @@ function HomePage() {
   const [story, setStory] = useState(`${user.story}`);
   const [sentiment, setSentiment] = useState(`${user.special_sentiment}`);
   const [memDay, setMemDay] = useState(`${user.memorial_day}`);
-  const events = useSelector((store) => store.events.eventsListReducer);
+  const events = useSelector((store) => store.events.recentEventsListReducer);
   const journals = useSelector((store) => store.journal.journalListReducer);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({ type: "FETCH_EVENTS" });
+    dispatch({ type: "FETCH_RECENT_EVENTS" });
     dispatch({ type: "FETCH_JOURNAL", payload: user.id });
   }, [])
 

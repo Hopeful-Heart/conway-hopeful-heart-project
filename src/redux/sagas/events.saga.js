@@ -10,6 +10,15 @@ function* fetchEventsSaga(action) {
   }
 }
 
+function* fetchRecentEventsSaga(action) {
+  try {
+    const response = yield axios.get("/api/events/recent");
+    yield put({ type: "SET_RECENT_EVENTS_LIST", payload: response.data });
+  } catch (error) {
+    console.log("Error in fetching events", error);
+  }
+}
+
 function* addEventsSaga(action) {
   try {
     yield axios.post("/api/events", action.payload);
@@ -20,6 +29,7 @@ function* addEventsSaga(action) {
 }
 
 function* eventsSaga() {
+  yield takeLatest("FETCH_RECENT_EVENTS", fetchRecentEventsSaga);
   yield takeLatest("FETCH_EVENTS", fetchEventsSaga);
   yield takeLatest("ADD_EVENT", addEventsSaga);
 }

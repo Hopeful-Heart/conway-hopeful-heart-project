@@ -83,7 +83,7 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
 });
 
 //GET for the next 10 events
-router.get("/", rejectUnauthenticated, (req, res) => {
+router.get("/recent", rejectUnauthenticated, (req, res) => {
   const queryText = `
   SELECT * FROM "events"
   WHERE "date" <= NOW() + interval '10 days';
@@ -93,10 +93,11 @@ router.get("/", rejectUnauthenticated, (req, res) => {
   pool
     .query(queryText)
     .then((result) => {
-      res.send(result.rows);
+      res.send(result.rows).status(204);
     })
     .catch((err) => {
-      res.sensendStatusd(500);
+      console.log(err);
+      res.sendStatus(500);
     });
 });
 

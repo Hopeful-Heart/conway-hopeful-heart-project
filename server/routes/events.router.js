@@ -28,7 +28,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
       res.sendStatus(201);
     })
     .catch((err) => {
-      res.send(500);
+      res.sendStatus(500);
       console.log(err);
     });
 });
@@ -46,26 +46,9 @@ router.get("/", rejectUnauthenticated, (req, res) => {
       res.send(result.rows);
     })
     .catch((err) => {
-      res.send(500);
-    });
-});
-
-//GET all events that are admin approved
-router.get("/approved", (req, res) => {
-  const sqlQuery = `SELECT * FROM "events" WHERE "admin_approved" = 'true';`;
-
-  pool
-    .query(sqlQuery)
-    .then((response) => {
-      console.log("Retrieved admin-approved events successfully");
-      res.send(response.rows).status(200);
-    })
-    .catch((err) => {
-      console.log("Error in getting admin approved events", err);
       res.sendStatus(500);
     });
 });
-
 //GET for event by id
 router.get("/:id", rejectUnauthenticated, (req, res) => {
   const queryText = `
@@ -96,7 +79,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
       res.send(result.rows);
     })
     .catch((err) => {
-      res.send(500);
+      res.sensendStatusd(500);
     });
 });
 

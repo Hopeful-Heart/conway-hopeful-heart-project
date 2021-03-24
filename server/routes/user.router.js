@@ -13,8 +13,9 @@ const router = express.Router();
 // is that the password gets encrypted before being inserted
 router.post("/register", (req, res, next) => {
   const user = req.body;
-  const password = encryptLib.encryptPassword(req.body.password);
 
+  const password = encryptLib.encryptPassword(req.body.password);
+  
   const queryText = `INSERT INTO "user" ("email", "password", "first_name", "last_name", "profile_pic", "phone", "state", "city")
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"`;
   pool
@@ -34,7 +35,6 @@ router.post("/register", (req, res, next) => {
       res.sendStatus(500);
     });
 });
-
 // Handles login form authenticate/login POST
 // userStrategy.authenticate('local') is middleware that we run on this route
 // this middleware will run our POST if successful
@@ -56,42 +56,9 @@ router.get("/", rejectUnauthenticated, (req, res) => {
   res.send(req.user);
 });
 
-router.get("/allusers", rejectUnauthenticated, (req, res) => {
-  // Gets all users from db to be shown in the search list of users
-  const sqlQuery = `SELECT * FROM "user";`;
-
-  pool
-    .query(sqlQuery)
-    .then((response) => {
-      console.log("Retrieved users successfully");
-      res.send(response.rows).status(200);
-    })
-    .catch((err) => {
-      console.log("Error in getting users", err);
-      res.sendStatus(500);
-    });
-});
-
-router.get("/pendinguser", rejectUnauthenticated, (req, res) => {
-  // Gets all users where apprved_user column is false
-  const sqlQuery = `SELECT * FROM "user" WHERE "approved_user" = 'false';`;
-
-  pool
-    .query(sqlQuery)
-    .then((response) => {
-      console.log("Retrieved pending users succesfully");
-      res.send(response.rows).status(200);
-    })
-    .catch((err) => {
-      console.log("Error in getting pending users", err);
-      res.sendStatus(500);
-    });
-});
-
 router.get("/:id", rejectUnauthenticated, (req, res) => {
   // Gets a user by id
   const sqlQuery = `SELECT * FROM "user" WHERE "id" = $1;`;
-
   pool
     .query(sqlQuery, [req.params.id])
     .then((response) => {
@@ -107,9 +74,45 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
 router.put("/authorized", rejectUnauthenticated, (req, res) => {
   // Updates the authrorized account column
   const sqlQuery = `UPDATE "user" SET "approved_user" = $1 WHERE "id" = $2;`;
-
   pool
     .query(sqlQuery, [req.body.boolean, req.user.id])
+    .then(() => {
+      console.log("Updated authorized user successfully");
+      res.sendStatus(204);
+    })
+    .catch((err) => {
+      console.log("Error in updating authorized user", err);
+      res.sendStatus(500);
+    });
+});
+
+router.put("/parentinfo", rejectUnauthenticated, (req, res) => {
+  // Updates the parent info columns of user table
+  let user = req.body.user;
+  console.log(user);
+  const sqlQuery = `UPDATE "user" SET "email" = $1, "first_name" = $2, "last_name" = $3, "profile_pic" = $4, "phone" = $5, "state" = $6, "city" = $7 WHERE "id" = $8;`;
+
+  pool
+    .query(sqlQuery, [user.email, user.firstName, user.lastName, user.img, user.phone, user.state, user.city, user.id])
+    .then(() => {
+      console.log("Updated authorized user successfully");
+      res.sendStatus(204);
+    })
+    .catch((err) => {
+      console.log("Error in updating authorized user", err);
+      res.sendStatus(500);
+    });
+});
+
+
+router.put("/childinfo", rejectUnauthenticated, (req, res) => {
+  // Updates the child info columns of user table
+  let user = req.body.user;
+  console.log(user);
+  const sqlQuery = `UPDATE "user" SET "birthday" = $1, "child_first_name" = $2, "child_last_name" = $3, "second_photo" = $4, "special_sentiment" = $5, "memorial_day" = $6, "story" = $7 WHERE "id" = $8;`;
+
+  pool
+    .query(sqlQuery, [user.birthday, user.firstName, user.lastName, user.img, user.sentiment, user.memorial_day, user.story, user.id])
     .then(() => {
       console.log("Updated authorized user successfully");
       res.sendStatus(204);

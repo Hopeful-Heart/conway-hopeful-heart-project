@@ -86,6 +86,24 @@ function* updateUserAuthorized(action) {
   };
 };
 
+function* updateParentInfo(action) {
+  try {
+    yield axios.put(`/api/user/parentinfo/`, { user: action.payload });
+    yield put({ type: 'FETCH_USER' });
+  } catch (error) {
+    console.log('Unable to update parent info', error);
+  };
+};
+
+function* updateChildInfo(action) {
+  try {
+    yield axios.put(`/api/user/childinfo/`, { user: action.payload });
+    yield put({ type: 'FETCH_USER' });
+  } catch (error) {
+    console.log('Unable to update child info', error);
+  };
+};
+
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
   yield takeLatest('UPDATE_AUTHORIZED_USER', updateUserAuthorized);
@@ -95,6 +113,9 @@ function* userSaga() {
   yield takeEvery('UPDATE_APPROVED_USER', updateApprovedUsers);
   yield takeEvery('DELETE_PENDING_USER', deletePendingUsers);
   yield takeEvery('DELETE_APPROVED_USER', deleteApprovedUsers);
-};
+  yield takeLatest('UPDATE_PARENT_INFO', updateParentInfo);
+  yield takeLatest('UPDATE_CHILD_INFO', updateChildInfo);
+}
+
 
 export default userSaga;

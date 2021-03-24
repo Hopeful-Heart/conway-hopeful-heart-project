@@ -1,7 +1,7 @@
 import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from '@fullcalendar/daygrid';
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import moment from "moment";
 
 import AddEventForm from "./AddEventForm";
@@ -14,29 +14,26 @@ import "./EventsPage.css";
 // or even care what the redux state is
 
 function EventsPage() {
-  const dispatch = useDispatch();
-  const events = useSelector((store) => store.events);
+  const events = useSelector((store) => store.events.approvedEventsListReducer);
+  const fullCalendarEvents = [];
 
-  useEffect(() => {
-    dispatch({ type: "FETCH_CALENDAR_EVENTS" });
-  }, []);
+  const createFullCalendarEvents = () => {
+    events.map((event) =>
+      fullCalendarEvents.push({
+        title: event.name,
+        date: moment(event.date).format("YYYY-MM-DD"),
+      })
+    );
+  };
+
+  events.length > 0 && createFullCalendarEvents();
 
   return (
     <div className="container">
       <FullCalendar
-        plugins={[ dayGridPlugin ]}
+        plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
-        events={() => {
-          const eventsArr = [];
-
-          events.eventsListReducer.map(event => {
-            eventsArr.push({ title: event.name, date: moment(event.date).format('YYYY-MM-DD') });
-          });
-
-          console.log(eventsArr)
-
-          return eventsArr;
-        }}
+        events={fullCalendarEvents}
       />
       <br />
       <br />

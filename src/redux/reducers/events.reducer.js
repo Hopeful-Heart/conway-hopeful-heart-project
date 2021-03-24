@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
 
-const eventsListReducer = (state = [], action) => {
+const approvedEventsListReducer = (state = [], action) => {
   switch (action.type) {
-    case "SET_EVENTS_LIST":
+    case "SET_APPROVED_EVENTS_LIST":
       return action.payload;
     default:
       return state;
@@ -10,5 +10,5 @@ const eventsListReducer = (state = [], action) => {
 };
 
 export default combineReducers({
-  eventsListReducer,
+  approvedEventsListReducer,
 });

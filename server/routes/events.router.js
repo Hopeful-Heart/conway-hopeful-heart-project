@@ -33,38 +33,6 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
-//GET for all events
-router.get("/", rejectUnauthenticated, (req, res) => {
-  // Gets all events
-  const queryText = `
-    SELECT * FROM "events";
-  `;
-
-  pool
-    .query(queryText)
-    .then((result) => {
-      res.send(result.rows);
-    })
-    .catch((err) => {
-      res.sendStatus(500);
-    });
-});
-//GET for event by id
-router.get("/:id", rejectUnauthenticated, (req, res) => {
-  const queryText = `
-  SELECT * FROM "events" WHERE "id"=$1;
-  `;
-
-  pool
-    .query(queryText, [req.params.id])
-    .then((result) => {
-      res.send(result.rows);
-    })
-    .catch((err) => {
-      res.sendStatus(500);
-    });
-});
-
 //GET for the next 10 events
 router.get("/", rejectUnauthenticated, (req, res) => {
   const queryText = `
@@ -80,6 +48,22 @@ router.get("/", rejectUnauthenticated, (req, res) => {
     })
     .catch((err) => {
       res.sensendStatusd(500);
+    });
+});
+
+//GET for admin approved events
+router.get("/approved", rejectUnauthenticated, (req, res) => {
+  const sqlQuery = `SELECT * FROM "events" WHERE "admin_approved" = 'true';`;
+
+  pool
+    .query(sqlQuery)
+    .then((response) => {
+      console.log("Retrieved admin approved events successfully");
+      res.send(response.rows).status(200);
+    })
+    .catch((err) => {
+      console.log("Error in getting approved events", err);
+      res.sendStatus(500);
     });
 });
 

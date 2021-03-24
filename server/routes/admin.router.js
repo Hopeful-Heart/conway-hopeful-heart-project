@@ -35,6 +35,8 @@ router.delete("/pending/:id", (req, res) => {
     `;
     pool.query(queryText, [req.params.id]).then((result) => {
         res.sendStatus(204);
+    }).catch((err) => {
+        res.send(err).status(500);
     });
 });
 
@@ -68,6 +70,8 @@ router.delete("/approved/:id", (req, res) => {
     `;
     pool.query(queryText, [req.params.id]).then((result) => {
         res.sendStatus(204);
+    }).catch((err) => {
+        res.send(err).status(500);
     });
 });
 
@@ -105,6 +109,8 @@ router.delete("/events/pending/:id", (req, res) => {
     `;
     pool.query(queryText, [req.params.id]).then((result) => {
         res.sendStatus(204);
+    }).catch((err) => {
+        res.send(err).status(500);
     });
 });
 
@@ -143,6 +149,8 @@ router.delete("/events/approved/:id", (req, res) => {
     `;
     pool.query(queryText, [req.params.id]).then((result) => {
         res.sendStatus(204);
+    }).catch((err) => {
+        res.send(err).status(500);
     });
 });
 

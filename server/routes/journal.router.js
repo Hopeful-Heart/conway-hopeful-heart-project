@@ -29,7 +29,7 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
  * POST route template
  */
 router.post("/", rejectUnauthenticated, (req, res) => {
-  // POST route code here
+  // Adds a new Journal entry 
   const journal = req.body.journal;
   const queryText = `INSERT INTO "journal" ("user_id", "date", "content", "public")
     VALUES ($1, NOW(), $2, FALSE)`;

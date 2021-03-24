@@ -28,6 +28,16 @@ router.put("/pending/:id", (req, res) => {
     });
 });
 
+router.delete("/pending/:id", (req, res) => {
+    // Deletes an event by id
+    const queryText = ` 
+      DELETE FROM "user" WHERE "id"=$1;
+    `;
+    pool.query(queryText, [req.params.id]).then((result) => {
+        res.sendStatus(204);
+    });
+});
+
 router.get("/approved", (req, res) => {
     // Gets all approved users
     const queryText = `
@@ -48,6 +58,16 @@ router.put("/approved/:id", (req, res) => {
         res.send(result.rows).status(204);
     }).catch((err) => {
         res.send(err).status(500);
+    });
+});
+
+router.delete("/approved/:id", (req, res) => {
+    // Deletes an event by id
+    const queryText = ` 
+      DELETE FROM "user" WHERE "id"=$1;
+    `;
+    pool.query(queryText, [req.params.id]).then((result) => {
+        res.sendStatus(204);
     });
 });
 
@@ -78,6 +98,16 @@ router.put("/events/pending/:id", (req, res) => {
     });
 });
 
+router.delete("/events/pending/:id", (req, res) => {
+    // Deletes an event by id
+    const queryText = ` 
+      DELETE FROM "events" WHERE "id"=$1;
+    `;
+    pool.query(queryText, [req.params.id]).then((result) => {
+        res.sendStatus(204);
+    });
+});
+
 router.get("/events/approved", (req, res) => {
     const queryText = `
         SELECT "events"."id", "events"."name", "events"."date","events"."location","events"."description","events"."type","events"."link","user"."first_name","user"."last_name" FROM "events"
@@ -103,6 +133,16 @@ router.put("/events/approved/:id", (req, res) => {
         res.send(result.rows).status(204);
     }).catch((err) => {
         res.send(500);
+    });
+});
+
+router.delete("/events/approved/:id", (req, res) => {
+    // Deletes an event by id
+    const queryText = ` 
+      DELETE FROM "events" WHERE "id"=$1;
+    `;
+    pool.query(queryText, [req.params.id]).then((result) => {
+        res.sendStatus(204);
     });
 });
 

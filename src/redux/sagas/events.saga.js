@@ -56,6 +56,24 @@ function* updateApprovedEvents(action) {
   }
 }
 
+function* deletePendingEvents(action) {
+  try {
+      const update = yield axios.delete(`/api/admin/events/pending/${action.payload.id}`)
+      yield put ({ type: 'FETCH_EVENTS_LIST', payload:update.data})
+  } catch(error) {
+      console.log('error updating approved event!', error);
+  }
+}
+
+function* deleteApprovedEvents(action) {
+  try {
+      const update = yield axios.delete(`/api/admin/events/approved/${action.payload.id}`)
+      yield put ({ type: 'FETCH_EVENTS_LIST', payload:update.data})
+  } catch(error) {
+      console.log('error updating approved event!', error);
+  }
+}
+
 function* eventsSaga() {
   yield takeLatest("FETCH_EVENTS", fetchEventsSaga);
   yield takeLatest("ADD_EVENT", addEventsSaga);
@@ -63,6 +81,8 @@ function* eventsSaga() {
   yield takeEvery("FETCH_EVENTS_LIST", fetchPendingEvents);
   yield takeEvery("UPDATE_PENDING_EVENT", updatePendingEvents);
   yield takeEvery("UPDATE_APPROVED_EVENT", updateApprovedEvents);
+  yield takeEvery("DELETE_PENDING_EVENT", deletePendingEvents);
+  yield takeEvery("DELETE_APPROVED_EVENT", deleteApprovedEvents);
 }
 
 export default eventsSaga;

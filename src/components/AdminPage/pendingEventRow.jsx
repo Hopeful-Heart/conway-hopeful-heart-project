@@ -10,6 +10,10 @@ function PendingEventRow({ event }) {
         dispatch({type: 'UPDATE_PENDING_EVENT', payload: event})
     }
 
+    const deletePending = (event) => {
+        dispatch({type: 'DELETE_PENDING_EVENT', payload: event})
+    }
+
     return (
         <tr key={event.id}>
             <td>{event.name}</td>
@@ -17,7 +21,7 @@ function PendingEventRow({ event }) {
             <td>{moment(event.date).format('YYYY-MM-DD')}</td>
             <td>{event.location}</td>
             <td>{event.link ? <a href={event.link}>Link</a> : 'No Link Provided'}</td>
-            <td><button  style={{margin:2.5}} onClick={() => updatePending(event)}>Approve</button><button style={{margin:2.5}}>Deny</button></td>
+            <td><button  style={{margin:2.5}} onClick={() => updatePending(event)}>Approve</button><button onClick={() => deletePending(event)} style={{margin:2.5}}>Deny</button></td>
         </tr>
     );
 }

@@ -19,8 +19,8 @@ function* fetchUser() {
     yield put({ type: 'SET_USER', payload: response.data });
   } catch (error) {
     console.log('User get request failed', error);
-  }
-}
+  };
+};
 
 function* fetchPendingUsers(action) {
   try {
@@ -42,22 +42,40 @@ function* fetchApprovedUsers(action) {
 
 function* updatePendingUsers(action) {
   try {
-      const update = yield axios.put(`/api/admin/pending/${action.payload.id}`)
-      yield put ({ type: 'FETCH_USER_LIST', payload:update.data})
-  } catch(error) {
-      console.log('error updating pending event!', error);
-      console.log(action.payload);
-  }
-}
+    const update = yield axios.put(`/api/admin/pending/${action.payload.id}`)
+    yield put({ type: 'FETCH_USER_LIST', payload: update.data })
+  } catch (error) {
+    console.log('error updating pending event!', error);
+    console.log(action.payload);
+  };
+};
 
 function* updateApprovedUsers(action) {
   try {
-      const update = yield axios.put(`/api/admin/approved/${action.payload.id}`)
-      yield put ({ type: 'FETCH_USER_LIST', payload:update.data})
-  } catch(error) {
-      console.log('error updating approved event!', error);
-  }
-}
+    const update = yield axios.put(`/api/admin/approved/${action.payload.id}`)
+    yield put({ type: 'FETCH_USER_LIST', payload: update.data })
+  } catch (error) {
+    console.log('error updating approved event!', error);
+  };
+};
+
+function* deletePendingUsers(action) {
+  try {
+    const update = yield axios.delete(`/api/admin/pending/${action.payload.id}`)
+    yield put({ type: 'FETCH_USER_LIST', payload: update.data })
+  } catch (error) {
+    console.log('error updating approved event!', error);
+  };
+};
+
+function* deleteApprovedUsers(action) {
+  try {
+    const update = yield axios.delete(`/api/admin/approved/${action.payload.id}`)
+    yield put({ type: 'FETCH_USER_LIST', payload: update.data })
+  } catch (error) {
+    console.log('error updating approved event!', error);
+  };
+};
 
 function* updateUserAuthorized(action) {
   try {
@@ -75,6 +93,8 @@ function* userSaga() {
   yield takeEvery('FETCH_USER_LIST', fetchApprovedUsers);
   yield takeEvery('UPDATE_PENDING_USER', updatePendingUsers);
   yield takeEvery('UPDATE_APPROVED_USER', updateApprovedUsers);
+  yield takeEvery('DELETE_PENDING_USER', deletePendingUsers);
+  yield takeEvery('DELETE_APPROVED_USER', deleteApprovedUsers);
 };
 
 export default userSaga;

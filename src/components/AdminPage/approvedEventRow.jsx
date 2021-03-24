@@ -9,6 +9,9 @@ function ApprovedEventRow({ event }) {
     const updateApproved = (event) => {
         dispatch({ type: 'UPDATE_APPROVED_EVENT', payload: event })
     }
+    const deleteApproved = (event) => {
+        dispatch({ type: 'DELETE_APPROVED_EVENT', payload: event })
+    }
 
     return (
         <tr key={event.id}>
@@ -17,7 +20,7 @@ function ApprovedEventRow({ event }) {
             <td>{moment(event.date).format('YYYY-MM-DD')}</td>
             <td>{event.location}</td>
             <td>{event.link ? <a href={event.link}>Link</a> : 'No Link Provided'}</td>
-            <td><button style={{ margin: 2.5 }} onClick={() => updateApproved(event)}>Unapprove</button><button style={{ margin: 2.5 }}>Delete</button></td>
+            <td><button style={{ margin: 2.5 }} onClick={() => updateApproved(event)}>Unapprove</button><button onClick={() => deleteApproved(event)} style={{ margin: 2.5 }}>Delete</button></td>
         </tr>
     );
 }

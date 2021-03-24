@@ -29,16 +29,15 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
  * POST route template
  */
 router.post("/", rejectUnauthenticated, (req, res) => {
-  // POST route code here
+  // Adds a new Journal entry 
+  const journal = req.body.journal;
   const queryText = `INSERT INTO "journal" ("user_id", "date", "content", "public")
-    VALUES ($1, $2, $3, $4)`;
-  console.log(req.body);
+    VALUES ($1, NOW(), $2, FALSE)`;
+  console.log(journal);
   pool
     .query(queryText, [
-      req.user.id,
-      req.body.date,
-      req.body.content,
-      req.body.public,
+      journal.id,
+      journal.content,
     ])
     .then((result) => res.send(result.rows))
     .catch((err) => {

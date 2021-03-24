@@ -120,4 +120,41 @@ router.put("/authorized", rejectUnauthenticated, (req, res) => {
     });
 });
 
+router.put("/parentinfo", rejectUnauthenticated, (req, res) => {
+  // Updates the parent info columns of user table
+  let user = req.body.user;
+  console.log(user);
+  const sqlQuery = `UPDATE "user" SET "email" = $1, "first_name" = $2, "last_name" = $3, "profile_pic" = $4, "phone" = $5, "state" = $6, "city" = $7 WHERE "id" = $8;`;
+
+  pool
+    .query(sqlQuery, [user.email, user.firstName, user.lastName, user.img, user.phone, user.state, user.city, user.id])
+    .then(() => {
+      console.log("Updated authorized user successfully");
+      res.sendStatus(204);
+    })
+    .catch((err) => {
+      console.log("Error in updating authorized user", err);
+      res.sendStatus(500);
+    });
+});
+
+
+router.put("/childinfo", rejectUnauthenticated, (req, res) => {
+  // Updates the child info columns of user table
+  let user = req.body.user;
+  console.log(user);
+  const sqlQuery = `UPDATE "user" SET "birthday" = $1, "child_first_name" = $2, "child_last_name" = $3, "second_photo" = $4, "special_sentiment" = $5, "memorial_day" = $6, "story" = $7 WHERE "id" = $8;`;
+
+  pool
+    .query(sqlQuery, [user.birthday, user.firstName, user.lastName, user.img, user.sentiment, user.memorial_day, user.story, user.id])
+    .then(() => {
+      console.log("Updated authorized user successfully");
+      res.sendStatus(204);
+    })
+    .catch((err) => {
+      console.log("Error in updating authorized user", err);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;

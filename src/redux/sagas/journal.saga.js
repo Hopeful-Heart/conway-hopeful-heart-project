@@ -10,8 +10,18 @@ function* fetchJournalSaga(action) {
   }
 }
 
+function* addJournalSaga(action) {
+  try {
+    const response = yield axios.post("/api/journal", {journal: action.payload})
+    yield put({ type: "FETCH_JOURNAL",  payload: action.payload.id});
+  } catch (error) {
+    console.log("error adding event", error);
+  }
+}
+
 function* journalSaga() {
   yield takeLatest("FETCH_JOURNAL", fetchJournalSaga);
+  yield takeLatest("ADD_JOURNAL", addJournalSaga);
 }
 
 export default journalSaga;

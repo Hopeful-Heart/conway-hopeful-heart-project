@@ -28,7 +28,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
       res.sendStatus(201);
     })
     .catch((err) => {
-      res.send(500);
+      res.sendStatus(500);
       console.log(err);
     });
 });
@@ -46,7 +46,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
       res.send(result.rows);
     })
     .catch((err) => {
-      res.send(500);
+      res.sendStatus(500);
     });
 });
 
@@ -96,7 +96,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
       res.send(result.rows);
     })
     .catch((err) => {
-      res.send(500);
+      res.sensendStatusd(500);
     });
 });
 

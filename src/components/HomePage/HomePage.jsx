@@ -94,13 +94,6 @@ function HomePage() {
   const saveChild = () => {
     setchildEditScreen(false);
 
-    // if (bday === null || bday === undefined) {
-    //   setBday('000-00-00T00:00:00.000Z');
-    // }
-    // if (memDay === null || memDay === undefined) {
-    //   setMemDay('000-00-00T00:00:00.000Z');
-    // }
-
     dispatch({
       type: "UPDATE_CHILD_INFO",
       payload: {
@@ -126,6 +119,7 @@ function HomePage() {
           <>
             <div className="parent-info-container">
               <div className="parent-info-col">
+                <p>Profile Picture</p>
                 <input
                   type="text"
                   placeholder="Image URL"
@@ -135,12 +129,14 @@ function HomePage() {
               </div>
               <div className="parent-info-col">
                 <div className="parent-info-row">
+                  <p>First Name</p>
                   <input
                     type="text"
                     placeholder="First Name"
                     value={firstName}
                     onChange={(e) => { setFirstName(e.target.value) }}
                   />
+                  <p>Last Name</p>
                   <input
                     type="text"
                     placeholder="Last Name"
@@ -149,12 +145,14 @@ function HomePage() {
                   />
                 </div>
                 <div className="parent-info-row">
+                  <p>City</p>
                   <input
                     type="text"
                     placeholder="City"
                     value={city}
                     onChange={(e) => { setCity(e.target.value) }}
                   />
+                  <p>State</p>
                   <input
                     type="text"
                     placeholder="State"
@@ -163,6 +161,7 @@ function HomePage() {
                   />
                 </div>
                 <div className="parent-info-row">
+                  <p>Email</p>
                   <input
                     type="text"
                     placeholder="Email"
@@ -171,6 +170,7 @@ function HomePage() {
                   />
                 </div>
                 <div className="parent-info-row">
+                  <p>Phone Number</p>
                   <input
                     type="text"
                     placeholder="Phone Number"

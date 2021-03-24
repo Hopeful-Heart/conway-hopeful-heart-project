@@ -6,8 +6,7 @@ function PendingUserTable({admin}) {
         <table style={{ textAlign: 'center' }}>
             <thead>
                 <tr>
-                    <td>First Name</td>
-                    <td>Last Name</td>
+                    <td>Name</td>
                     <td>Email</td>
                     <td>Phone Number</td>
                     <td>State</td>

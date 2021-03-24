@@ -1,22 +1,20 @@
-import PendingUserTable from '../AdminPage/pendingUserTable'
-import ApprovedUserTable from '../AdminPage/approvedUserTable'
+import PendingEventTable from '../AdminPage/pendingEventTable'
+import ApprovedEventTable from '../AdminPage/approvedEventTable'
 
-function AdminEventView({admin}) {
+function AdminEventView({ admin }) {
     return (
         <div className="container">
-            <h1 style={{ textAlign: 'center' }}>Admin Page</h1>
-            <br />
-            <h3 style={{ textAlign: 'center' }}>Pending Users</h3>
+            <h3 style={{ textAlign: 'center' }}>Pending Events</h3>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <PendingUserTable
+                <PendingEventTable
                     admin={admin}
                 />
             </div>
             <br />
             <div>
-                <h3 style={{ textAlign: 'center' }}>Approved Users</h3>
+                <h3 style={{ textAlign: 'center' }}>Approved Events</h3>
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <ApprovedUserTable
+                    <ApprovedEventTable
                         admin={admin}
                     />
                 </div>

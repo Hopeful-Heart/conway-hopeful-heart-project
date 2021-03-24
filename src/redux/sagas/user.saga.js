@@ -24,7 +24,7 @@ function* fetchUser() {
 
 function* fetchPendingUsers(action) {
   try {
-    const response = yield axios.get(`/api/admin`)
+    const response = yield axios.get(`/api/admin/pending`)
     yield put({ type: 'SET_PENDING_USERS', payload: response.data })
   } catch (error) {
     console.log(error)
@@ -40,6 +40,25 @@ function* fetchApprovedUsers(action) {
   };
 };
 
+function* updatePendingUsers(action) {
+  try {
+      const update = yield axios.put(`/api/admin/pending/${action.payload.id}`)
+      yield put ({ type: 'FETCH_USER_LIST', payload:update.data})
+  } catch(error) {
+      console.log('error updating pending event!', error);
+      console.log(action.payload);
+  }
+}
+
+function* updateApprovedUsers(action) {
+  try {
+      const update = yield axios.put(`/api/admin/approved/${action.payload.id}`)
+      yield put ({ type: 'FETCH_USER_LIST', payload:update.data})
+  } catch(error) {
+      console.log('error updating approved event!', error);
+  }
+}
+
 function* updateUserAuthorized(action) {
   try {
     yield axios.put(`/api/user/authorized/`, { boolean: action.payload });
@@ -54,6 +73,8 @@ function* userSaga() {
   yield takeLatest('UPDATE_AUTHORIZED_USER', updateUserAuthorized);
   yield takeEvery('FETCH_USER_LIST', fetchPendingUsers);
   yield takeEvery('FETCH_USER_LIST', fetchApprovedUsers);
+  yield takeEvery('UPDATE_PENDING_USER', updatePendingUsers);
+  yield takeEvery('UPDATE_APPROVED_USER', updateApprovedUsers);
 };
 
 export default userSaga;

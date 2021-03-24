@@ -21,8 +21,8 @@ import AdminPage from "../AdminPage/AdminPage";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
-import PendingPage from '../PendingPage/PendingPage';
-
+import PendingPage from "../PendingPage/PendingPage";
+import PushNotificationDemo from "../../PushNotificationDemo.js";
 import "./App.css";
 
 function App() {
@@ -136,6 +136,7 @@ function App() {
             <h1>404</h1>
           </Route>
         </Switch>
+        <PushNotificationDemo />
         <Footer />
       </div>
     </Router>

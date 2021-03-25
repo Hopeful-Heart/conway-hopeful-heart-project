@@ -46,7 +46,7 @@ function addEventForm() {
       onSubmit={handleAddEventSubmit}
       style={{ textAlign: "center" }}
     >
-      <button type="button" onClick={() => setAddEventToggle(true)}>
+      <button type="button" onClick={() => addEventToggle ? setAddEventToggle(false) : setAddEventToggle(true)}>
         Add Event
       </button>
       {addEventToggle && (

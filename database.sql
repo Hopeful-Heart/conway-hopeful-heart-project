@@ -19,6 +19,7 @@ CREATE TABLE "user" (
     "birthday" DATE DEFAULT NULL,
     "memoriay_day" DATE DEFAULT NULL,
     "story" VARCHAR (1000) DEFAULT NULL,
+    "client_token" VARCHAR (100) DEFAULT NULL,
     "approved_user" BOOLEAN DEFAULT FALSE,
     "admin_user" BOOLEAN DEFAULT FALSE
 );
@@ -38,7 +39,14 @@ CREATE TABLE "events" (
 CREATE TABLE "journal" (
     "id" SERIAL PRIMARY KEY,
     "user_id" INTEGER REFERENCES "user" NOT NULL,
-    "date" DATE NOT NULL,
+    "date" TIMESTAMP NOT NULL,
     "content" VARCHAR (1000) NOT NULL,
     "public" BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE "connections" (
+    "id" SERIAL PRIMARY KEY,
+    "user1_id" INTEGER REFERENCES "user" NOT NULL,
+    "user2_id" INTEGER REFERENCES "user" NOT NULL,
+    "approved" BOOLEAN DEFAULT FALSE
 );

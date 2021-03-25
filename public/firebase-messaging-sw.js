@@ -1,8 +1,11 @@
 // Scripts for firebase and firebase messaging
 importScripts("https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js");
 importScripts("https://www.gstatic.com/firebasejs/8.2.0/firebase-messaging.js");
-
+// importScripts("/__/firebase/8.3.1/firebase-app.js");
+// importScripts("/__/firebase/8.3.1/firebase-messaging.js");
+// importScripts("/__/firebase/init.js");
 // Initialize the Firebase app in the service worker by passing the generated config
+
 const firebaseConfig = {
   apiKey: "AIzaSyBve8PJaBJWv38BHera1wZHaG4V7f504Oo",
   authDomain: "hopeful-heart-conway.firebaseapp.com",

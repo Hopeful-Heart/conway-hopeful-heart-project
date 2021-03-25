@@ -23,7 +23,12 @@ export const getToken = (setTokenFound) => {
     .then((currentToken) => {
       if (currentToken) {
         console.log("current token for client: ", currentToken);
-        setTokenFound(true);
+        setTokenFound(true); // dispatch token to backend
+        dispatch({
+          type: "FETCH_TOKEN",
+          payload: { token: currentToken },
+        });
+
         // Track the token -> client mapping, by sending to backend server
         // show on the UI that permission is secured
       } else {

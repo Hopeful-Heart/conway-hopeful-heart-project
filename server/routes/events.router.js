@@ -34,19 +34,20 @@ router.post("/", rejectUnauthenticated, (req, res) => {
 });
 
 //GET for the next 10 events
-router.get("/", rejectUnauthenticated, (req, res) => {
+router.get("/recent", rejectUnauthenticated, (req, res) => {
   const queryText = `
   SELECT * FROM "events"
-  WHERE "date" <= NOW() + interval '10 days';
+  WHERE "date" <= NOW() + interval '10 days'
+  AND "admin_approved" = 'true';
   `;
 
-  //sets params to look out the next 10 days
   pool
     .query(queryText)
     .then((result) => {
-      res.send(result.rows);
+      res.send(result.rows).status(204);
     })
     .catch((err) => {
+      console.log(err);
       res.sendStatus(500);
     });
 });
@@ -56,6 +57,7 @@ router.get("/approved", rejectUnauthenticated, (req, res) => {
   const sqlQuery = `SELECT * FROM "events" WHERE "admin_approved" = 'true';`;
 
   pool
+
     .query(sqlQuery)
     .then((response) => {
       console.log("Retrieved admin approved events successfully");

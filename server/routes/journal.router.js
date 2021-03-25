@@ -8,7 +8,7 @@ const router = express.Router();
 router.get("/:id", rejectUnauthenticated, (req, res) => {
   // GET jobs by id for details page
   id = req.params.id;
-  const queryText = `SELECT * FROM "journal" WHERE "user_id" = ${id}`;
+  const queryText = `SELECT * FROM "journal" WHERE "user_id" = ${id} ORDER BY "date" DESC`;
   pool
     .query(queryText)
     .then((result) => {

@@ -22,12 +22,13 @@ function HomePage() {
   const [story, setStory] = useState(`${user.story}`);
   const [sentiment, setSentiment] = useState(`${user.special_sentiment}`);
   const [memDay, setMemDay] = useState(`${user.memorial_day}`);
-  const events = useSelector((store) => store.events.approvedEventsListReducer);
+  const events = useSelector((store) => store.events.recentEventsListReducer);
   const journals = useSelector((store) => store.journal.journalListReducer);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch({ type: "FETCH_RECENT_EVENTS" });
     dispatch({ type: "FETCH_JOURNAL", payload: user.id });
   }, [])
 
@@ -36,10 +37,14 @@ function HomePage() {
 
   if (events[0]) {
       eventsList = events.map(event =>
-        (<td key={event.id}>{moment(event.date).format('MMMM Do YYYY, h:mm a')} - {event.name}</td>)
+        (
+        <tr key={event.id}>
+          <td>{moment(event.date).format('MMMM Do YYYY, h:mm a')} - {event.name}</td>
+        </tr>
+        )
       )
   } else {
-      eventsList = <td>No Upcoming Events</td>
+      eventsList = <tr><td>No Upcoming Events</td></tr>
   }
 
   if (events[0]) {
@@ -216,9 +221,7 @@ function HomePage() {
               </tr>
             </thead>
             <tbody>
-              <tr>
               {eventsList}
-              </tr>
             </tbody>
           </table>
         </div>

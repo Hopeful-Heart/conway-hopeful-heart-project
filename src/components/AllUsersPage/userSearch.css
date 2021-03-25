@@ -1,0 +1,6 @@
+.userDiv {
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    margin: 2%;
+}

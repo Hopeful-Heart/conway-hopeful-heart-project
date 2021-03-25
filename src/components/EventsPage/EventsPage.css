@@ -7,6 +7,13 @@
 .react-calendar__tile {
   height: 7rem;
   display: flex;
+  flex-direction: column;
+  cursor: initial !important;
+}
+
+.react-calendar__tile p {
+  margin: 0;
+  cursor: pointer;
 }
 
 .react-calendar__tile--active {
@@ -16,4 +23,8 @@
 
 .react-calendar__month-view__days__day--weekend {
   color: #d10000 !important;
+}
+
+#popover-content {
+  margin: 1rem
 }

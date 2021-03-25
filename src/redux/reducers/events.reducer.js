@@ -1,17 +1,19 @@
-import { combineReducers } from "redux";
+import {
+  combineReducers
+} from "redux";
 
-const eventsListReducer = (state = [], action) => {
+const recentEventsListReducer = (state = [], action) => {
   switch (action.type) {
-    case "SET_EVENTS_LIST": 
+    case "SET_RECENT_EVENTS_LIST":
       return action.payload;
     default:
       return state;
   }
 };
 
-const recentEventsListReducer = (state = [], action) => {
+const approvedEventsListReducer = (state = [], action) => {
   switch (action.type) {
-    case "SET_RECENT_EVENTS_LIST": 
+    case "SET_APPROVED_EVENTS_LIST":
       return action.payload;
     default:
       return state;
@@ -19,6 +21,6 @@ const recentEventsListReducer = (state = [], action) => {
 };
 
 export default combineReducers({
-  eventsListReducer,
   recentEventsListReducer,
+  approvedEventsListReducer,
 });

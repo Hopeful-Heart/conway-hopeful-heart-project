@@ -37,10 +37,14 @@ function HomePage() {
 
   if (events[0]) {
       eventsList = events.map(event =>
-        (<td key={event.id}>{moment(event.date).format('MMMM Do YYYY, h:mm a')} - {event.name}</td>)
+        (
+        <tr key={event.id}>
+          <td>{moment(event.date).format('MMMM Do YYYY, h:mm a')} - {event.name}</td>
+        </tr>
+        )
       )
   } else {
-      eventsList = <td>No Upcoming Events</td>
+      eventsList = <tr><td>No Upcoming Events</td></tr>
   }
 
   if (events[0]) {
@@ -217,9 +221,7 @@ function HomePage() {
               </tr>
             </thead>
             <tbody>
-              <tr>
               {eventsList}
-              </tr>
             </tbody>
           </table>
         </div>

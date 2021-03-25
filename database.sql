@@ -19,7 +19,7 @@ CREATE TABLE "user" (
     "birthday" DATE DEFAULT NULL,
     "memoriay_day" DATE DEFAULT NULL,
     "story" VARCHAR (1000) DEFAULT NULL,
-    "client_token"
+    "client_token" VARCHAR (100) DEFAULT NULL,
     "approved_user" BOOLEAN DEFAULT FALSE,
     "admin_user" BOOLEAN DEFAULT FALSE
 );
@@ -47,5 +47,6 @@ CREATE TABLE "journal" (
 CREATE TABLE "connections" (
     "id" SERIAL PRIMARY KEY,
     "user1_id" INTEGER REFERENCES "user" NOT NULL,
-    "user2_id" INTEGER REFERENCES "user" NOT NULL
+    "user2_id" INTEGER REFERENCES "user" NOT NULL,
+    "approved" BOOLEAN DEFAULT FALSE
 );

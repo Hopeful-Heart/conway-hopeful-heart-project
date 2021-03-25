@@ -22,25 +22,25 @@ function* fetchUser() {
   };
 };
 
-function* fetchPendingUsers(action) {
+function* fetchPendingUsersAdmin(action) {
   try {
     const response = yield axios.get(`/api/admin/pending`)
-    yield put({ type: 'SET_PENDING_USERS', payload: response.data })
+    yield put({ type: 'SET_PENDING_USERS_ADMIN', payload: response.data })
   } catch (error) {
     console.log(error)
   };
 };
 
-function* fetchApprovedUsers(action) {
+function* fetchApprovedUsersAdmin(action) {
   try {
     const response = yield axios.get(`/api/admin/approved`)
-    yield put({ type: 'SET_APPROVED_USERS', payload: response.data })
+    yield put({ type: 'SET_APPROVED_USERS_ADMIN', payload: response.data })
   } catch (error) {
     console.log(error)
   };
 };
 
-function* updatePendingUsers(action) {
+function* updatePendingUsersAdmin(action) {
   try {
     const update = yield axios.put(`/api/admin/pending/${action.payload.id}`)
     yield put({ type: 'FETCH_USER_LIST', payload: update.data })
@@ -50,7 +50,7 @@ function* updatePendingUsers(action) {
   };
 };
 
-function* updateApprovedUsers(action) {
+function* updateApprovedUsersAdmin(action) {
   try {
     const update = yield axios.put(`/api/admin/approved/${action.payload.id}`)
     yield put({ type: 'FETCH_USER_LIST', payload: update.data })
@@ -59,7 +59,7 @@ function* updateApprovedUsers(action) {
   };
 };
 
-function* deletePendingUsers(action) {
+function* deletePendingUsersAdmin(action) {
   try {
     const update = yield axios.delete(`/api/admin/pending/${action.payload.id}`)
     yield put({ type: 'FETCH_USER_LIST', payload: update.data })
@@ -68,7 +68,7 @@ function* deletePendingUsers(action) {
   };
 };
 
-function* deleteApprovedUsers(action) {
+function* deleteApprovedUsersAdmin(action) {
   try {
     const update = yield axios.delete(`/api/admin/approved/${action.payload.id}`)
     yield put({ type: 'FETCH_USER_LIST', payload: update.data })
@@ -125,12 +125,12 @@ function* fetchUserDetails(action) {
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
   yield takeLatest('UPDATE_AUTHORIZED_USER', updateUserAuthorized);
-  yield takeEvery('FETCH_USER_LIST', fetchPendingUsers);
-  yield takeEvery('FETCH_USER_LIST', fetchApprovedUsers);
-  yield takeEvery('UPDATE_PENDING_USER', updatePendingUsers);
-  yield takeEvery('UPDATE_APPROVED_USER', updateApprovedUsers);
-  yield takeEvery('DELETE_PENDING_USER', deletePendingUsers);
-  yield takeEvery('DELETE_APPROVED_USER', deleteApprovedUsers);
+  yield takeEvery('FETCH_USER_LIST', fetchPendingUsersAdmin);
+  yield takeEvery('FETCH_USER_LIST', fetchApprovedUsersAdmin);
+  yield takeEvery('UPDATE_PENDING_USER', updatePendingUsersAdmin);
+  yield takeEvery('UPDATE_APPROVED_USER', updateApprovedUsersAdmin);
+  yield takeEvery('DELETE_PENDING_USER', deletePendingUsersAdmin);
+  yield takeEvery('DELETE_APPROVED_USER', deleteApprovedUsersAdmin);
   yield takeLatest('UPDATE_PARENT_INFO', updateParentInfo);
   yield takeLatest('UPDATE_CHILD_INFO', updateChildInfo);
   yield takeLatest('FETCH_USER_SEARCH_LIST', fetchUserSearchList);

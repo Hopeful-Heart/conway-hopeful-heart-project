@@ -31,6 +31,7 @@ app.use('/api/events', eventsRouter);
 app.use('/api/journal', journalRouter);
 app.use('/api/admin', adminRouter)
 app.use('/api/usersearch', userSearchRouter)
+
 // Serve static files
 app.use(express.static('build'));
 

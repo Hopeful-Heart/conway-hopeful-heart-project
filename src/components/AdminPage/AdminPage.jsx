@@ -11,8 +11,6 @@ function AdminPage() {
 
   const admin = useSelector((store) => store.admin);
 
-  const user = useSelector((store) => store.user);
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({ type: 'FETCH_USER_LIST' });

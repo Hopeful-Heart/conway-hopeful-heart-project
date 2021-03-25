@@ -104,6 +104,24 @@ function* updateChildInfo(action) {
   };
 };
 
+function* fetchUserSearchList(action) {
+  try {
+    const response = yield axios.get(`/api/usersearch`)
+    yield put({ type: 'SET_USER_SEARCH_LIST', payload: response.data })
+  } catch (error) {
+    console.log(error);
+  };
+};
+
+function* fetchUserDetails(action) {
+  try {
+    const selectedUser= action.payload;
+    yield put({ type: 'SET_USER_DETAILS', payload: selectedUser})
+  } catch (error) {
+    console.log(error)
+  };
+}
+
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
   yield takeLatest('UPDATE_AUTHORIZED_USER', updateUserAuthorized);
@@ -115,6 +133,8 @@ function* userSaga() {
   yield takeEvery('DELETE_APPROVED_USER', deleteApprovedUsersAdmin);
   yield takeLatest('UPDATE_PARENT_INFO', updateParentInfo);
   yield takeLatest('UPDATE_CHILD_INFO', updateChildInfo);
+  yield takeLatest('FETCH_USER_SEARCH_LIST', fetchUserSearchList);
+  yield takeLatest('FETCH_USER_DETAILS', fetchUserDetails);
 }
 
 

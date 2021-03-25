@@ -5,14 +5,10 @@ import {
   Redirect,
   Switch,
 } from "react-router-dom";
-
 import { useDispatch } from "react-redux";
-
 import Nav from "../Nav/Nav";
 import Footer from "../Footer/Footer";
-
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-
 import HomePage from "../HomePage/HomePage";
 import EventsPage from "../EventsPage/EventsPage";
 import AllUsersPage from "../AllUsersPage/AllUsersPage";
@@ -22,7 +18,7 @@ import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import PendingPage from '../PendingPage/PendingPage';
-
+import UserDetails from "../AllUsersPage/userDetails";
 import "./App.css";
 
 function App() {
@@ -68,7 +64,13 @@ function App() {
           >
             <AllUsersPage />
           </ProtectedRoute>
-
+          <ProtectedRoute
+            // logged in shows EventsPage else shows LoginPage
+            exact
+            path="/userdetails"
+          >
+            <UserDetails/>
+          </ProtectedRoute>
           <ProtectedRoute
             // logged in shows OtherUserDetailsPage else shows LoginPage
             exact

@@ -4,6 +4,7 @@ import user from './user.reducer';
 import events from './events.reducer';
 import journal from './journal.reducer';
 import admin from './admin.reducer';
+import userSearch from './userSearch.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   events,
   journal,
   admin,
+  userSearch,
 });
 
 export default rootReducer;

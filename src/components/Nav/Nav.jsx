@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import {useSelector} from 'react-redux';
-import whiteTitle from '../Nav/whitetitle.png'
+import whiteTitle from './whitetitle.png'
 
 function Nav() {
   const user = useSelector((store) => store.user);

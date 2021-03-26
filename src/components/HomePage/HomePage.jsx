@@ -15,7 +15,7 @@ function HomePage() {
   const [childFirstName, setChildFirstName] = useState(`${user.child_first_name}`);
   const [childLastName, setChildLastName] = useState(`${user.child_last_name}`);
   const [state, setState] = useState(`${user.state}`);
-  const [city, setCity] = useState(`${user.state}`);
+  const [city, setCity] = useState(`${user.city}`);
   const [phone, setPhone] = useState(`${user.phone}`);
   const [email, setEmail] = useState(`${user.email}`);
   const [bday, setBday] = useState(`${user.birthday}`);

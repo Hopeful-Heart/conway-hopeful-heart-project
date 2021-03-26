@@ -4,7 +4,7 @@ import './userDetails.css';
 function UserDetails() {
     const user = useSelector(store => store.userSearch.userDetailsReucer);
     return (
-        <div className="detailsDiv">
+        <div className="detailsDiv container">
             <div className="detailsInfo">
                 <h2>{`${user.first_name} ${user.last_name}`}</h2>
                 <img src={user.profile_pic} style={{ maxWidth: 225, maxHeight: 225, borderRadius: "50%" }}></img>

@@ -17,7 +17,7 @@ CREATE TABLE "user" (
     "special_sentiment" VARCHAR (700) DEFAULT NULL,
     "second_photo" VARCHAR (1000) DEFAULT NULL,
     "birthday" DATE DEFAULT NULL,
-    "memoriay_day" DATE DEFAULT NULL,
+    "memorial_day" DATE DEFAULT NULL,
     "story" VARCHAR (1000) DEFAULT NULL,
     "approved_user" BOOLEAN DEFAULT FALSE,
     "admin_user" BOOLEAN DEFAULT FALSE

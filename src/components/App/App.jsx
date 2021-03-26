@@ -30,6 +30,7 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: "FETCH_USER" });
+    dispatch({ type: "FETCH_APPROVED_EVENTS" });
   }, [dispatch]);
 
   return (

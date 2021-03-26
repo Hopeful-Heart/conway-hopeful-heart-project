@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import {useSelector} from 'react-redux';
+import whiteTitle from './whitetitle.png'
 
 function Nav() {
   const user = useSelector((store) => store.user);
@@ -20,7 +21,8 @@ function Nav() {
   return (
     <div className="nav">
       <Link to="/landing">
-        <h2 className="nav-title">Hope Heart Project: Family Connections</h2>
+        <img style={{height:75}} src={whiteTitle}></img>
+        {/* <h2 className="nav-title">Hope Heart Project: Family Connections</h2> */}
       </Link>
       <div>
         <Link className="navLink" to={loginLinkData.path}>

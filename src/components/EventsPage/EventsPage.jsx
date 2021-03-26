@@ -1,4 +1,14 @@
-import React from 'react';
+import Calendar from "react-calendar";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import moment from "moment";
+
+import { Popover } from "@material-ui/core";
+
+import AddEventForm from "./AddEventForm";
+
+import "./EventsPage.css";
+import "react-calendar/dist/Calendar.css";
 
 // This is one of our simplest components
 // It doesn't have local state
@@ -6,9 +16,60 @@ import React from 'react';
 // or even care what the redux state is
 
 function EventsPage() {
+  const events = useSelector((store) => store.events.approvedEventsListReducer);
+  const [anchorElement, setAnchorElement] = useState(null);
+  const [popoverEvent, setPopoverEvent] = useState({});
+
+  const open = Boolean(anchorElement);
+
   return (
     <div className="container">
-      <p>Events Page</p>
+      <Popover
+        open={open}
+        anchorEl={anchorElement}
+        onClose={() => setAnchorElement(null)}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+      >
+        <div id="popover-content">
+          <h3>{popoverEvent.name}</h3>
+          <p>Date: {moment(popoverEvent.date).format('MM-DD-YYYY')}</p>
+          <p>Location: {popoverEvent.location}</p>
+          <p>Event Type: {popoverEvent.type}</p>
+          <p>Description: {popoverEvent.description}</p>
+          <a href={popoverEvent.link}>Link to Event</a>
+        </div>
+      </Popover>
+      <Calendar
+        calendarType="US"
+        minDetail="month"
+        tileContent={({ activeStartDate, date, view }) =>
+          events.map((event) =>
+            view === "month" &&
+            moment(date).format("YYYY-MM-DD") ===
+              moment(event.date).format("YYYY-MM-DD") ? (
+              <p
+                key={event.id}
+                onClick={(e) => {
+                  setAnchorElement(e.target);
+                  setPopoverEvent(event);
+                }}
+              >
+                {event.name}
+              </p>
+            ) : null
+          )
+        }
+      />
+      <br />
+      <br />
+      <AddEventForm />
     </div>
   );
 }

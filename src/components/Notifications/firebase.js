@@ -1,5 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/messaging";
+import { useDispatch } from "react-redux";
 
 var firebaseConfig = {
   apiKey: "AIzaSyBve8PJaBJWv38BHera1wZHaG4V7f504Oo",
@@ -14,7 +15,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
 
-export const getToken = (setTokenFound) => {
+export const getToken = (setTokenFound, setToken) => {
   return messaging
     .getToken({
       vapidKey:
@@ -24,10 +25,7 @@ export const getToken = (setTokenFound) => {
       if (currentToken) {
         console.log("current token for client: ", currentToken);
         setTokenFound(true); // dispatch token to backend
-        dispatch({
-          type: "FETCH_TOKEN",
-          payload: { token: currentToken },
-        });
+        setToken(currentToken);
 
         // Track the token -> client mapping, by sending to backend server
         // show on the UI that permission is secured
@@ -51,3 +49,17 @@ export const onMessageListener = () =>
       resolve(payload);
     });
   });
+
+export const askForPermissioToReceiveNotifications = async () => {
+  try {
+    const messaging = firebase.messaging();
+
+    await messaging.requestPermission();
+    const token = await messaging.getToken();
+    console.log("user token: ", token);
+
+    return token;
+  } catch (error) {
+    console.error(error);
+  }
+};

@@ -5,13 +5,8 @@ body,
 }
 
 body {
-  font-family: 'Avenir';
+  font-family: 'Avenir' !important;
   margin: 0px;
-}
-
-img {
-  display: inline-block;
-  max-width: 100%;
 }
 
 /* --------------------------------------------------------------------------------

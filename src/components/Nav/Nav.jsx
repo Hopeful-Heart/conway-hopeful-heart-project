@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import whiteTitle from "./whitetitle.png";
 
-import "./Nav.css";
-
 import { Button, makeStyles, AppBar, Toolbar } from "@material-ui/core";
 
 function Nav() {
@@ -22,51 +20,56 @@ function Nav() {
   }
 
   const useStyles = makeStyles({
-    navLink: {},
+    toolbar: {
+      display: 'flex',
+      justifyContent: 'space-between'
+    },
   });
 
   const classes = useStyles();
 
   return (
-    <div className="nav">
-      <Link to="/landing">
-        <img style={{ height: 75 }} src={whiteTitle}></img>
-      </Link>
-      <div>
-        <Button color="secondary" component={Link} to={loginLinkData.path}>
-          {loginLinkData.text}
-        </Button>
+    <AppBar>
+      <Toolbar className={classes.toolbar}>
+        <Link to="/landing">
+          <img style={{ height: 75 }} src={whiteTitle}></img>
+        </Link>
+        <div>
+          <Button color="secondary" component={Link} to={loginLinkData.path}>
+            {loginLinkData.text}
+          </Button>
 
-        {user.id && user.approved_user === true && (
-          <>
-            <Button color="secondary" component={Link} to="/events">
-              Events
-            </Button>
-
-            <Button color="secondary" component={Link} to="/allusers">
-              All Users
-            </Button>
-
-            {user.admin_user && (
-              <Button color="secondary" component={Link} to="/admin">
-                Admin
+          {user.id && user.approved_user === true && (
+            <>
+              <Button color="secondary" component={Link} to="/events">
+                Events
               </Button>
-            )}
-          </>
-        )}
 
-        {user.id && (
-          <>
-            <Button
-              color="secondary"
-              onClick={() => dispatch({ type: "LOGOUT" })}
-            >
-              Log Out
-            </Button>
-          </>
-        )}
-      </div>
-    </div>
+              <Button color="secondary" component={Link} to="/allusers">
+                All Users
+              </Button>
+
+              {user.admin_user && (
+                <Button color="secondary" component={Link} to="/admin">
+                  Admin
+                </Button>
+              )}
+            </>
+          )}
+
+          {user.id && (
+            <>
+              <Button
+                color="secondary"
+                onClick={() => dispatch({ type: "LOGOUT" })}
+              >
+                Log Out
+              </Button>
+            </>
+          )}
+        </div>
+      </Toolbar>
+    </AppBar>
   );
 }
 

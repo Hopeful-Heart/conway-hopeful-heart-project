@@ -17,7 +17,7 @@ function AllUsersPage() {
   const userSearchList = useSelector((store) => store.userSearch);
 
   return (
-    <div className="userListContainer">
+    <div className="container">
       <h1 style={{ textAlign: "center" }}>All Users Page</h1>
       <div style={{ textAlign: "center" }}>
         <form>

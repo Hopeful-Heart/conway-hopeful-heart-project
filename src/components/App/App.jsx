@@ -31,14 +31,14 @@ function App() {
 
   const theme = createMuiTheme({
     typography: {
-      fontFamily: 'Avenir'
+      fontFamily: "Avenir",
     },
     palette: {
       primary: {
         main: "#414042",
       },
       secondary: {
-        main: "#fafafa"
+        main: "#fafafa",
       },
     },
   });
@@ -54,6 +54,10 @@ function App() {
         <Router>
           <div>
             <Nav />
+            <br />
+            <br />
+            <br />
+            <br />
             <Switch>
               {/* Visiting localhost:3000 will redirect to localhost:3000/landing */}
               <Redirect exact from="/" to="/landing" />
@@ -85,21 +89,13 @@ function App() {
               >
                 <AllUsersPage />
               </ProtectedRoute>
-              
+
               <ProtectedRoute
-                // logged in shows EventsPage else shows LoginPage
+                // logged in shows UserDetails else shows LoginPage
                 exact
                 path="/userdetails"
               >
                 <UserDetails />
-              </ProtectedRoute>
-
-              <ProtectedRoute
-                // logged in shows OtherUserDetailsPage else shows LoginPage
-                exact
-                path="/otheruserdetails"
-              >
-                <OtherUserDetailsPage />
               </ProtectedRoute>
 
               <ProtectedRoute

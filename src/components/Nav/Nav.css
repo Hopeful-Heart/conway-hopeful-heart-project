@@ -1,9 +1,0 @@
-.nav {
-  /* flex box layout */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 0 30px;
-  background-color: #414042;
-  overflow: hidden;
-}

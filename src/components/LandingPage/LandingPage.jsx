@@ -7,14 +7,13 @@ import groupPicture2 from '../LandingPage/groupPicture2.jpg'
 
 
 // CUSTOM COMPONENTS
-import RegisterForm from '../RegisterForm/RegisterForm';
+import LoginForm from '../LoginForm/LoginForm';
 
 function LandingPage() {
-  const [heading, setHeading] = useState('Welcome');
   const history = useHistory();
 
-  const onLogin = (event) => {
-    history.push('/login');
+  const onRegister = (event) => {
+    history.push('/registration');
   };
 
 
@@ -59,11 +58,11 @@ function LandingPage() {
           </form> 
         </div>
         <div className="grid-col grid-col_5">
-          <RegisterForm />
+          <LoginForm />
           <center>
-            <h4>Already a Member?</h4>
-            <button className="btn btn_sizeSm" onClick={onLogin}>
-              Login
+            <h4>Not a Member?</h4>
+            <button className="btn btn_sizeSm" onClick={onRegister}>
+              Register
             </button>
           </center>
         </div>

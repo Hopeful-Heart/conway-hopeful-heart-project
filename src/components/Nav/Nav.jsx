@@ -22,9 +22,7 @@ function Nav() {
   }
 
   const useStyles = makeStyles({
-    navLink: {
-
-    }
+    navLink: {},
   });
 
   const classes = useStyles();
@@ -35,25 +33,34 @@ function Nav() {
         <img style={{ height: 75 }} src={whiteTitle}></img>
       </Link>
       <div>
-        <Button color='secondary' component={Link} to={loginLinkData.path}>
+        <Button color="secondary" component={Link} to={loginLinkData.path}>
           {loginLinkData.text}
         </Button>
 
         {user.id && user.approved_user === true && (
           <>
-            <Button color='secondary' component={Link} to="/events">
+            <Button color="secondary" component={Link} to="/events">
               Events
             </Button>
 
-            <Button color='secondary' component={Link} to="/allusers">
+            <Button color="secondary" component={Link} to="/allusers">
               All Users
             </Button>
+
+            {user.admin_user && (
+              <Button color="secondary" component={Link} to="/admin">
+                Admin
+              </Button>
+            )}
           </>
         )}
 
         {user.id && (
           <>
-            <Button color='secondary' onClick={() => dispatch({ type: "LOGOUT" })}>
+            <Button
+              color="secondary"
+              onClick={() => dispatch({ type: "LOGOUT" })}
+            >
               Log Out
             </Button>
           </>

@@ -85,6 +85,7 @@ function App() {
               >
                 <AllUsersPage />
               </ProtectedRoute>
+              
               <ProtectedRoute
                 // logged in shows EventsPage else shows LoginPage
                 exact
@@ -92,6 +93,7 @@ function App() {
               >
                 <UserDetails />
               </ProtectedRoute>
+
               <ProtectedRoute
                 // logged in shows OtherUserDetailsPage else shows LoginPage
                 exact

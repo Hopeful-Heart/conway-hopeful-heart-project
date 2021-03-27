@@ -35,16 +35,16 @@ function Notifications(props) {
       .catch((err) => console.log("failed: ", err));
   }, [show, notification]);
 
-  function addClientToken(event, props) {
-    event.preventDefault();
-    dispatch({
-      type: "FETCH_TOKEN",
-      payload: {
-        id: user.id,
-        client_token: token,
-      },
-    });
-  }
+  // function addClientToken(event, props) {
+  //   event.preventDefault();
+  //   dispatch({
+  //     type: "FETCH_TOKEN",
+  //     payload: {
+  //       id: user.id,
+  //       client_token: token,
+  //     },
+  //   });
+  // }
 
   return (
     <div className="App">
@@ -63,9 +63,9 @@ function Notifications(props) {
         <Button onClick={() => setShow(true)}>Show Toast</Button>
       </header>
 
-      <button onClick={(askForPermissioToReceiveNotifications, addClientToken)}>
+      {/* <button onClick={(askForPermissioToReceiveNotifications, addClientToken)}>
         Click here to receive notifications
-      </button>
+      </button> */}
     </div>
   );
 }

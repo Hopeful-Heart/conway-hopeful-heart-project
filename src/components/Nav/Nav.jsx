@@ -49,7 +49,7 @@ function Nav() {
               spy={true}
               smooth={true}
               duration={1000}
-              offset={-90}
+              offset={-50}
             >
               Welcome
             </Button>

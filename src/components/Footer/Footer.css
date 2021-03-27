@@ -2,12 +2,24 @@ footer {
   margin-top: 80px;
   padding: 20px;
   text-align: center;
+  background-color: #414042;
+  color: #BCBEC0;
 }
 
 footer a {
-  color: grey;
+  color: #A89BA7;
   text-decoration: underline;
   cursor: pointer;
+}
+
+footer a {
+  color: #A89BA7;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+footer a:hover {
+  color: #7D5B73;
 }
 
 #linkedin-footer-links-wrapper {

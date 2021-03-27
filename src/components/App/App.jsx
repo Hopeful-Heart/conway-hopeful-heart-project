@@ -12,7 +12,6 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import HomePage from "../HomePage/HomePage";
 import EventsPage from "../EventsPage/EventsPage";
 import AllUsersPage from "../AllUsersPage/AllUsersPage";
-import OtherUserDetailsPage from "../OtherUserDetailsPage/OtherUserDetailsPage";
 import AdminPage from "../AdminPage/AdminPage";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
@@ -35,7 +34,7 @@ function App() {
     },
     palette: {
       primary: {
-        main: "#414042",
+        main: "#553959",
       },
       secondary: {
         main: "#fafafa",

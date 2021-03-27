@@ -5,7 +5,7 @@
   width: 100%;
   height: 0%;
   padding-top: 66.67%;
-  color: white;
+  color: #fafafa;
   overflow: hidden;
 }
 
@@ -19,9 +19,10 @@
   opacity: 0;
   transform: translateY(20vh);
   visibility: hidden;
-  transition: opacity 1s ease-out, transform 1.2s ease-out;
+  transition: opacity 1s ease-out, transform 1s ease-out;
   will-change: opacity, visibility;
 }
+
 .fade-in-section.is-visible {
   opacity: 1;
   transform: none;
@@ -29,7 +30,7 @@
 }
 
 #welcome-div {
-  background-color: rgba(85, 57, 79, .95);
+  background-color: rgba(85, 57, 89, .9);
 }
 
 #welcome-content {

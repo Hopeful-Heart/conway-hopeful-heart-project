@@ -3,7 +3,6 @@ import { Element } from "react-scroll";
 
 import handsIn from "../LandingPage/handsIn.JPG";
 import groupPicture2 from "../LandingPage/groupPicture2.jpg";
-import logoPrimary from "./Logo_Primary.png";
 
 import "./LandingPage.css";
 

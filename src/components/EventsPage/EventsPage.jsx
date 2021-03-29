@@ -1,6 +1,6 @@
 import Calendar from "react-calendar";
-import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
 import moment from "moment";
 
 import { Popover } from "@material-ui/core";
@@ -17,10 +17,15 @@ import "react-calendar/dist/Calendar.css";
 
 function EventsPage() {
   const events = useSelector((store) => store.events.approvedEventsListReducer);
+  const dispatch = useDispatch();
   const [anchorElement, setAnchorElement] = useState(null);
   const [popoverEvent, setPopoverEvent] = useState({});
 
   const open = Boolean(anchorElement);
+
+  useEffect(() => {
+    dispatch({ type: "FETCH_APPROVED_EVENTS" });
+  }, []);
 
   return (
     <div className="container">

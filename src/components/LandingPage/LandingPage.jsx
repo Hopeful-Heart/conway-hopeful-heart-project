@@ -3,11 +3,14 @@ import { Element } from "react-scroll";
 
 import handsIn from "../LandingPage/handsIn.JPG";
 import groupPicture2 from "../LandingPage/groupPicture2.jpg";
-import logoPrimary from "./Logo_Primary.png";
+import LogoPrimary from "./Logo_Primary.png";
+
+import { useMediaQuery, Button } from "@material-ui/core";
 
 import "./LandingPage.css";
 
 function LandingPage() {
+  const mobileView = useMediaQuery("(max-width:950px)");
   const [welcomeIsVisible, setWelcomeVisible] = useState(false);
   const welcomeRef = useRef();
 
@@ -21,17 +24,22 @@ function LandingPage() {
   }, []);
 
   return (
-    <div style={{ textAlign: "center" }}>
+    <div id="landing-container">
       <div id="welcome-background">
+        {mobileView && (
+          <img src={LogoPrimary} style={{ margin: "1rem 0rem" }} />
+        )}
         <Element name="welcome">
           <div
             ref={welcomeRef}
             id="welcome-div"
-            className={`fade-in-section ${
-              welcomeIsVisible ? "is-visible" : ""
-            }`}
+            className={
+              !mobileView
+                ? `fade-in-section ${welcomeIsVisible ? "is-visible" : ""}`
+                : ""
+            }
           >
-            <div id="welcome-content">
+            <div className="landing-content" id="welcome-content">
               <h2>Welcome</h2>
               <p>
                 Welcome to Hopeful Heart Project, a non-profit organization
@@ -54,44 +62,77 @@ function LandingPage() {
           </div>
         </Element>
       </div>
-      <br />
       <Element name="aboutapp">
-        <h2>About This App</h2>
-        <p>
-          This is the "Family Connections" application, an application meant to
-          connect those who have experienced the loss of a child. We all know
-          that this experience is difficult to go through alone, but it can also
-          be hard to stay connected with those we love. Family Connections is
-          meant to help with that, connecting you to others going through a
-          similar as you. This application can also help you stay connected to
-          us! Events that we host for our amazing community are all available
-          here in a convenient calendar view.
-        </p>
-        {/* <img src={handsIn} /> */}
+        <div id="about-background">
+          <div className="landing-content">
+            <h2>About This App</h2>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-around",
+                alignItems: "center",
+                margin: "0 1rem",
+                flexDirection: `${mobileView ? "column-reverse" : ""}`,
+              }}
+            >
+              <div>
+                <img
+                  src={handsIn}
+                  style={{ width: "25rem", borderRadius: 10 }}
+                />
+              </div>
+              <div id="about-content">
+                <p>
+                  This is the "Family Connections" application, a resource meant
+                  to connect those who have experienced the loss of a child.
+                  Family Connections is meant to be a more private, safe space
+                  compared to traditional outlets of communication.
+                </p>
+                <p>
+                  This application can also help you stay connected to us!
+                  Events that we host for our amazing community are all
+                  available here in a convenient events calendar.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </Element>
-      <br />
       <Element name="learnmore">
-        <h2>Learn More</h2>
-        <p>
-          If you would like to learn more about who we are and what our mission
-          is here at Hopeful Heart Project please click below to view our main
-          page!
-        </p>
-        {/* <img src={groupPicture2} /> */}
-        <form action="https://www.hopefulheartproject.org/">
-          <button
+        <div className="landing-content">
+          <h2>Learn More</h2>
+          <div
             style={{
-              width: 100,
-              height: 30,
-              backgroundColor: "#414042",
-              color: "white",
-              borderRadius: 4,
+              display: "flex",
+              justifyContent: "space-around",
+              alignItems: "center",
+              margin: "0 1rem",
+              flexDirection: `${mobileView ? "column" : ""}`,
             }}
-            type="submit"
           >
-            Learn More
-          </button>
-        </form>
+            <div id="learn-content">
+              <p>
+                If you would like to learn more about who we are and what our
+                mission is here at Hopeful Heart Project please click below to
+                view our main page!
+              </p>
+              <Button
+                color="primary"
+                variant="contained"
+                component='a'
+                href="https://www.hopefulheartproject.org/"
+              >
+                Learn More
+              </Button>
+            </div>
+            <div>
+              <img
+                src={groupPicture2}
+                style={{ width: "25rem", borderRadius: 10 }}
+              />
+            </div>
+          </div>
+        </div>
       </Element>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import {
   HashRouter as Router,
   Route,
@@ -6,6 +6,7 @@ import {
   Switch,
 } from "react-router-dom";
 import { useDispatch } from "react-redux";
+
 import Nav from "../Nav/Nav";
 import Footer from "../Footer/Footer";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
@@ -21,7 +22,7 @@ import UserDetails from "../AllUsersPage/userDetails";
 import Connections from "../Connections/Connections";
 import "./App.css";
 
-import CssBaseline from "@material-ui/core/CssBaseline";
+import { CssBaseline } from "@material-ui/core";
 
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
@@ -35,7 +36,7 @@ function App() {
     },
     palette: {
       primary: {
-        main: "#414042",
+        main: "#553959",
       },
       secondary: {
         main: "#fafafa",
@@ -45,14 +46,13 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: "FETCH_USER" });
-    dispatch({ type: "FETCH_APPROVED_EVENTS" });
   }, [dispatch]);
 
   return (
     <CssBaseline>
       <ThemeProvider theme={theme}>
         <Router>
-          <div>
+          <>
             <Nav />
             <br />
             <br />
@@ -166,7 +166,7 @@ function App() {
               </Route>
             </Switch>
             <Footer />
-          </div>
+          </>
         </Router>
       </ThemeProvider>
     </CssBaseline>

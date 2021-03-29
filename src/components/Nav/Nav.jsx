@@ -1,17 +1,29 @@
-import React from "react";
+import { useState } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 import { Link as ScrollLink } from "react-scroll";
 import { useSelector, useDispatch } from "react-redux";
 import whiteTitle from "./whitetitle.png";
 
-import { Button, makeStyles, AppBar, Toolbar } from "@material-ui/core";
+import {
+  Button,
+  makeStyles,
+  AppBar,
+  Toolbar,
+  useMediaQuery,
+  IconButton,
+  Drawer,
+} from "@material-ui/core";
 
 import "./Nav.css";
 
+import MenuIcon from "@material-ui/icons/Menu";
+
 function Nav() {
+  const [toggleDrawer, setToggleDrawer] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   const routeMatch = useRouteMatch("/landing");
+  const desktopView = useMediaQuery("(min-width:950px)");
 
   let loginLinkData = {
     path: "/login",
@@ -23,86 +35,238 @@ function Nav() {
     loginLinkData.text = "Home";
   }
 
-  const useStyles = makeStyles({
+  const useStyles = makeStyles((theme) => ({
+    appBar: {
+      zIndex: theme.zIndex.drawer + 1,
+    },
     toolbar: {
       display: "flex",
       justifyContent: "space-between",
     },
-  });
+    drawer: {
+      width: `fit-content`,
+    },
+    drawerPaper: {
+      width: `fit-content`,
+    },
+  }));
 
   const classes = useStyles();
 
   return (
-    <AppBar>
-      <Toolbar className={classes.toolbar}>
-        <Link to="/landing">
-          <img style={{ height: 60 }} src={whiteTitle}></img>
-        </Link>
+    <>
+      <AppBar className={classes.appBar}>
+        <Toolbar className={classes.toolbar}>
+          <Link to="/landing">
+            <img style={{ height: "3rem" }} src={whiteTitle}></img>
+          </Link>
 
-        {routeMatch && routeMatch.path === "/landing" && (
-          <div>
-            <Button
+          {desktopView ? (
+            <>
+              {routeMatch && routeMatch.path === "/landing" && (
+                <div>
+                  <Button
+                    color="secondary"
+                    component={ScrollLink}
+                    to="welcome"
+                    activeClass="active"
+                    spy={true}
+                    smooth={true}
+                    duration={1000}
+                    offset={-50}
+                  >
+                    Welcome
+                  </Button>
+
+                  <Button
+                    color="secondary"
+                    component={ScrollLink}
+                    to="aboutapp"
+                    activeClass="active"
+                    spy={true}
+                    smooth={true}
+                    duration={1000}
+                    offset={-50}
+                  >
+                    About This App
+                  </Button>
+
+                  <Button
+                    color="secondary"
+                    component={ScrollLink}
+                    to="learnmore"
+                    activeClass="active"
+                    spy={true}
+                    smooth={true}
+                    duration={1000}
+                  >
+                    Learn More
+                  </Button>
+                </div>
+              )}
+
+              <div>
+                <Button
+                  color="secondary"
+                  component={Link}
+                  to={loginLinkData.path}
+                >
+                  {loginLinkData.text}
+                </Button>
+
+                {user.id && user.approved_user === true && (
+                  <>
+                    <Button color="secondary" component={Link} to="/events">
+                      Events
+                    </Button>
+
+                    <Button color="secondary" component={Link} to="/allusers">
+                      All Users
+                    </Button>
+
+                    <Button
+                      color="secondary"
+                      component={Link}
+                      to="/connections"
+                    >
+                      Connections
+                    </Button>
+
+                    {user.admin_user && (
+                      <Button color="secondary" component={Link} to="/admin">
+                        Admin
+                      </Button>
+                    )}
+                  </>
+                )}
+
+                {user.id && (
+                  <>
+                    <Button
+                      color="secondary"
+                      onClick={() => dispatch({ type: "LOGOUT" })}
+                    >
+                      Log Out
+                    </Button>
+                  </>
+                )}
+              </div>
+            </>
+          ) : (
+            <IconButton
               color="secondary"
-              component={ScrollLink}
-              to="welcome"
-              activeClass="active"
-              spy={true}
-              smooth={true}
-              duration={1000}
-              offset={-90}
+              onClick={() =>
+                !toggleDrawer ? setToggleDrawer(true) : setToggleDrawer(false)
+              }
             >
-              Welcome
-            </Button>
+              <MenuIcon />
+            </IconButton>
+          )}
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        open={toggleDrawer}
+        anchor="right"
+        onClose={() => setToggleDrawer(false)}
+        variant="persistent"
+        className={classes.drawer}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <Toolbar />
+        <div id="drawer-content">
+          {routeMatch && routeMatch.path === "/landing" && (
+            <>
+              <Button
+                color="primary"
+                component={ScrollLink}
+                to="welcome"
+                activeClass="active"
+                spy={true}
+                smooth={true}
+                duration={1000}
+                offset={-50}
+                onClick={() => setToggleDrawer(false)}
+              >
+                Welcome
+              </Button>
 
-            <Button
-              color="secondary"
-              component={ScrollLink}
-              to="aboutapp"
-              activeClass="active"
-              spy={true}
-              smooth={true}
-              duration={1000}
-              offset={-90}
-            >
-              About This App
-            </Button>
+              <Button
+                color="primary"
+                component={ScrollLink}
+                to="aboutapp"
+                activeClass="active"
+                spy={true}
+                smooth={true}
+                duration={1000}
+                offset={-50}
+                onClick={() => setToggleDrawer(false)}
+              >
+                About This App
+              </Button>
 
-            <Button
-              color="secondary"
-              component={ScrollLink}
-              to="learnmore"
-              activeClass="active"
-              spy={true}
-              smooth={true}
-              duration={1000}
-              offset={-90}
-            >
-              Learn More
-            </Button>
-          </div>
-        )}
+              <Button
+                color="primary"
+                component={ScrollLink}
+                to="learnmore"
+                activeClass="active"
+                spy={true}
+                smooth={true}
+                duration={1000}
+                offset={-50}
+                onClick={() => setToggleDrawer(false)}
+              >
+                Learn More
+              </Button>
+            </>
+          )}
 
-        <div>
-          <Button color="secondary" component={Link} to={loginLinkData.path}>
+          <Button
+            color="primary"
+            component={Link}
+            to={loginLinkData.path}
+            onClick={() => setToggleDrawer(false)}
+          >
             {loginLinkData.text}
           </Button>
 
           {user.id && user.approved_user === true && (
             <>
-              <Button color="secondary" component={Link} to="/events">
+              <Button
+                color="primary"
+                component={Link}
+                to="/events"
+                onClick={() => setToggleDrawer(false)}
+              >
                 Events
               </Button>
 
-              <Button color="secondary" component={Link} to="/allusers">
+              <Button
+                color="primary"
+                component={Link}
+                to="/allusers"
+                onClick={() => setToggleDrawer(false)}
+              >
                 All Users
               </Button>
 
-              <Button color="secondary" component={Link} to="/connections">
+              <Button
+                color="primary"
+                component={Link}
+                to="/connections"
+                onClick={() => setToggleDrawer(false)}
+              >
                 Connections
               </Button>
 
               {user.admin_user && (
-                <Button color="secondary" component={Link} to="/admin">
+                <Button
+                  color="primary"
+                  component={Link}
+                  to="/admin"
+                  onClick={() => setToggleDrawer(false)}
+                >
                   Admin
                 </Button>
               )}
@@ -112,16 +276,19 @@ function Nav() {
           {user.id && (
             <>
               <Button
-                color="secondary"
-                onClick={() => dispatch({ type: "LOGOUT" })}
+                color="primary"
+                onClick={() => {
+                  dispatch({ type: "LOGOUT" });
+                  setToggleDrawer(false);
+                }}
               >
                 Log Out
               </Button>
             </>
           )}
         </div>
-      </Toolbar>
-    </AppBar>
+      </Drawer>
+    </>
   );
 }
 

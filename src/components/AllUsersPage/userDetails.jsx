@@ -1,8 +1,21 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import './userDetails.css';
 
 function UserDetails() {
     const user = useSelector(store => store.userSearch.userDetailsReucer);
+    const loggedUser = useSelector(store => store.user);
+    const dispatch = useDispatch();
+
+    const connectRequest = () => {
+        dispatch({
+            type: 'ADD_CONNECTION',
+            payload: {
+                user1: loggedUser.id,
+                user2: user.id,
+            }
+        })
+    }
+
     return (
         <div className="detailsDiv container">
             <div className="detailsInfo">
@@ -20,7 +33,7 @@ function UserDetails() {
                         <p>{user.story}</p>
                     </>
                 }
-                <button>Connect</button>
+                <button onClick={connectRequest}>Connect</button>
             </div>
         </div>
     )

@@ -11,8 +11,9 @@ const passport = require('./strategies/user.strategy');
 const userRouter = require('./routes/user.router');
 const eventsRouter = require('./routes/events.router');
 const journalRouter = require('./routes/journal.router');
-const adminRouter = require('./routes/admin.router')
-const userSearchRouter = require('./routes/userSearch.router')
+const adminRouter = require('./routes/admin.router');
+const userSearchRouter = require('./routes/userSearch.router');
+const connectionRouter = require('./routes/connection.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -29,8 +30,9 @@ app.use(passport.session());
 app.use('/api/user', userRouter);
 app.use('/api/events', eventsRouter);
 app.use('/api/journal', journalRouter);
-app.use('/api/admin', adminRouter)
-app.use('/api/usersearch', userSearchRouter)
+app.use('/api/admin', adminRouter);
+app.use('/api/usersearch', userSearchRouter);
+app.use('/api/connection', connectionRouter);
 
 // Serve static files
 app.use(express.static('build'));

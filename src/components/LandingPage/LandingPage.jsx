@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Element } from "react-scroll";
+import { Element, animateScroll as scroll } from "react-scroll";
 
 import handsIn from "../LandingPage/handsIn.JPG";
 import groupPicture2 from "../LandingPage/groupPicture2.jpg";
@@ -78,7 +78,7 @@ function LandingPage() {
               <div>
                 <img
                   src={handsIn}
-                  style={{ width: "25rem", borderRadius: 10 }}
+                  style={{ width: "25rem", borderRadius: 10, margin: "1em 0" }}
                 />
               </div>
               <div id="about-content">
@@ -113,13 +113,13 @@ function LandingPage() {
             <div id="learn-content">
               <p>
                 If you would like to learn more about who we are and what our
-                mission is here at Hopeful Heart Project please click below to
-                view our main page!
+                mission is at Hopeful Heart Project please click below to view
+                our main page!
               </p>
               <Button
                 color="primary"
                 variant="contained"
-                component='a'
+                component="a"
                 href="https://www.hopefulheartproject.org/"
               >
                 Learn More
@@ -128,9 +128,15 @@ function LandingPage() {
             <div>
               <img
                 src={groupPicture2}
-                style={{ width: "25rem", borderRadius: 10 }}
+                style={{ width: "25rem", borderRadius: 10, margin: "1em 0" }}
               />
             </div>
+          </div>
+          <div>
+            <br />
+            <Button color='primary' onClick={() => scroll.scrollToTop()}>Back to Top</Button>
+            <br />
+            <br />
           </div>
         </div>
       </Element>

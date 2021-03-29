@@ -23,22 +23,3 @@ body {
   color: #e01616;
   font-size: 0.8rem;
 }
-
-/* This line makes the "Register" and "Login" buttons look like links */
-.btn_asLink {
-  padding: 0;
-  border-width: 0;
-  border-bottom: 1px solid #444;
-  border-radius: 0;
-  background: none;
-  font: inherit;
-  color: #444;
-}
-
-.btn_asLink:hover {
-  background-color: transparent;
-  border-color: #414042;
-  color: #414042;
-  background-color: #59595a;
-  text-decoration: none;
-}

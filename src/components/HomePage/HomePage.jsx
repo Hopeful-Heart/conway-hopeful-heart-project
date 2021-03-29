@@ -46,8 +46,8 @@ function HomePage() {
   } else {
       eventsList = <tr><td>No Upcoming Events</td></tr>
   }
-
-  if (events[0]) {
+  
+  if (journals[0]) {
     journalsList = journals.map(entry =>
         (<p key={entry.id}>{entry.content}</p>)
       )

@@ -9,49 +9,19 @@ body {
   margin: 0px;
 }
 
-/* --------------------------------------------------------------------------------
-Container
--------------------------------------------------------------------------------- */
-
 .container {
   padding: 20px;
 }
 
-/* --------------------------------------------------------------------------------
-Button
--------------------------------------------------------------------------------- */
-
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
-  border-color: #414042;
-  border-width: 1px 1px 3px;
-  border-radius: 4px;
-  background-color: #414042;
-  color: #f8f8f8;
-  font-size: 1.1rem;
-  outline: 0;
-  cursor: pointer;
-}
-
-.btn_sizeMin {
-  min-height: 50px;
-  min-width: 100px;
-}
-
-.btn_sizeSm {
-  padding: 10px 15px;
+.alert {
+  box-sizing: border-box;
+  padding: 15px 10px;
+  margin: 15px 0;
+  border: 2px solid #e01616;
+  background-color: #efefef;
+  border-radius: 3px;
+  color: #e01616;
   font-size: 0.8rem;
-}
-
-.btn_sizeFull {
-  display: block;
-  width: 100%;
-}
-
-.btn:hover {
-  background-color: #59595a;
-  text-decoration: none;
 }
 
 /* This line makes the "Register" and "Login" buttons look like links */
@@ -69,39 +39,6 @@ Button
   background-color: transparent;
   border-color: #414042;
   color: #414042;
-}
-
-/* --------------------------------------------------------------------------------
-Alert
--------------------------------------------------------------------------------- */
-
-.alert {
-  box-sizing: border-box;
-  padding: 15px 10px;
-  margin: 15px 0;
-  border: 2px solid #e01616;
-  background-color: #efefef;
-  border-radius: 3px;
-  color: #e01616;
-  font-size: 0.8rem;
-}
-
-/* --------------------------------------------------------------------------------
-Form Treatment
--------------------------------------------------------------------------------- */
-
-.formPanel {
-  box-sizing: border-box;
-  width: 400px;
-  max-width: 100%;
-  padding: 25px;
-  margin: 0 auto 20px;
-  background-color: #efefef;
-  border-radius: 3px;
-  box-shadow: 0 1px 2px rgb(0, 0, 0, 0.4);
-}
-
-input {
-  margin: 5px;
-  margin-bottom: 10px;
+  background-color: #59595a;
+  text-decoration: none;
 }

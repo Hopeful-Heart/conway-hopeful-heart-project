@@ -1,3 +1,24 @@
+#landing-container {
+  text-align: center;
+}
+
+.landing-content {
+  display: flex;
+  flex-direction: column;
+  max-width: 1400px;
+  margin: auto;
+  padding-top: 1.5rem;
+}
+
+#landing-container h2 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+#landing-container p {
+  font-size: 1.5rem;
+}
+
 #welcome-background {
   background: url(./groupPictureWithLogo.jpg) no-repeat center top;
   background-position: center center;
@@ -7,12 +28,6 @@
   padding-top: 66.67%;
   color: #fafafa;
   overflow: hidden;
-}
-
-@media (max-width: 950px) {
-  #welcome-background {
-    background-image: url(./groupPicture.jpg);
-  }
 }
 
 .fade-in-section {
@@ -30,20 +45,54 @@
 }
 
 #welcome-div {
-  background-color: rgba(85, 57, 89, .9);
+  background-color: rgba(85, 57, 89, 0.9);
 }
 
 #welcome-content {
-  display: flex;
-  flex-direction: column;
   max-width: 45rem;
-  margin: auto;
 }
 
-#welcome-content p {
-  font-size: 1.5rem;
+#about-background {
+  background-color: #bcbec0;
 }
 
-#welcome-content h2 {
-  font-size: 2rem;
+#about-content {
+  max-width: 45rem;
+  margin-left: 2rem;
+  text-align: left;
+}
+
+#learn-content {
+  max-width: 45rem;
+  margin-right: 2rem;
+  text-align: left;
+}
+
+@media (max-width: 950px) {
+  .landing-content {
+    padding: 1.5rem 1rem;
+  }
+
+  #welcome-background {
+    background-image: url(./groupPicture.jpg);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-top: 0;
+  }
+
+  #welcome-div {
+    background-color: rgba(85, 57, 89, 0.4);
+  }
+
+  #about-content {
+    margin-left: 0;
+    text-align: center;
+  }
+
+  #learn-content {
+    margin-right: 0;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
 }

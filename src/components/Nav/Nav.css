@@ -1,3 +1,9 @@
 .active {
     color: #FBB672 !important;
 }
+
+#drawer-content {
+    display: flex;
+    flex-direction: column;
+    padding: 0rem 1rem;
+}

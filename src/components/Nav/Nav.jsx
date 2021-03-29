@@ -243,6 +243,10 @@ function Nav() {
                 All Users
               </Button>
 
+              <Button color="secondary" component={Link} to="/connections">
+                Connections
+              </Button>
+
               {user.admin_user && (
                 <Button
                   color="primary"

@@ -5,7 +5,7 @@ const {
 const pool = require("../modules/pool");
 const router = express.Router();
 
-router.get("/pending", (req, res) => {
+router.get("/pending", rejectUnauthenticated, (req, res) => {
     // Gets all pending users
     const queryText = `
       SELECT * FROM "user" WHERE "approved_user"=false;
@@ -17,7 +17,7 @@ router.get("/pending", (req, res) => {
     });
 });
 
-router.put("/pending/:id", (req, res) => {
+router.put("/pending/:id", rejectUnauthenticated, (req, res) => {
     const queryText = `
     UPDATE "user" SET "approved_user" = 'true' WHERE "user"."id"=$1;
     `
@@ -28,7 +28,7 @@ router.put("/pending/:id", (req, res) => {
     });
 });
 
-router.delete("/pending/:id", (req, res) => {
+router.delete("/pending/:id", rejectUnauthenticated, (req, res) => {
     // Deletes an event by id
     const queryText = ` 
       DELETE FROM "user" WHERE "id"=$1;
@@ -40,7 +40,7 @@ router.delete("/pending/:id", (req, res) => {
     });
 });
 
-router.get("/approved", (req, res) => {
+router.get("/approved", rejectUnauthenticated, (req, res) => {
     // Gets all approved users
     const queryText = `
       SELECT * FROM "user" WHERE "approved_user"=true;
@@ -52,7 +52,7 @@ router.get("/approved", (req, res) => {
     });
 });
 
-router.put("/approved/:id", (req, res) => {
+router.put("/approved/:id", rejectUnauthenticated, (req, res) => {
     const queryText = `
     UPDATE "user" SET "approved_user" = 'false' WHERE "user"."id"=$1;
     `
@@ -63,7 +63,7 @@ router.put("/approved/:id", (req, res) => {
     });
 });
 
-router.delete("/approved/:id", (req, res) => {
+router.delete("/approved/:id", rejectUnauthenticated, (req, res) => {
     // Deletes an event by id
     const queryText = ` 
       DELETE FROM "user" WHERE "id"=$1;
@@ -75,7 +75,7 @@ router.delete("/approved/:id", (req, res) => {
     });
 });
 
-router.get("/events/pending", (req, res) => {
+router.get("/events/pending", rejectUnauthenticated, (req, res) => {
     // Gets all events
     const queryText = `
     SELECT "events"."id", "events"."name", "events"."date","events"."location","events"."description","events"."type","events"."link","user"."first_name","user"."last_name" FROM "events"
@@ -91,7 +91,7 @@ router.get("/events/pending", (req, res) => {
         });
 });
 
-router.put("/events/pending/:id", (req, res) => {
+router.put("/events/pending/:id", rejectUnauthenticated, (req, res) => {
     const queryText = `
     UPDATE "events" SET "admin_approved" = 'true' WHERE "events"."id"=$1;
     `
@@ -102,7 +102,7 @@ router.put("/events/pending/:id", (req, res) => {
     });
 });
 
-router.delete("/events/pending/:id", (req, res) => {
+router.delete("/events/pending/:id", rejectUnauthenticated, (req, res) => {
     // Deletes an event by id
     const queryText = ` 
       DELETE FROM "events" WHERE "id"=$1;
@@ -114,7 +114,7 @@ router.delete("/events/pending/:id", (req, res) => {
     });
 });
 
-router.get("/events/approved", (req, res) => {
+router.get("/events/approved", rejectUnauthenticated, (req, res) => {
     const queryText = `
         SELECT "events"."id", "events"."name", "events"."date","events"."location","events"."description","events"."type","events"."link","user"."first_name","user"."last_name" FROM "events"
 	    JOIN "user" ON "events"."user_id" = "user"."id"
@@ -131,7 +131,7 @@ router.get("/events/approved", (req, res) => {
         });
 });
 
-router.put("/events/approved/:id", (req, res) => {
+router.put("/events/approved/:id", rejectUnauthenticated, (req, res) => {
     const queryText = `
     UPDATE "events" SET "admin_approved" = 'false' WHERE "events"."id"=$1;
     `
@@ -142,7 +142,7 @@ router.put("/events/approved/:id", (req, res) => {
     });
 });
 
-router.delete("/events/approved/:id", (req, res) => {
+router.delete("/events/approved/:id", rejectUnauthenticated, (req, res) => {
     // Deletes an event by id
     const queryText = ` 
       DELETE FROM "events" WHERE "id"=$1;

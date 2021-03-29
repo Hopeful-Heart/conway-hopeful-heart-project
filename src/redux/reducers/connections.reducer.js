@@ -11,6 +11,17 @@ const connectionsReducer = (state = [], action) => {
     }
 };
 
+
+const allConnectionsReducer = (state = [], action) => {
+    switch (action.type) {
+        case "SET_ALL_CONNECTIONS":
+            return action.payload;
+        default:
+            return state;
+    }
+};
+
 export default combineReducers({
     connectionsReducer,
+    allConnectionsReducer,
 });

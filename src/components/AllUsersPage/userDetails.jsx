@@ -1,19 +1,44 @@
 import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
 import './userDetails.css';
 
 function UserDetails() {
     const user = useSelector(store => store.userSearch.userDetailsReucer);
     const loggedUser = useSelector(store => store.user);
+    const connections = useSelector(store => store.connection.allConnectionsReducer);
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch({ type: "FETCH_ALL_CONNECTIONS" });
+    }, []);
+
     const connectRequest = () => {
-        dispatch({
-            type: 'ADD_CONNECTION',
-            payload: {
-                user1: loggedUser.id,
-                user2: user.id,
+
+        const alreadyConnected = new Promise((resolve, reject) => {
+        
+        for (let connection of connections) {
+            if (connection.user1_id === loggedUser.id && connection.user2_id === user.id) {
+                reject('You have already sent a request to this person!');
+                return;
             }
-        })
+        }
+        resolve('A Connection Request has been sent!');
+        });
+
+        alreadyConnected.then(value => {
+            // fulfillment
+            alert(value);
+            dispatch({
+                type: 'ADD_CONNECTION',
+                payload: {
+                    user1: loggedUser.id,
+                    user2: user.id,
+                }
+            })
+        }, reason => {
+            // rejection
+            alert(reason);
+        });
     }
 
     return (

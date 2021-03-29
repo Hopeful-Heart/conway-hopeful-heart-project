@@ -124,6 +124,14 @@ function Nav() {
                       All Users
                     </Button>
 
+                    <Button
+                      color="secondary"
+                      component={Link}
+                      to="/connections"
+                    >
+                      Connections
+                    </Button>
+
                     {user.admin_user && (
                       <Button color="secondary" component={Link} to="/admin">
                         Admin
@@ -243,7 +251,12 @@ function Nav() {
                 All Users
               </Button>
 
-              <Button color="secondary" component={Link} to="/connections">
+              <Button
+                color="primary"
+                component={Link}
+                to="/connections"
+                onClick={() => setToggleDrawer(false)}
+              >
                 Connections
               </Button>
 

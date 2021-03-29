@@ -18,6 +18,7 @@ import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import PendingPage from "../PendingPage/PendingPage";
 import UserDetails from "../AllUsersPage/userDetails";
+import Connections from "../Connections/Connections";
 import "./App.css";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -86,6 +87,14 @@ function App() {
                 path="/allusers"
               >
                 <AllUsersPage />
+              </ProtectedRoute>
+
+              <ProtectedRoute
+                // logged in shows Connections else shows LoginPage
+                exact
+                path="/connections"
+              >
+                <Connections />
               </ProtectedRoute>
 
               <ProtectedRoute

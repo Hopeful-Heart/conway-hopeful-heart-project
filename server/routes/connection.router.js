@@ -6,17 +6,18 @@ const pool = require("../modules/pool");
 const router = express.Router();
 
 router.get("/:id", rejectUnauthenticated, (req, res) => {
-    // GET journal entries by id
+    // GET connection entries by id
     id = req.params.id;
-    const queryText = `SELECT * FROM "connections" WHERE "user2_id" = ${id} WHERE "approved" = FALSE`;
+    console.log(id);
+    const queryText = `SELECT * FROM "connections" WHERE "user2_id" = $1`;
     pool
-        .query(queryText)
+        .query(queryText, [id])
         .then((result) => {
             console.log("Retrieved connection entries successfully");
             res.send(result.rows);
         })
         .catch((err) => {
-            console.log(`error in connection GET by user_id with`, err);
+            console.log(`error in connection GET by user2_id with`, err);
             res.sendStatus(500);
         });
 });
@@ -27,8 +28,8 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
 router.post("/", rejectUnauthenticated, (req, res) => {
     // Adds a new Connection entry
     const connection = req.body.connection;
-    const queryText = `INSERT INTO "connections" ("user1_id", "user2_id", "approved")
-    VALUES ($1, $2, FALSE)`;
+    const queryText = `INSERT INTO "connections" ("user1_id", "user2_id")
+    VALUES ($1, $2)`;
     pool
         .query(queryText, [connection.user1, connection.user2])
         .then((result) => res.send(result.rows))

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import moment from 'moment';
+import ReactFilestack from 'react-filestack';
 
 function HomePage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
@@ -26,11 +27,35 @@ function HomePage() {
   const journals = useSelector((store) => store.journal.journalListReducer);
 
   const dispatch = useDispatch();
+  const api_key = process.env.REACT_APP_FILESTACK_API_KEY;
+
 
   useEffect(() => {
     dispatch({ type: "FETCH_RECENT_EVENTS" });
     dispatch({ type: "FETCH_JOURNAL", payload: user.id });
   }, [])
+
+  const basicOptions = {
+    accept: ['image/*'],
+    maxSize: 1024 * 1024,
+    maxFiles: 1,
+  }
+
+  const onSuccess = (result) => {
+    console.log('Result from filestack success: ', result);
+    setImg(result.filesUploaded[0].url);
+  }
+
+  const onChildSuccess = (result) => {
+    console.log('Result from filestack success: ', result);
+    setChildImg(result.filesUploaded[0].url);
+  }
+
+  const onError = (error) => {
+    alert('Error Uploading' + error)
+    console.error('error', error);
+  }
+
 
   let eventsList;
   let journalsList;
@@ -46,7 +71,7 @@ function HomePage() {
   } else {
       eventsList = <tr><td>No Upcoming Events</td></tr>
   }
-  
+
   if (journals[0]) {
     journalsList = journals.map(entry =>
         (<p key={entry.id}>{entry.content}</p>)
@@ -124,12 +149,14 @@ function HomePage() {
             <div className="parent-info-container">
               <div className="parent-info-col">
                 <p>Profile Picture</p>
-                <input
-                  type="text"
-                  placeholder="Image URL"
-                  value={img}
-                  onChange={(e) => { setImg(e.target.value) }}
-                />
+                    <ReactFilestack
+                      className="btn btn-outline-info"
+                      apikey={api_key}
+                      buttonText="Upload Image"
+                      options={basicOptions}
+                      onSuccess={onSuccess}
+                      onError={onError}
+                    />
               </div>
               <div className="parent-info-col">
                 <div className="parent-info-row">
@@ -235,11 +262,13 @@ function HomePage() {
             <>
               <div className="child-info-col">
                     <p>Child's Picture</p>
-                    <input
-                      type="text"
-                      placeholder="Image URL"
-                      value={childImg}
-                      onChange={(e) => { setChildImg(e.target.value) }}
+                    <ReactFilestack
+                      className="btn btn-outline-info"
+                      apikey={api_key}
+                      buttonText="Upload Image"
+                      options={basicOptions}
+                      onSuccess={onChildSuccess}
+                      onError={onError}
                     />
               </div>
               <div className="child-info-col">

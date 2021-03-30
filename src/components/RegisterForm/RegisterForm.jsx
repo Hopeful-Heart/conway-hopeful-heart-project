@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import ReactFilestack from 'react-filestack';
 
 import {
   Paper,
@@ -23,6 +24,22 @@ function RegisterForm() {
     state: "",
     pic: "",
   });
+
+  const basicOptions = {
+    accept: ['image/*'],
+    maxSize: 1024 * 1024,
+    maxFiles: 1,
+  }
+
+  const onSuccess = (result) => {
+    console.log('Result from filestack success: ', result);
+    setNewUser({ ...newUser, pic: result.filesUploaded[0].url });
+  }
+
+  const onError = (error) => {
+    alert('Error Uploading' + error)
+    console.error('error', error);
+  }
 
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
@@ -51,6 +68,7 @@ function RegisterForm() {
   });
 
   const classes = useStyles();
+  const api_key = process.env.REACT_APP_FILESTACK_API_KEY;
 
   return (
     <Paper className={classes.paper}>
@@ -91,16 +109,13 @@ function RegisterForm() {
             />
             <br />
             <br />
-            <TextField
-              type="text"
-              variant="outlined"
-              label="Profile Pic"
-              size="small"
-              value={newUser.pic}
-              required
-              onChange={(event) =>
-                setNewUser({ ...newUser, pic: event.target.value })
-              }
+            <ReactFilestack
+              className="btn btn-outline-info"
+              apikey={api_key}
+              buttonText="Upload Image"
+              options={basicOptions}
+              onSuccess={onSuccess}
+              onError={onError}
             />
           </div>
           <br />

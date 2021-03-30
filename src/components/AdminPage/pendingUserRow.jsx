@@ -17,7 +17,6 @@ function PendingUserRow({ user }) {
 
         <tr key={user.id}>
             <td>{`${user.first_name} ${user.last_name}`}</td>
-            <td>{user.last_name}</td>
             <td>{user.email}</td>
             <td>{user.phone}</td>
             <td>{user.state}</td>

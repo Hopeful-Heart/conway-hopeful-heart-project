@@ -14,6 +14,8 @@ const eventsRouter = require("./routes/events.router");
 const journalRouter = require("./routes/journal.router");
 const adminRouter = require("./routes/admin.router");
 const notifyRouter = require("./routes/notify.router");
+const userSearchRouter = require('./routes/userSearch.router');
+const connectionRouter = require('./routes/connection.router');
 // Body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -32,6 +34,8 @@ app.use("/api/events", eventsRouter);
 app.use("/api/journal", journalRouter);
 app.use("/api/admin", adminRouter);
 app.use("/api/notify", notifyRouter);
+app.use('/api/usersearch', userSearchRouter);
+app.use('/api/connection', connectionRouter);
 // Serve static files
 app.use(express.static("build"));
 

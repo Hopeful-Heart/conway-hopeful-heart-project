@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import moment from "moment";
+import React, {useEffect, useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import moment from 'moment';
+import ReactFilestack from 'react-filestack';
+
 function HomePage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
@@ -16,7 +18,7 @@ function HomePage() {
   );
   const [childLastName, setChildLastName] = useState(`${user.child_last_name}`);
   const [state, setState] = useState(`${user.state}`);
-  const [city, setCity] = useState(`${user.state}`);
+  const [city, setCity] = useState(`${user.city}`);
   const [phone, setPhone] = useState(`${user.phone}`);
   const [email, setEmail] = useState(`${user.email}`);
   const [bday, setBday] = useState(`${user.birthday}`);
@@ -27,11 +29,35 @@ function HomePage() {
   const journals = useSelector((store) => store.journal.journalListReducer);
 
   const dispatch = useDispatch();
+  const api_key = process.env.REACT_APP_FILESTACK_API_KEY;
+
 
   useEffect(() => {
     dispatch({ type: "FETCH_RECENT_EVENTS" });
     dispatch({ type: "FETCH_JOURNAL", payload: user.id });
   }, []);
+
+  const basicOptions = {
+    accept: ['image/*'],
+    maxSize: 1024 * 1024,
+    maxFiles: 1,
+  }
+
+  const onSuccess = (result) => {
+    console.log('Result from filestack success: ', result);
+    setImg(result.filesUploaded[0].url);
+  }
+
+  const onChildSuccess = (result) => {
+    console.log('Result from filestack success: ', result);
+    setChildImg(result.filesUploaded[0].url);
+  }
+
+  const onError = (error) => {
+    alert('Error Uploading' + error)
+    console.error('error', error);
+  }
+
 
   let eventsList;
   let journalsList;
@@ -52,10 +78,10 @@ function HomePage() {
     );
   }
 
-  if (events[0]) {
-    journalsList = journals.map((entry) => (
-      <p key={entry.id}>{entry.content}</p>
-    ));
+  if (journals[0]) {
+    journalsList = journals.map(entry =>
+        (<p key={entry.id}>{entry.content}</p>)
+      )
   } else {
     journalsList = <h3>No Entries Yet</h3>;
   }
@@ -121,11 +147,57 @@ function HomePage() {
     <div className="container">
       <div className="col">
         <div className="row">
-          {parentEditScreen ? (
-            <>
-              <div className="parent-info-container">
-                <div className="parent-info-col">
-                  <p>Profile Picture</p>
+          {
+          parentEditScreen 
+          ? (
+          <>
+            <div className="parent-info-container">
+              <div className="parent-info-col">
+                <p>Profile Picture</p>
+                    <ReactFilestack
+                      className="btn btn-outline-info"
+                      apikey={api_key}
+                      buttonText="Upload Image"
+                      options={basicOptions}
+                      onSuccess={onSuccess}
+                      onError={onError}
+                    />
+              </div>
+              <div className="parent-info-col">
+                <div className="parent-info-row">
+                  <p>First Name</p>
+                  <input
+                    type="text"
+                    placeholder="First Name"
+                    value={firstName}
+                    onChange={(e) => { setFirstName(e.target.value) }}
+                  />
+                  <p>Last Name</p>
+                  <input
+                    type="text"
+                    placeholder="Last Name"
+                    value={lastName}
+                    onChange={(e) => { setLastName(e.target.value) }}
+                  />
+                </div>
+                <div className="parent-info-row">
+                  <p>City</p>
+                  <input
+                    type="text"
+                    placeholder="City"
+                    value={city}
+                    onChange={(e) => { setCity(e.target.value) }}
+                  />
+                  <p>State</p>
+                  <input
+                    type="text"
+                    placeholder="State"
+                    value={state}
+                    onChange={(e) => { setState(e.target.value) }}
+                  />
+                </div>
+                <div className="parent-info-row">
+                  <p>Email</p>
                   <input
                     type="text"
                     placeholder="Image URL"
@@ -201,6 +273,7 @@ function HomePage() {
                 </div>
               </div>
               <button onClick={saveParent}>Save</button>
+              </div>
             </>
           ) : (
             <>
@@ -245,29 +318,19 @@ function HomePage() {
       <div className="col">
         <div className="row">
           <div className="child-info-container">
-            {childEditScreen ? (
-              <>
-                <div className="child-info-col">
-                  <p>Child's Picture</p>
-                  <input
-                    type="text"
-                    placeholder="Image URL"
-                    value={childImg}
-                    onChange={(e) => {
-                      setChildImg(e.target.value);
-                    }}
-                  />
-                </div>
-                <div className="child-info-col">
-                  <div className="child-info-row">
-                    <p>Child's First Name</p>
-                    <input
-                      type="text"
-                      placeholder="Child's First Name"
-                      value={childFirstName}
-                      onChange={(e) => {
-                        setChildFirstName(e.target.value);
-                      }}
+            {
+            childEditScreen
+            ? (
+            <>
+              <div className="child-info-col">
+                    <p>Child's Picture</p>
+                    <ReactFilestack
+                      className="btn btn-outline-info"
+                      apikey={api_key}
+                      buttonText="Upload Image"
+                      options={basicOptions}
+                      onSuccess={onChildSuccess}
+                      onError={onError}
                     />
                     <p>Child's Last Name</p>
                     <input
@@ -299,7 +362,7 @@ function HomePage() {
                       }}
                     />
                   </div>
-                </div>
+               
                 <div className="child-story">
                   <p>Story</p>
                   <input

@@ -1,17 +1,38 @@
 footer {
-  margin-top: 80px;
-  padding: 20px;
+  padding: 2rem;
   text-align: center;
+  background-color: #414042;
+  color: #BCBEC0;
+  font-size: 1rem;
 }
 
 footer a {
-  color: grey;
+  color: #A89BA7;
   text-decoration: underline;
   cursor: pointer;
+  margin-top: 0;
+}
+
+footer a:hover {
+  color: #7D5B73;
+}
+
+#hopeful-heart-footer-info {
+  margin-bottom: 1rem;
+}
+
+#hopeful-heart-footer-info a {
+  color: #BCBEC0;
+  text-decoration: none;
+}
+
+#hopeful-heart-links {
+  margin-top: .25rem;
 }
 
 #linkedin-footer-links-wrapper {
   display: flex;
   justify-content: space-around;
-  margin-top: 1rem;
+  flex-wrap: wrap;
+  margin-top: .25rem;
 }

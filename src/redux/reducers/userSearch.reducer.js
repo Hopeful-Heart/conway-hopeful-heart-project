@@ -18,7 +18,19 @@ const userDetailsReucer = (state = [], action) => {
     }
 }
 
+const usStateReducer = (state = '', action) => {
+    switch (action.type) {
+        case 'SET_US_STATE':
+            return action.payload;
+        case 'SET_ALL_STATES':
+            return 'All States';
+        default:
+            return state;
+    }
+};
+
 export default combineReducers({
     userSearchListReducer,
     userDetailsReucer,
+    usStateReducer,
 });

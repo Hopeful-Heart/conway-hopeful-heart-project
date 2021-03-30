@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import ReactFilestack from 'react-filestack';
+import States from '../StatesDropdown/StatesDropdown';
 
 import {
   Paper,
@@ -21,10 +22,11 @@ function RegisterForm() {
     lastName: "",
     phone: "",
     city: "",
-    state: "",
     pic: "",
   });
 
+  
+  const history = useHistory();
   const basicOptions = {
     accept: ['image/*'],
     maxSize: 1024 * 1024,
@@ -42,14 +44,18 @@ function RegisterForm() {
   }
 
   const errors = useSelector((store) => store.errors);
+  const usState = useSelector((store) => store.userSearch.usStateReducer);
   const dispatch = useDispatch();
 
   const registerUser = (event) => {
     event.preventDefault();
-
+    console.log(newUser);
     dispatch({
       type: "REGISTER",
-      payload: newUser,
+      payload: {
+        user: newUser,
+        state: usState,
+      }
     });
   }; // end registerUser
 
@@ -156,17 +162,11 @@ function RegisterForm() {
                 setNewUser({ ...newUser, city: event.target.value })
               }
             />
-            <TextField
-              className={classes.registerInputSpaceLeft}
-              type="text"
-              variant="outlined"
-              label="State"
-              size="small"
-              value={newUser.state}
-              required
-              onChange={(event) =>
-                setNewUser({ ...newUser, state: event.target.value })
-              }
+            <br />
+            <br />
+            <p>State*</p>
+            <States
+            required
             />
             <br />
             <br />

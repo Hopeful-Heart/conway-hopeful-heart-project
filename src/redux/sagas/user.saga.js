@@ -131,7 +131,7 @@ function* getUserTokenById(action) {
 
 function* fetchUserSearchList(action) {
   try {
-    const response = yield axios.get(`/api/usersearch`)
+    const response = yield axios.post(`/api/usersearch/`, {state: action.payload.state})
     yield put({ type: 'SET_USER_SEARCH_LIST', payload: response.data })
   } catch (error) {
     console.log(error);

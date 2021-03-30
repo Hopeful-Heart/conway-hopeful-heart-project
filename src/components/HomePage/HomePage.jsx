@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import moment from 'moment';
 import ReactFilestack from 'react-filestack';
+import States from '../StatesDropdown/StatesDropdown';
 
 function HomePage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
@@ -17,7 +18,6 @@ function HomePage() {
     `${user.child_first_name}`
   );
   const [childLastName, setChildLastName] = useState(`${user.child_last_name}`);
-  const [state, setState] = useState(`${user.state}`);
   const [city, setCity] = useState(`${user.city}`);
   const [phone, setPhone] = useState(`${user.phone}`);
   const [email, setEmail] = useState(`${user.email}`);
@@ -27,6 +27,7 @@ function HomePage() {
   const [memDay, setMemDay] = useState(`${user.memorial_day}`);
   const events = useSelector((store) => store.events.recentEventsListReducer);
   const journals = useSelector((store) => store.journal.journalListReducer);
+  const usState = useSelector((store) => store.userSearch.usStateReducer);
 
   const dispatch = useDispatch();
   const api_key = process.env.REACT_APP_FILESTACK_API_KEY;
@@ -117,7 +118,7 @@ function HomePage() {
         firstName: firstName,
         lastName: lastName,
         img: img,
-        state: state,
+        state: usState,
         city: city,
         phone: phone,
         email: email,
@@ -189,12 +190,7 @@ function HomePage() {
                     onChange={(e) => { setCity(e.target.value) }}
                   />
                   <p>State</p>
-                  <input
-                    type="text"
-                    placeholder="State"
-                    value={state}
-                    onChange={(e) => { setState(e.target.value) }}
-                  />
+                  <States />
                 </div>
                 <div className="parent-info-row">
                   <p>Email</p>

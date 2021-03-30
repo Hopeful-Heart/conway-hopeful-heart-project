@@ -5,7 +5,11 @@ const {
     rejectUnauthenticated,
   } = require("../modules/authentication-middleware");
 
-router.get('/', rejectUnauthenticated, (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
+    let state = req.body.state;
+    console.log(state);
+    if (state === 'All States') {
+
     const queryText = `
         SELECT * FROM "user" ORDER BY "first_name";
     `
@@ -15,6 +19,19 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         res.sendStatus(500);
         console.log(err);
     })
+    } else {
+
+    const queryText = `
+        SELECT * FROM "user" WHERE "state" = $1 ORDER BY "first_name";
+    `
+    pool.query(queryText, [state]).then((result) => {
+        res.send(result.rows).status(200);
+    }).catch((err) => {
+        res.sendStatus(500);
+        console.log(err);
+    })
+
+    }
 });
 
 module.exports = router;

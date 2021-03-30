@@ -9,6 +9,19 @@ body {
   margin: 0px;
 }
 
+#react-root {
+  display: flex;
+  flex-direction: column;
+}
+
+#content {
+  flex: 1 0 auto;
+}
+
+footer {
+  flex-shrink: 0;
+}
+
 .container {
   padding: 20px;
 }

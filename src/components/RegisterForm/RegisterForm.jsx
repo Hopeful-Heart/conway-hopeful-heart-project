@@ -14,7 +14,7 @@ import {
 
 import Logo from "../LandingPage/Logo_Primary.png";
 
-function RegisterForm({usState}) {
+function RegisterForm() {
   const [newUser, setNewUser] = useState({
     email: "",
     password: "",
@@ -22,10 +22,11 @@ function RegisterForm({usState}) {
     lastName: "",
     phone: "",
     city: "",
-    state: usState,
     pic: "",
   });
 
+  
+  const history = useHistory();
   const basicOptions = {
     accept: ['image/*'],
     maxSize: 1024 * 1024,
@@ -43,14 +44,18 @@ function RegisterForm({usState}) {
   }
 
   const errors = useSelector((store) => store.errors);
+  const usState = useSelector((store) => store.userSearch.usStateReducer);
   const dispatch = useDispatch();
 
   const registerUser = (event) => {
     event.preventDefault();
-
+    console.log(newUser);
     dispatch({
       type: "REGISTER",
-      payload: newUser,
+      payload: {
+        user: newUser,
+        state: usState,
+      }
     });
   }; // end registerUser
 
@@ -159,6 +164,7 @@ function RegisterForm({usState}) {
             />
             <br />
             <br />
+            <p>State*</p>
             <States
             required
             />

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import userSearchReducer from '../../redux/reducers/userSearch.reducer';
 import UserSearchRow from './UserSearchRow';
+import States from '../StatesDropdown/StatesDropdown';
 
 // This is one of our simplest components
 // It doesn't have local state
@@ -12,20 +12,35 @@ function AllUsersPage() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({ type: "FETCH_USER_SEARCH_LIST" });
+    dispatch({ type: "SET_ALL_STATES" });
   }, []);
 
-  const userSearchList = useSelector((store) => store.userSearch);
+  const userSearchList = useSelector((store) => store.userSearch); 
+  const usState = useSelector((store) => store.userSearch.usStateReducer);
+  let filteredList = [];
+
+  const filterResults = () => {
+    if (usState === "All States") {
+      filteredList = userSearchList;
+      return;
+    }
+    for (let user of userSearchList) {
+      if (user.state === usState) {
+        filteredList.push(user);
+      }
+    }
+  }
+
+  filteredList = userSearchList;
 
   return (
     <div className="container">
       <h1 style={{ textAlign: "center" }}>All Users Page</h1>
       <div style={{ textAlign: "center" }}>
         <form>
-          <input name="contact" value="ND" type="radio" />
-          <label>ND</label>
-          <input name="contact" value="NE" type="radio" />
-          <label>NE</label>
-          <button>Search</button>
+          <h3>Filter Results</h3>
+          <States />
+          <button onClick={filterResults}>Search</button>
         </form>
         {userSearchList.userSearchListReducer.map(user => {
           return (

@@ -1,15 +1,9 @@
 import React from 'react';
-import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-import ListItemText from '@material-ui/core/ListItemText';
 import Select from '@material-ui/core/Select';
-import Checkbox from '@material-ui/core/Checkbox';
-import Chip from '@material-ui/core/Chip';
-import Register from '../RegisterForm/RegisterForm';
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -102,14 +96,10 @@ function getStyles(state, usState, theme) {
     };
 }
 
-export default function MultipleSelect() {
+function MultipleSelect() {
     const classes = useStyles();
-    const theme = useTheme();
-    const [usState, setusState] = React.useState([]);
 
-    const handleChange = (event) => {
-        setusState(event.target.value);
-    };
+    const dispatch = useDispatch();
 
     const handleChangeMultiple = (event) => {
         const { options } = event.target;
@@ -119,21 +109,17 @@ export default function MultipleSelect() {
                 value.push(options[i].value);
             }
         }
-        setusState(value);
+        dispatch({ type: 'SET_US_STATE', payload: value[0] });
     };
-
-    <Register usState={usState}/>
 
     return (
         <div>
             <FormControl className={classes.formControl}>
                 <InputLabel shrink htmlFor="select-multiple-native">
-                    State*
         </InputLabel>
                 <Select
                     multiple
                     native
-                    value={usState}
                     onChange={handleChangeMultiple}
                     inputProps={{
                         id: 'select-multiple-native',
@@ -149,3 +135,5 @@ export default function MultipleSelect() {
         </div>
     );
 }
+
+export default MultipleSelect;

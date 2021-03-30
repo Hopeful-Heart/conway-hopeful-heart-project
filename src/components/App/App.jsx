@@ -18,8 +18,12 @@ import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import PendingPage from "../PendingPage/PendingPage";
+import Messaging from "../Messaging/Messaging";
+import Notifications from "../Notifications/Notifications";
+import { Fragment } from "react";
 import UserDetails from "../AllUsersPage/userDetails";
 import Connections from "../Connections/Connections";
+import { ToastContainer } from "react-toastify";
 import "./App.css";
 
 import { CssBaseline } from "@material-ui/core";
@@ -48,6 +52,17 @@ function App() {
     dispatch({ type: "FETCH_USER" });
   }, [dispatch]);
 
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker
+      .register("./firebase-messaging-sw.js")
+      .then(function (registration) {
+        console.log("Registration successful, scope is:", registration.scope);
+      })
+      .catch(function (err) {
+        console.log("Service worker registration failed, error:", err);
+      });
+  }
+
   return (
     <CssBaseline>
       <ThemeProvider theme={theme}>
@@ -58,6 +73,10 @@ function App() {
             <br />
             <br />
             <div id='content'>
+                <Fragment>
+          <ToastContainer autoClose={2000} position="top-center" />
+        </Fragment>
+        <Notifications />
               <Switch>
                 {/* Visiting localhost:3000 will redirect to localhost:3000/landing */}
                 <Redirect exact from="/" to="/landing" />

@@ -67,7 +67,6 @@ function Nav() {
                 <div>
                   <Button
                     color="secondary"
-                    variant="contained"
                     component={ScrollLink}
                     to="welcome"
                     activeClass="active"

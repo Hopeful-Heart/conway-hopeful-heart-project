@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useEffect } from 'react';
+import moment from 'moment';
 import './userDetails.css';
 
 function UserDetails() {
@@ -49,11 +50,11 @@ function UserDetails() {
                 <h4>{user.email} | {user.phone}</h4>
                 <h4>{`${user.state}, ${user.city}`}</h4>
                 <h2>{user.child_first_name}</h2>
-                {user.child_first_name === '' || user.child_last_name === '' || user.second_photo === '' || user.story === '' || user.special_sentiment === '' || user.birthday === null || user.memorial_date === null ? <p>No Child Information</p> :
+                {user.child_first_name === '' || user.child_last_name === '' || user.second_photo === '' || user.story === '' || user.special_sentiment === '' || user.birthday === null || user.memorial_day === null ? <p>No Child Information</p> :
                     <>
                         <h1>{`${user.child_first_name}'s Story`}</h1>
-                        <p>{user.birthday}</p>
-                        <p>{user.memorial_date}</p>
+                        <p>{moment(user.birthday).format('MMMM Do YYYY')}</p>
+                        <p>{moment(user.memorial_day).format('MMMM Do YYYY')}</p>
                         <img src={user.second_photo} />
                         <p>{user.story}</p>
                     </>

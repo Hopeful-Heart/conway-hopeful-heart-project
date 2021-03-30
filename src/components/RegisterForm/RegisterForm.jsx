@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import ReactFilestack from 'react-filestack';
+import ReactFilestack from "react-filestack";
 
 import {
   Paper,
@@ -26,23 +26,26 @@ function RegisterForm() {
   });
 
   const basicOptions = {
-    accept: ['image/*'],
+    accept: ["image/*"],
     maxSize: 1024 * 1024,
     maxFiles: 1,
-  }
+  };
+
+  const api_key = process.env.REACT_APP_FILESTACK_API_KEY;
 
   const onSuccess = (result) => {
-    console.log('Result from filestack success: ', result);
+    console.log("Result from filestack success: ", result);
     setNewUser({ ...newUser, pic: result.filesUploaded[0].url });
-  }
+  };
 
   const onError = (error) => {
-    alert('Error Uploading' + error)
-    console.error('error', error);
-  }
+    alert("Error Uploading" + error);
+    console.error("error", error);
+  };
 
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const registerUser = (event) => {
     event.preventDefault();
@@ -68,7 +71,6 @@ function RegisterForm() {
   });
 
   const classes = useStyles();
-  const api_key = process.env.REACT_APP_FILESTACK_API_KEY;
 
   return (
     <Paper className={classes.paper}>
@@ -109,14 +111,17 @@ function RegisterForm() {
             />
             <br />
             <br />
-            <ReactFilestack
-              className="btn btn-outline-info"
+            {newUser.pic && <img src={newUser.pic} />}
+            <Button
+              variant='contained'
+              color='primary'
+              component={ReactFilestack}
               apikey={api_key}
-              buttonText="Upload Image"
               options={basicOptions}
               onSuccess={onSuccess}
               onError={onError}
-            />
+            >Upload a Profile Picture</Button>
+            
           </div>
           <br />
           <div>
@@ -178,7 +183,9 @@ function RegisterForm() {
               helperText="E.g. 701-555-5555"
               value={newUser.phone}
               required
-              onChange={(event) => setNewUser({ ...newUser, phone: event.target.value })}
+              onChange={(event) =>
+                setNewUser({ ...newUser, phone: event.target.value })
+              }
             />
           </div>
         </div>

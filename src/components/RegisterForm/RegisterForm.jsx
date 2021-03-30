@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import ReactFilestack from 'react-filestack';
-import States from '../StatesDropdown/StatesDropdown';
+import ReactFilestack from "react-filestack";
+import States from "../StatesDropdown/StatesDropdown";
 
 import {
   Paper,
@@ -22,14 +22,13 @@ function RegisterForm() {
     lastName: "",
     phone: "",
     city: "",
+    state: "",
     pic: "",
   });
 
-  
-  const history = useHistory();
   const basicOptions = {
     accept: ["image/*"],
-    maxSize: 1024 * 1024,
+    imageDim: [1000, null],
     maxFiles: 1,
   };
 
@@ -46,7 +45,6 @@ function RegisterForm() {
   };
 
   const errors = useSelector((store) => store.errors);
-  const usState = useSelector((store) => store.userSearch.usStateReducer);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -55,10 +53,7 @@ function RegisterForm() {
     console.log(newUser);
     dispatch({
       type: "REGISTER",
-      payload: {
-        user: newUser,
-        state: usState,
-      }
+      payload: newUser,
     });
   }; // end registerUser
 
@@ -117,17 +112,24 @@ function RegisterForm() {
             />
             <br />
             <br />
-            {newUser.pic && <img src={newUser.pic} />}
+            {newUser.pic && (
+              <>
+                <img src={newUser.pic} style={{ height: 250, width: 250, objectFit: 'cover', borderRadius: '50%'}} />
+                <br />
+                <br />
+              </>
+            )}
             <Button
-              variant='contained'
-              color='primary'
+              variant="contained"
+              color="primary"
               component={ReactFilestack}
               apikey={api_key}
-              options={basicOptions}
+              pickerOptions={basicOptions}
               onSuccess={onSuccess}
               onError={onError}
-            >Upload a Profile Picture</Button>
-            
+            >
+              Upload a Profile Picture (Optional)
+            </Button>
           </div>
           <br />
           <div>
@@ -169,10 +171,7 @@ function RegisterForm() {
             />
             <br />
             <br />
-            <p>State*</p>
-            <States
-            required
-            />
+            <States newUser={newUser} setNewUser={setNewUser} required/>
             <br />
             <br />
             <TextField

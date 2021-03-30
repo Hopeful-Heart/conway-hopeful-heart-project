@@ -65,7 +65,6 @@ function LandingPage() {
       <Element name="aboutapp">
         <div id="about-background">
           <div className="landing-content">
-            <h2>About This App</h2>
             <div
               style={{
                 display: "flex",
@@ -82,6 +81,7 @@ function LandingPage() {
                 />
               </div>
               <div id="about-content">
+                <h2>About This App</h2>
                 <p>
                   This is the "Family Connections" application, a resource meant
                   to connect those who have experienced the loss of a child.
@@ -100,7 +100,6 @@ function LandingPage() {
       </Element>
       <Element name="learnmore">
         <div className="landing-content">
-          <h2>Learn More</h2>
           <div
             style={{
               display: "flex",
@@ -111,6 +110,7 @@ function LandingPage() {
             }}
           >
             <div id="learn-content">
+              <h2>Learn More</h2>
               <p>
                 If you would like to learn more about who we are and what our
                 mission is at Hopeful Heart Project please click below to view
@@ -134,7 +134,9 @@ function LandingPage() {
           </div>
           <div>
             <br />
-            <Button color='primary' onClick={() => scroll.scrollToTop()}>Back to Top</Button>
+            <Button color="primary" onClick={() => scroll.scrollToTop()}>
+              Back to Top
+            </Button>
             <br />
             <br />
           </div>

@@ -17,7 +17,7 @@ function Footer() {
         <a href="mailto:info@hopefulheartproject.org">
           info@hopefulheartproject.org
         </a>
-        <div>
+        <div id="hopeful-heart-links">
           <a href="https://www.facebook.com/hopefulheartproject/" target="_blank">
             <FacebookIcon />
           </a>

@@ -26,6 +26,10 @@ footer a:hover {
   text-decoration: none;
 }
 
+#hopeful-heart-links {
+  margin-top: .25rem;
+}
+
 #linkedin-footer-links-wrapper {
   display: flex;
   justify-content: space-around;

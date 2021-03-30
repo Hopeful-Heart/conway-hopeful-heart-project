@@ -50,7 +50,7 @@ function LoginForm() {
 
   return (
     <Paper className={classes.paper}>
-      <img src={Logo} style={{ width: "15rem" }} />
+      <img src={Logo} style={{ width: "20rem" }} />
       <form onReset={() => history.push("/landing")} onSubmit={login}>
         <h2 style={{ fontSize: "2rem", marginTop: ".5rem" }}>Login</h2>
         {errors.loginMessage && (

@@ -99,6 +99,7 @@ function Nav() {
                     spy={true}
                     smooth={true}
                     duration={1000}
+                    offset={-50}
                   >
                     Learn More
                   </Button>

@@ -1,24 +1,24 @@
-import React from 'react';
+import { useHistory } from "react-router-dom";
 
-import { useHistory } from 'react-router-dom';
-import RegisterForm from '../RegisterForm/RegisterForm';
+import { Button } from "@material-ui/core";
+
+import RegisterForm from "../RegisterForm/RegisterForm";
 
 function RegisterPage() {
   const history = useHistory();
 
   return (
-    <div className='container'>
+    <div className="container">
       <RegisterForm />
       <center>
-        <button
-          type="button"
-          className="btn btn_asLink"
+        <Button
+          color="primary"
           onClick={() => {
-            history.push('/login');
+            history.push("/login");
           }}
         >
           Login
-        </button>
+        </Button>
       </center>
     </div>
   );

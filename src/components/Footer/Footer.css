@@ -3,6 +3,7 @@ footer {
   text-align: center;
   background-color: #414042;
   color: #BCBEC0;
+  font-size: 1rem;
 }
 
 footer a {
@@ -23,6 +24,10 @@ footer a:hover {
 #hopeful-heart-footer-info a {
   color: #BCBEC0;
   text-decoration: none;
+}
+
+#hopeful-heart-links {
+  margin-top: .25rem;
 }
 
 #linkedin-footer-links-wrapper {

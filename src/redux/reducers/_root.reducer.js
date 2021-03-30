@@ -1,10 +1,10 @@
-import { combineReducers } from 'redux';
-import errors from './errors.reducer';
-import user from './user.reducer';
-import events from './events.reducer';
-import journal from './journal.reducer';
-import admin from './admin.reducer';
-
+import { combineReducers } from "redux";
+import errors from "./errors.reducer";
+import user from "./user.reducer";
+import events from "./events.reducer";
+import journal from "./journal.reducer";
+import admin from "./admin.reducer";
+import message from "./message.reducer";
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -17,6 +17,7 @@ const rootReducer = combineReducers({
   events,
   journal,
   admin,
+  message,
 });
 
 export default rootReducer;

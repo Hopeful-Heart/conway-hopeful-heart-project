@@ -157,5 +157,19 @@ router.put("/token/:id", rejectUnauthenticated, (req, res) => {
       res.sendStatus(500);
     });
 });
+router.get("/token/:id", (req, res) => {
+  // Gets a user by id
+  const sqlQuery = `SELECT "client_token" FROM "user" WHERE "id" = $1;`;
+  pool
+    .query(sqlQuery, [req.params.id])
+    .then((response) => {
+      console.log("Retrived user successfully");
+      res.send(response.rows).status(200);
+    })
+    .catch((err) => {
+      console.log("Error in getting user by id", err);
+      res.sendStatus(500);
+    });
+});
 
 module.exports = router;

@@ -118,7 +118,19 @@ function* updateChildInfo(action) {
   }
 }
 
+function* getUserTokenById(action) {
+  const client_token = action.payload;
+  const id = action.payload.id;
+  try {
+    const response = yield axios.get(`/api/user/token/${id}`, client_token);
+    yield put({ type: "SET_TOKEN_BYID", payload: response.data });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 function* userSaga() {
+  yield takeLatest("GET_TOKEN_BYID", getUserTokenById);
   yield takeLatest("FETCH_USER", fetchUser);
   yield takeLatest("FETCH_TOKEN", updateUserToken);
   yield takeLatest("UPDATE_AUTHORIZED_USER", updateUserAuthorized);

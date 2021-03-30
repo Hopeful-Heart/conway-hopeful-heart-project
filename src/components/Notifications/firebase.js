@@ -1,6 +1,5 @@
 import firebase from "firebase/app";
 import "firebase/messaging";
-import { useDispatch } from "react-redux";
 
 var firebaseConfig = {
   apiKey: "AIzaSyBve8PJaBJWv38BHera1wZHaG4V7f504Oo",
@@ -49,17 +48,3 @@ export const onMessageListener = () =>
       resolve(payload);
     });
   });
-
-// export const askForPermissioToReceiveNotifications = async () => {
-//   try {
-//     const messaging = firebase.messaging();
-
-//     await messaging.requestPermission();
-//     const token = await messaging.getToken();
-//     console.log("user token: ", token);
-
-//     return token;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };

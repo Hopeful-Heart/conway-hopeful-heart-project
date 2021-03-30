@@ -22,7 +22,11 @@ import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import PendingPage from "../PendingPage/PendingPage";
+import Messaging from "../Messaging/Messaging";
+import Notifications from "../Notifications/Notifications";
+import { Fragment } from "react";
 
+import { ToastContainer } from "react-toastify";
 import "./App.css";
 
 function App() {
@@ -33,14 +37,28 @@ function App() {
     dispatch({ type: "FETCH_APPROVED_EVENTS" });
   }, [dispatch]);
 
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker
+      .register("./firebase-messaging-sw.js")
+      .then(function (registration) {
+        console.log("Registration successful, scope is:", registration.scope);
+      })
+      .catch(function (err) {
+        console.log("Service worker registration failed, error:", err);
+      });
+  }
+
   return (
     <Router>
       <div>
+        <Fragment>
+          <ToastContainer autoClose={2000} position="top-center" />
+        </Fragment>
+        <Notifications />
         <Nav />
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/landing */}
           <Redirect exact from="/" to="/landing" />
-
           {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the HomePage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
@@ -52,7 +70,6 @@ function App() {
           >
             <HomePage />
           </ProtectedRoute>
-
           <ProtectedRoute
             // logged in shows EventsPage else shows LoginPage
             exact
@@ -60,7 +77,6 @@ function App() {
           >
             <EventsPage />
           </ProtectedRoute>
-
           <ProtectedRoute
             // logged in shows AllUsersPage else shows LoginPage
             exact
@@ -68,7 +84,6 @@ function App() {
           >
             <AllUsersPage />
           </ProtectedRoute>
-
           <ProtectedRoute
             // logged in shows OtherUserDetailsPage else shows LoginPage
             exact
@@ -76,7 +91,6 @@ function App() {
           >
             <OtherUserDetailsPage />
           </ProtectedRoute>
-
           <ProtectedRoute
             // logged in shows AdminPage else shows LoginPage
             exact
@@ -84,7 +98,6 @@ function App() {
           >
             <AdminPage />
           </ProtectedRoute>
-
           {/* When a value is supplied for the authRedirect prop the user will
             be redirected to the path supplied when logged in, otherwise they will
             be taken to the component and path supplied. */}
@@ -98,7 +111,6 @@ function App() {
           >
             <LoginPage />
           </ProtectedRoute>
-
           <ProtectedRoute
             // with authRedirect:
             // - if logged in, redirects to "/home"
@@ -109,7 +121,6 @@ function App() {
           >
             <RegisterPage />
           </ProtectedRoute>
-
           <ProtectedRoute
             // with authRedirect:
             // - if logged in, redirects to "/home"
@@ -121,6 +132,9 @@ function App() {
             <LandingPage />
           </ProtectedRoute>
 
+          <ProtectedRoute exact path="/messaging">
+            <Messaging />
+          </ProtectedRoute>
           <ProtectedRoute
             // with authRedirect:
             // - if logged in, redirects to "/home"
@@ -131,7 +145,6 @@ function App() {
           >
             <PendingPage />
           </ProtectedRoute>
-
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
             <h1>404</h1>

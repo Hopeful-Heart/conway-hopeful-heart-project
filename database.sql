@@ -50,3 +50,9 @@ CREATE TABLE "connections" (
     "user2_id" INTEGER REFERENCES "user" NOT NULL,
     "approved" BOOLEAN DEFAULT FALSE
 );
+
+CREATE TABLE "messages" (
+"id" SERIAL PRIMARY KEY,
+  "title" VARCHAR (100) NOT NULL,
+  "body" VARCHAR (1000) NOT NULL
+  );

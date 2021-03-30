@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import ReactFilestack from 'react-filestack';
+import States from '../StatesDropdown/StatesDropdown';
 
 import {
   Paper,
@@ -13,7 +14,7 @@ import {
 
 import Logo from "../LandingPage/Logo_Primary.png";
 
-function RegisterForm() {
+function RegisterForm({usState}) {
   const [newUser, setNewUser] = useState({
     email: "",
     password: "",
@@ -21,7 +22,7 @@ function RegisterForm() {
     lastName: "",
     phone: "",
     city: "",
-    state: "",
+    state: usState,
     pic: "",
   });
 
@@ -156,17 +157,10 @@ function RegisterForm() {
                 setNewUser({ ...newUser, city: event.target.value })
               }
             />
-            <TextField
-              className={classes.registerInputSpaceLeft}
-              type="text"
-              variant="outlined"
-              label="State"
-              size="small"
-              value={newUser.state}
-              required
-              onChange={(event) =>
-                setNewUser({ ...newUser, state: event.target.value })
-              }
+            <br />
+            <br />
+            <States
+            required
             />
             <br />
             <br />

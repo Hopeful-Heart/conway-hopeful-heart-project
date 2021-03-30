@@ -12,10 +12,10 @@ const router = express.Router();
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
 router.post("/register", (req, res, next) => {
-  const user = req.body;
 
-  const password = encryptLib.encryptPassword(req.body.password);
-
+  const user = req.body.user;
+  const state = req.body.state;
+  const password = encryptLib.encryptPassword(req.body.user.password);
   const queryText = `INSERT INTO "user" ("email", "password", "first_name", "last_name", "profile_pic", "phone", "state", "city")
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"`;
   pool
@@ -26,7 +26,7 @@ router.post("/register", (req, res, next) => {
       user.lastName,
       user.pic,
       user.phone,
-      user.state,
+      state,
       user.city,
     ])
     .then(() => res.sendStatus(201))

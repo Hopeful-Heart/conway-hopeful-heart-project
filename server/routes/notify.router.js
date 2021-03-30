@@ -7,7 +7,7 @@ const router = express.Router();
 
 var admin = require("firebase-admin");
 GOOGLE_APPLICATION_CREDENTIALS =
-  "/Users/brycebarsness/Downloads/hopeful-heart-conway-firebase-adminsdk-sdlr5-0d0f9d4f49.json";
+  "../constants/hopeful-heart-conway-firebase-adminsdk-sdlr5-298fbe284b.json";
 // const GOOGLE_APPLICATION_CREDENTIALS =
 //   process.env.GOOGLE_APPLICATION_CREDENTIALS;
 

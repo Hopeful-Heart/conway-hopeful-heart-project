@@ -8,7 +8,45 @@ function PendingPages() {
 
   return (
     <div className="container">
-      <h2>Your Account is pending acceptance</h2>
+      <Paper className={classes.paper}>
+        <img src={Logo} style={{ width: "20rem" }} />
+        <form onReset={() => history.push("/landing")} onSubmit={login}>
+          <h2 style={{ fontSize: "2rem", marginTop: ".5rem" }}>Login</h2>
+          {errors.loginMessage && (
+            <h3 className="alert" role="alert">
+              {errors.loginMessage}
+            </h3>
+          )}
+          <TextField
+            type="email"
+            variant="outlined"
+            label="Email"
+            required
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
+          <br />
+          <br />
+          <TextField
+            type="password"
+            variant="outlined"
+            label="Password"
+            required
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+          <br />
+          <br />
+          <ButtonGroup>
+            <Button variant="outlined" color="primary" type="reset">
+              Back to Home
+            </Button>
+            <Button variant="contained" color="primary" type="submit">
+              Submit
+            </Button>
+          </ButtonGroup>
+        </form>
+      </Paper>
       <br />
       <button
         onClick={() =>

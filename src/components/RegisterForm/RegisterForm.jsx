@@ -172,7 +172,7 @@ function RegisterForm({usState}) {
               helperText="E.g. 701-555-5555"
               value={newUser.phone}
               required
-              onChange={(event) => setNewUser({ ...newUser, phone: event })}
+              onChange={(event) => setNewUser({ ...newUser, phone: event.target.value })}
             />
           </div>
         </div>

@@ -12,7 +12,7 @@ import {
   FormControl,
   Select,
   InputLabel,
-  MenuItem
+  MenuItem,
 } from "@material-ui/core";
 
 import Logo from "../LandingPage/Logo_Primary.png";
@@ -26,7 +26,7 @@ function RegisterForm() {
     phone: "",
     city: "",
     state: "",
-    pic: "",
+    pic: 'https://st3.depositphotos.com/4111759/13425/v/600/depositphotos_134255626-stock-illustration-avatar-male-profile-gray-person.jpg',
   });
 
   const basicOptions = {
@@ -47,7 +47,7 @@ function RegisterForm() {
     console.error("error", error);
   };
 
-  const states = useSelector((store) => store.states.statesReducer)
+  const states = useSelector((store) => store.states.statesReducer);
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -73,7 +73,7 @@ function RegisterForm() {
     registerInputSpaceLeft: {
       marginLeft: "1rem",
     },
-    formControl: { minWidth: 120 }
+    formControl: { minWidth: 120 },
   });
 
   const classes = useStyles();
@@ -117,21 +117,18 @@ function RegisterForm() {
             />
             <br />
             <br />
-            {newUser.pic && (
-              <>
-                <img
-                  src={newUser.pic}
-                  style={{
-                    height: 250,
-                    width: 250,
-                    objectFit: "cover",
-                    borderRadius: "50%",
-                  }}
-                />
-                <br />
-                <br />
-              </>
-            )}
+            <img
+              src={newUser.pic}
+              style={{
+                height: 250,
+                width: 250,
+                objectFit: "cover",
+                borderRadius: "50%",
+                border: "solid gray 1px",
+              }}
+            />
+            <br />
+            <br />
             <Button
               variant="contained"
               color="primary"
@@ -184,7 +181,11 @@ function RegisterForm() {
             />
             <br />
             <br />
-            <FormControl variant="outlined" className={classes.formControl} required>
+            <FormControl
+              variant="outlined"
+              className={classes.formControl}
+              required
+            >
               <InputLabel id="register-select-state-label">State</InputLabel>
               <Select
                 labelId="register-select-state-label"

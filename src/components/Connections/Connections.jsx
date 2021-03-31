@@ -5,7 +5,7 @@ function AllUsersPage() {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch({ type: "FETCH_CONNECTIONS", payload: {user: user.id} });
-        dispatch({ type: "FETCH_USER_SEARCH_LIST" });
+        dispatch({ type: "FETCH_USER_SEARCH_LIST", payload: { state: 'All States'} });
     }, []);
 
     const user = useSelector((store) => store.user);

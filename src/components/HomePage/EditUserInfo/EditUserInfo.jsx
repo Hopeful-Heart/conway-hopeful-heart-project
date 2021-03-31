@@ -100,17 +100,14 @@ function EditUserInfo({ setParentEditScreen, setHomeDefaultView }) {
               />
               <br />
               <br />
-              <Button
-                variant="contained"
-                color="primary"
-                component={ReactFilestack}
+              <ReactFilestack
                 apikey={api_key}
+                buttonText="UPLOAD A PROFILE PICTURE (OPTIONAL)"
                 pickerOptions={basicOptions}
                 onSuccess={onSuccess}
                 onError={onError}
-              >
-                Upload a Profile Picture (Optional)
-              </Button>
+                buttonClass="filestack-button"
+              />
               <br />
               <br />
               <TextField
@@ -166,6 +163,23 @@ function EditUserInfo({ setParentEditScreen, setHomeDefaultView }) {
               <TextField
                 type="text"
                 variant="outlined"
+                label="Phone Number"
+                size="small"
+                helperText="E.g. 701-555-5555"
+                value={editUserInfo.phone}
+                required
+                onChange={(event) =>
+                  setEditUserInfo({
+                    ...editUserInfo,
+                    phone: event.target.value,
+                  })
+                }
+              />
+              <br />
+              <br />
+              <TextField
+                type="text"
+                variant="outlined"
                 label="City (Optional)"
                 size="small"
                 value={editUserInfo.city}
@@ -201,23 +215,6 @@ function EditUserInfo({ setParentEditScreen, setHomeDefaultView }) {
                   ))}
                 </Select>
               </FormControl>
-              <br />
-              <br />
-              <TextField
-                type="text"
-                variant="outlined"
-                label="Phone Number"
-                size="small"
-                helperText="E.g. 701-555-5555"
-                value={editUserInfo.phone}
-                required
-                onChange={(event) =>
-                  setEditUserInfo({
-                    ...editUserInfo,
-                    phone: event.target.value,
-                  })
-                }
-              />
             </div>
           </div>
           <br />

@@ -17,26 +17,11 @@ footer a:hover {
   color: #7D5B73;
 }
 
-#hopeful-heart-footer-info {
-  margin-bottom: 1rem;
-}
-
 #hopeful-heart-footer-info a {
   color: #BCBEC0;
   text-decoration: none;
 }
 
 #hopeful-heart-links {
-  margin-top: .25rem;
-}
-
-#eda-footer-info {
-  font-size: .75rem;
-}
-
-#linkedin-footer-links-wrapper {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  margin-top: .25rem;
+  margin-top: 1rem;
 }

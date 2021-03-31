@@ -69,21 +69,6 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
     });
 });
 
-router.put("/authorized", rejectUnauthenticated, (req, res) => {
-  // Updates the authrorized account column
-  const sqlQuery = `UPDATE "user" SET "approved_user" = $1 WHERE "id" = $2;`;
-  pool
-    .query(sqlQuery, [req.body.boolean, req.user.id])
-    .then(() => {
-      console.log("Updated authorized user successfully");
-      res.sendStatus(204);
-    })
-    .catch((err) => {
-      console.log("Error in updating authorized user", err);
-      res.sendStatus(500);
-    });
-});
-
 router.put("/parentinfo", rejectUnauthenticated, (req, res) => {
   // Updates the parent info columns of user table
   let user = req.body.user;

@@ -30,8 +30,11 @@ function PendingPages() {
         <br />
         <br />
         <h2 style={{ fontSize: "2rem", marginTop: ".5rem" }}>
-          Your Account is Pending Acceptance
+          Thank you for registering!
         </h2>
+        <p style={{ fontSize: "1.5rem", maxWidth: "40rem" }}>
+          Your Account is Pending Acceptance
+        </p>
         {pendingMessageToggle && (
           <p style={{ fontSize: "1.5rem", maxWidth: "40rem" }}>
             To keep Family Connections safe and secure, we have our admins vet
@@ -55,14 +58,6 @@ function PendingPages() {
           </Button>
         </ButtonGroup>
       </Paper>
-      <br />
-      <button
-        onClick={() =>
-          dispatch({ type: "UPDATE_AUTHORIZED_USER", payload: true })
-        }
-      >
-        Authorize Account
-      </button>
     </div>
   );
 }

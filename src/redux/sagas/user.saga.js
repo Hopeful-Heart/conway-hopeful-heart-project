@@ -90,15 +90,6 @@ function* deleteApprovedUsersAdmin(action) {
   }
 }
 
-function* updateUserAuthorized(action) {
-  try {
-    yield axios.put(`/api/user/authorized/`, { boolean: action.payload });
-    yield put({ type: "FETCH_USER" });
-  } catch (error) {
-    console.log("Unable to update authorized user", error);
-  }
-}
-
 function* updateParentInfo(action) {
   try {
     yield axios.put(`/api/user/parentinfo/`, { user: action.payload });
@@ -149,7 +140,6 @@ function* fetchUserDetails(action) {
 function* userSaga() {
   yield takeLatest("GET_TOKEN_BYID", getUserTokenById);
   yield takeLatest('FETCH_USER', fetchUser);
-  yield takeLatest('UPDATE_AUTHORIZED_USER', updateUserAuthorized);
   yield takeEvery('FETCH_USER_LIST', fetchPendingUsersAdmin);
   yield takeEvery('FETCH_USER_LIST', fetchApprovedUsersAdmin);
   yield takeEvery('UPDATE_PENDING_USER', updatePendingUsersAdmin);

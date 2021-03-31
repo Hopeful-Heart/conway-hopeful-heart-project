@@ -73,7 +73,7 @@ function App() {
             <br />
             <div id="content">
               <ToastContainer autoClose={2000} position="top-center" />
-              <Notifications />
+              {/* <Notifications /> */}
               <Switch>
                 {/* Visiting localhost:3000 will redirect to localhost:3000/landing */}
                 <Redirect exact from="/" to="/landing" />

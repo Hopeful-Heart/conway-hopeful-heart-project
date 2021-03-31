@@ -38,4 +38,17 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
+// Update journal entry privacy from public to private or private to public
+router.put('/privacy/:journalId', rejectUnauthenticated, (req,res) => {
+  const sqlQuery = `UPDATE "journal" SET "public" = $1 WHERE "id" = $2;`;
+
+  pool.query(sqlQuery, [req.body.newPrivacy, req.params.journalId]).then(() => {
+    console.log('Updated journal entry privacy successfully');
+    res.sendStatus(204);
+  }).catch(err => {
+    console.log('Error in updating journal privacy', err);
+    res.sendStatus(500);
+  });
+});
+
 module.exports = router;

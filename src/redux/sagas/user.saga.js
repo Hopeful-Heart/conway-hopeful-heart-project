@@ -56,7 +56,6 @@ function* updatePendingUsersAdmin(action) {
     yield put({ type: "FETCH_USER_LIST", payload: update.data });
   } catch (error) {
     console.log("error updating pending event!", error);
-    console.log(action.payload);
   }
 }
 

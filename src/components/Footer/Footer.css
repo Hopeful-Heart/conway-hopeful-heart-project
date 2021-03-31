@@ -30,6 +30,10 @@ footer a:hover {
   margin-top: .25rem;
 }
 
+#eda-footer-info {
+  font-size: .75rem;
+}
+
 #linkedin-footer-links-wrapper {
   display: flex;
   justify-content: space-around;

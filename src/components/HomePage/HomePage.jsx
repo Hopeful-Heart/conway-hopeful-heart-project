@@ -3,6 +3,25 @@ import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import ReactFilestack from "react-filestack";
 
+import {
+  makeStyles,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Popover,
+  FormControl,
+  RadioGroup,
+  Radio,
+  FormControlLabel,
+  Button,
+} from "@material-ui/core";
+
+import "./HomePage.css";
+
 function HomePage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
@@ -24,9 +43,14 @@ function HomePage() {
   const [story, setStory] = useState(`${user.story}`);
   const [sentiment, setSentiment] = useState(`${user.special_sentiment}`);
   const [memDay, setMemDay] = useState(`${user.memorial_day}`);
+
   const events = useSelector((store) => store.events.recentEventsListReducer);
   const journals = useSelector((store) => store.journal.journalListReducer);
-  const usState = useSelector((store) => store.userSearch.usStateReducer);
+
+  const [anchorElement, setAnchorElement] = useState(null);
+  const [popoverEvent, setPopoverEvent] = useState({});
+
+  const open = Boolean(anchorElement);
 
   const dispatch = useDispatch();
   const api_key = process.env.REACT_APP_FILESTACK_API_KEY;
@@ -38,7 +62,6 @@ function HomePage() {
 
   const basicOptions = {
     accept: ["image/*"],
-    maxSize: 1024 * 1024,
     maxFiles: 1,
   };
 
@@ -57,24 +80,7 @@ function HomePage() {
     console.error("error", error);
   };
 
-  let eventsList;
   let journalsList;
-
-  if (events[0]) {
-    eventsList = events.map((event) => (
-      <tr key={event.id}>
-        <td>
-          {moment(event.date).format("MMMM Do YYYY, h:mm a")} - {event.name}
-        </td>
-      </tr>
-    ));
-  } else {
-    eventsList = (
-      <tr>
-        <td>No Upcoming Events</td>
-      </tr>
-    );
-  }
 
   if (journals[0]) {
     journalsList = journals.map((entry) => (
@@ -141,9 +147,51 @@ function HomePage() {
       },
     });
   };
+
+  const useStyles = makeStyles({
+    homeContentPaper: {
+      margin: "auto",
+      marginTop: "1rem",
+      marginBottom: "1rem",
+      minWidth: "30rem",
+      maxWidth: "60rem",
+      padding: "2rem",
+    },
+    upcomingEventRow: {
+      cursor: "pointer",
+    },
+    journalContentCell: {
+      maxWidth: "25rem",
+    },
+  });
+
+  const classes = useStyles();
+
   return (
-    <div className="container" style={{ display: "flex", justifyContent: "space-between" }}>
-      <div>
+    <div id="home-wrapper">
+      <Popover
+        open={open}
+        anchorEl={anchorElement}
+        onClose={() => setAnchorElement(null)}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+      >
+        <div id="popover-content">
+          <h3>{popoverEvent.name}</h3>
+          <p>Date: {moment(popoverEvent.date).format("MM-DD-YYYY")}</p>
+          <p>Location: {popoverEvent.location}</p>
+          <p>Event Type: {popoverEvent.type}</p>
+          <p>Description: {popoverEvent.description}</p>
+          <a href={popoverEvent.link}>Link to Event</a>
+        </div>
+      </Popover>
+      <div id="home-user-info">
         <img
           src={user.profile_pic}
           style={{
@@ -154,63 +202,154 @@ function HomePage() {
             border: "solid gray 1px",
           }}
         />
-        <h3>
-          {user.first_name} {user.last_name}
-        </h3>
-        <h5>
-          {user.city && `${user.city}, `}
-          {user.state}
-        </h5>
-        <table>
-          <thead>
-            <tr>
-              <th>
-                <h3>Upcoming Events</h3>
-              </th>
-            </tr>
-          </thead>
-          <tbody>{eventsList}</tbody>
-        </table>
-      </div>
-      <div style={{width: '55rem'}}>
-        <div className="child-info-col">
-          <img src={user.second_photo} />
-        </div>
-        <div className="child-info-col">
-          <div className="child-info-row">
-            <h3>
-              Remembering <br />
-              {user.child_first_name} {user.child_last_name}
-            </h3>
-          </div>
-          <div className="child-info-row">
-            <h5>
-              {moment(user.birthday).format("MMMM Do YYYY")} -{" "}
-              {moment(user.memorial_day).format("MMMM Do YYYY")}
-            </h5>
-          </div>
-        </div>
+        <div id="home-user-content">
+          <h3 id="user-info-name">
+            {user.first_name} {user.last_name}
+          </h3>
+          <h5>
+            {user.city && `${user.city}, `}
+            {user.state}
+          </h5>
 
-        <h2>Story</h2>
-        <p>{user.story}</p>
-        <div className="row">
-          <h2>Journal</h2>
-          <div className="journal-entries">
-            <form onSubmit={addJournal}>
-              <input
-                type="text"
-                placeholder="What's on your mind?"
-                value={entry}
-                onChange={(e) => {
-                  setEntry(e.target.value);
+          <h3>Upcoming Events</h3>
+          {events.length > 0 ? (
+            <TableContainer>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Name</TableCell>
+                    <TableCell>Date</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {events.map((event) => (
+                    <TableRow
+                      key={event.id}
+                      className={classes.upcomingEventRow}
+                      onClick={(e) => {
+                        setAnchorElement(e.target);
+                        setPopoverEvent(event);
+                      }}
+                    >
+                      <TableCell>{event.name}</TableCell>
+                      <TableCell>
+                        {moment(event.date).format("MM-DD-YYYY")}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          ) : (
+            <h5>No Upcoming Events</h5>
+          )}
+        </div>
+      </div>
+      <Paper className={classes.homeContentPaper}>
+        {user.child_first_name ? (
+          <div>
+            <h1 id="home-remembering">Remembering</h1>
+            <div style={{ display: "flex" }}>
+              <img
+                src={user.second_photo}
+                style={{
+                  height: 200,
+                  width: 200,
+                  objectFit: "cover",
+                  borderRadius: "50%",
+                  border: "solid gray 1px",
                 }}
               />
-              <button type="submit">Submit</button>
-            </form>
-            {journalsList}
+              <div id="memorial-info">
+                <h2>
+                  {user.child_first_name} {user.child_last_name}
+                </h2>
+                <h4>
+                  {moment(user.birthday).format("MM-DD-YYYY")} -{" "}
+                  {moment(user.memorial_day).format("MM-DD-YYYY")}
+                </h4>
+              </div>
+            </div>
+            <h2>My Story</h2>
+            <p>{user.story}</p>
           </div>
+        ) : (
+          <Button color="primary" variant="contained">
+            Add a Memorial
+          </Button>
+        )}
+        <div>
+          <h2>Journal</h2>
+          <form onSubmit={addJournal}>
+            <input
+              type="text"
+              placeholder="What's on your mind?"
+              value={entry}
+              onChange={(e) => {
+                setEntry(e.target.value);
+              }}
+            />
+            <button type="submit">Submit</button>
+          </form>
+          {journals.length > 0 ? (
+            <TableContainer>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Date</TableCell>
+                    <TableCell>Content</TableCell>
+                    <TableCell>Action</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {journals.map((entry) => (
+                    <TableRow key={entry.id}>
+                      <TableCell>
+                        {moment(entry.date).format("MM-DD-YYYY")}
+                      </TableCell>
+                      <TableCell className={classes.journalContentCell}>
+                        {entry.content}
+                      </TableCell>
+                      <TableCell>
+                        <FormControl component="fieldset">
+                          <RadioGroup
+                            aria-label="gender"
+                            name="gender1"
+                            value={entry.public}
+                            onChange={(e) =>
+                              dispatch({
+                                type: "UPDATE_JOURNAL_ENTRY_PRIVACY",
+                                payload: {
+                                  userId: user.id,
+                                  journalId: entry.id,
+                                  newPrivacy: e.target.value,
+                                },
+                              })
+                            }
+                          >
+                            <FormControlLabel
+                              value={false}
+                              control={<Radio color="primary" />}
+                              label="Private"
+                            />
+                            <FormControlLabel
+                              value={true}
+                              control={<Radio color="primary" />}
+                              label="Public"
+                            />
+                          </RadioGroup>
+                        </FormControl>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          ) : (
+            <h5>No Journal Entries</h5>
+          )}
         </div>
-      </div>
+      </Paper>
       {/* <div className="col">
         <div className="row">
           {parentEditScreen ? (

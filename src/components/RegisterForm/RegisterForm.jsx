@@ -31,7 +31,6 @@ function RegisterForm() {
 
   const basicOptions = {
     accept: ["image/*"],
-    imageDim: [1000, null],
     maxFiles: 1,
   };
 

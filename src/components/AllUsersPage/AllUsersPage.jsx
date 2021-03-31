@@ -1,7 +1,14 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import UserSearchRow from './UserSearchRow';
-import States from '../StatesDropdown/StatesDropdown';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import UserSearchRow from "./UserSearchRow";
+
+import {
+  FormControl,
+  Select,
+  InputLabel,
+  MenuItem,
+  makeStyles,
+} from "@material-ui/core";
 
 // This is one of our simplest components
 // It doesn't have local state
@@ -10,52 +17,75 @@ import States from '../StatesDropdown/StatesDropdown';
 
 function AllUsersPage() {
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch({ type: "SET_ALL_STATES" });
-    dispatch({ type: "FETCH_USER_SEARCH_LIST", payload: { state: "All States" }});
+    dispatch({
+      type: "FETCH_USER_SEARCH_LIST",
+      payload: { state: "All States" },
+    });
   }, []);
 
-  const userSearchList = useSelector((store) => store.userSearch); 
-  const usState = useSelector((store) => store.userSearch.usStateReducer);
-
-  const filterResults = () => {
-    dispatch({ type: "FETCH_USER_SEARCH_LIST", payload: { state: usState } });
-  }
+  const userSearchList = useSelector((store) => store.userSearch);
+  const states = useSelector((store) => store.states.statesReducer);
 
   const seeAllStates = () => {
-    dispatch({ type: "FETCH_USER_SEARCH_LIST", payload: { state: "All States" } });
-  }
+    dispatch({
+      type: "FETCH_USER_SEARCH_LIST",
+      payload: { state: "All States" },
+    });
+  };
 
+  const useStyles = makeStyles({
+    formControl: { minWidth: 120 },
+  });
+
+  const classes = useStyles();
 
   return (
     <div className="container">
       <h1 style={{ textAlign: "center" }}>All Users Page</h1>
       <div style={{ textAlign: "center" }}>
-        <form>
-          <h3>Filter Results</h3>
-          <button onClick={seeAllStates}>See All Users</button>
-          <States />
-          <button onClick={filterResults}>Search</button>
-        </form>
-        {userSearchList.userSearchListReducer[0]
-        ?
-        (
-          userSearchList.userSearchListReducer.map(user => {
-          return (
-            <div className="userDiv" key={user.id}>
-              <UserSearchRow
-                key={user.id}
-                user={user}
-              />
-            </div>
-          )
-        })
-        )
-        :
-        <h2>No Results!</h2>
-        }
+        <h3>Filter Results</h3>
+        <button onClick={seeAllStates}>See All Users</button>
+        <FormControl
+          variant="outlined"
+          className={classes.formControl}
+          required
+        >
+          <InputLabel id="register-select-state-label">State</InputLabel>
+          <Select
+            labelId="register-select-state-label"
+            id="demo-simple-select-outlined"
+            value={''}
+            onChange={(event) =>
+              dispatch({
+                type: "FETCH_USER_SEARCH_LIST",
+                payload: { state: event.target.value },
+              })
+            }
+            label="State"
+            required
+          >
+            {states.map((state) => (
+              <MenuItem key={state} value={state}>
+                {state}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        {userSearchList.userSearchListReducer[0] ? (
+          userSearchList.userSearchListReducer.map((user) => {
+            return (
+              <div className="userDiv" key={user.id}>
+                <UserSearchRow key={user.id} user={user} />
+              </div>
+            );
+          })
+        ) : (
+          <h2>No Results!</h2>
+        )}
       </div>
-    </div >
+    </div>
   );
 }
 

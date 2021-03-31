@@ -18,7 +18,7 @@ admin.initializeApp({
 });
 
 router.post("/", (req, res) => {
-  console.log(req.body);
+
   const notify = req.body;
   const token = notify.token;
   const title = notify.title;

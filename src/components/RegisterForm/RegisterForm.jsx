@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import ReactFilestack from "react-filestack";
-import States from "../StatesDropdown/StatesDropdown";
 
 import {
   Paper,
@@ -10,6 +9,10 @@ import {
   TextField,
   Button,
   ButtonGroup,
+  FormControl,
+  Select,
+  InputLabel,
+  MenuItem
 } from "@material-ui/core";
 
 import Logo from "../LandingPage/Logo_Primary.png";
@@ -44,13 +47,14 @@ function RegisterForm() {
     console.error("error", error);
   };
 
+  const states = useSelector((store) => store.states.statesReducer)
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
   const history = useHistory();
 
   const registerUser = (event) => {
     event.preventDefault();
-    console.log(newUser);
+
     dispatch({
       type: "REGISTER",
       payload: newUser,
@@ -69,6 +73,7 @@ function RegisterForm() {
     registerInputSpaceLeft: {
       marginLeft: "1rem",
     },
+    formControl: { minWidth: 120 }
   });
 
   const classes = useStyles();
@@ -114,7 +119,15 @@ function RegisterForm() {
             <br />
             {newUser.pic && (
               <>
-                <img src={newUser.pic} style={{ height: 250, width: 250, objectFit: 'cover', borderRadius: '50%'}} />
+                <img
+                  src={newUser.pic}
+                  style={{
+                    height: 250,
+                    width: 250,
+                    objectFit: "cover",
+                    borderRadius: "50%",
+                  }}
+                />
                 <br />
                 <br />
               </>
@@ -171,7 +184,25 @@ function RegisterForm() {
             />
             <br />
             <br />
-            <States newUser={newUser} setNewUser={setNewUser} required/>
+            <FormControl variant="outlined" className={classes.formControl} required>
+              <InputLabel id="register-select-state-label">State</InputLabel>
+              <Select
+                labelId="register-select-state-label"
+                id="demo-simple-select-outlined"
+                value={newUser.state}
+                onChange={(event) =>
+                  setNewUser({ ...newUser, state: event.target.value })
+                }
+                label="State"
+                required
+              >
+                {states.map((state) => (
+                  <MenuItem key={state} value={state}>
+                    {state}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
             <br />
             <br />
             <TextField

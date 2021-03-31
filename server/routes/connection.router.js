@@ -24,7 +24,7 @@ router.get("/all", rejectUnauthenticated, (req, res) => {
 router.get("/:id", rejectUnauthenticated, (req, res) => {
     // GET connection entries by id
     id = req.params.id;
-    console.log(id);
+
     const queryText = `SELECT * FROM "connections" WHERE "user2_id" = $1`;
     pool
         .query(queryText, [id])
@@ -61,7 +61,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
 router.put("/:id", rejectUnauthenticated, (req, res) => {
     // UPDATE connection approved by id
     id = req.params.id;
-    console.log(id);
+
     const queryText = `UPDATE "connections" SET "approved" = true WHERE "user1_id" = $1`;
     pool
         .query(queryText, [id])
@@ -82,7 +82,7 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
 router.delete("/:id", rejectUnauthenticated, (req, res) => {
     // DELETE connection by id
     id = req.params.id;
-    console.log(id);
+
     const queryText = `DELETE FROM "connections" WHERE "user1_id" = $1`;
     pool
         .query(queryText, [id])

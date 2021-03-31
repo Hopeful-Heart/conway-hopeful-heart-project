@@ -6,7 +6,7 @@ const pool = require("../modules/pool");
 const router = express.Router();
 
 router.post("/", (req, res) => {
-  console.log(req.body);
+
   const messages = req.body;
   const queryText = `INSERT INTO "messages" ("title", "body")
     VALUES ($1, $2);`;

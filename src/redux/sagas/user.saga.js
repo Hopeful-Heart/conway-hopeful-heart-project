@@ -56,7 +56,6 @@ function* updatePendingUsersAdmin(action) {
     yield put({ type: "FETCH_USER_LIST", payload: update.data });
   } catch (error) {
     console.log("error updating pending event!", error);
-    console.log(action.payload);
   }
 }
 
@@ -131,7 +130,7 @@ function* getUserTokenById(action) {
 
 function* fetchUserSearchList(action) {
   try {
-    const response = yield axios.get(`/api/usersearch`)
+    const response = yield axios.post(`/api/usersearch/`, {state: action.payload.state})
     yield put({ type: 'SET_USER_SEARCH_LIST', payload: response.data })
   } catch (error) {
     console.log(error);

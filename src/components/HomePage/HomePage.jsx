@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import moment from 'moment';
-import ReactFilestack from 'react-filestack';
-import States from '../StatesDropdown/StatesDropdown';
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import moment from "moment";
+import ReactFilestack from "react-filestack";
 
 function HomePage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
@@ -32,33 +31,31 @@ function HomePage() {
   const dispatch = useDispatch();
   const api_key = process.env.REACT_APP_FILESTACK_API_KEY;
 
-
   useEffect(() => {
     dispatch({ type: "FETCH_RECENT_EVENTS" });
     dispatch({ type: "FETCH_JOURNAL", payload: user.id });
   }, []);
 
   const basicOptions = {
-    accept: ['image/*'],
+    accept: ["image/*"],
     maxSize: 1024 * 1024,
     maxFiles: 1,
-  }
+  };
 
   const onSuccess = (result) => {
-    console.log('Result from filestack success: ', result);
+    console.log("Result from filestack success: ", result);
     setImg(result.filesUploaded[0].url);
-  }
+  };
 
   const onChildSuccess = (result) => {
-    console.log('Result from filestack success: ', result);
+    console.log("Result from filestack success: ", result);
     setChildImg(result.filesUploaded[0].url);
-  }
+  };
 
   const onError = (error) => {
-    alert('Error Uploading' + error)
-    console.error('error', error);
-  }
-
+    alert("Error Uploading" + error);
+    console.error("error", error);
+  };
 
   let eventsList;
   let journalsList;
@@ -80,9 +77,9 @@ function HomePage() {
   }
 
   if (journals[0]) {
-    journalsList = journals.map(entry =>
-        (<p key={entry.id}>{entry.content}</p>)
-      )
+    journalsList = journals.map((entry) => (
+      <p key={entry.id}>{entry.content}</p>
+    ));
   } else {
     journalsList = <h3>No Entries Yet</h3>;
   }
@@ -145,62 +142,89 @@ function HomePage() {
     });
   };
   return (
-    <div className="container">
-      <div className="col">
+    <div className="container" style={{ display: "flex", justifyContent: "space-between" }}>
+      <div>
+        <img
+          src={user.profile_pic}
+          style={{
+            height: 200,
+            width: 200,
+            objectFit: "cover",
+            borderRadius: "50%",
+            border: "solid gray 1px",
+          }}
+        />
+        <h3>
+          {user.first_name} {user.last_name}
+        </h3>
+        <h5>
+          {user.city && `${user.city}, `}
+          {user.state}
+        </h5>
+        <table>
+          <thead>
+            <tr>
+              <th>
+                <h3>Upcoming Events</h3>
+              </th>
+            </tr>
+          </thead>
+          <tbody>{eventsList}</tbody>
+        </table>
+      </div>
+      <div style={{width: '55rem'}}>
+        <div className="child-info-col">
+          <img src={user.second_photo} />
+        </div>
+        <div className="child-info-col">
+          <div className="child-info-row">
+            <h3>
+              Remembering <br />
+              {user.child_first_name} {user.child_last_name}
+            </h3>
+          </div>
+          <div className="child-info-row">
+            <h5>
+              {moment(user.birthday).format("MMMM Do YYYY")} -{" "}
+              {moment(user.memorial_day).format("MMMM Do YYYY")}
+            </h5>
+          </div>
+        </div>
+
+        <h2>Story</h2>
+        <p>{user.story}</p>
         <div className="row">
-          {
-          parentEditScreen 
-          ? (
-          <>
-            <div className="parent-info-container">
-              <div className="parent-info-col">
-                <p>Profile Picture</p>
-                    <ReactFilestack
-                      className="btn btn-outline-info"
-                      apikey={api_key}
-                      buttonText="Upload Image"
-                      options={basicOptions}
-                      onSuccess={onSuccess}
-                      onError={onError}
-                    />
-              </div>
-              <div className="parent-info-col">
-                <div className="parent-info-row">
-                  <p>First Name</p>
-                  <input
-                    type="text"
-                    placeholder="First Name"
-                    value={firstName}
-                    onChange={(e) => { setFirstName(e.target.value) }}
-                  />
-                  <p>Last Name</p>
-                  <input
-                    type="text"
-                    placeholder="Last Name"
-                    value={lastName}
-                    onChange={(e) => { setLastName(e.target.value) }}
-                  />
-                </div>
-                <div className="parent-info-row">
-                  <p>City</p>
-                  <input
-                    type="text"
-                    placeholder="City"
-                    value={city}
-                    onChange={(e) => { setCity(e.target.value) }}
-                  />
-                  <p>State</p>
-                  <States />
-                </div>
-                <div className="parent-info-row">
-                  <p>Email</p>
-                  <input
-                    type="text"
-                    placeholder="Image URL"
-                    value={img}
-                    onChange={(e) => {
-                      setImg(e.target.value);
-                    }}
+          <h2>Journal</h2>
+          <div className="journal-entries">
+            <form onSubmit={addJournal}>
+              <input
+                type="text"
+                placeholder="What's on your mind?"
+                value={entry}
+                onChange={(e) => {
+                  setEntry(e.target.value);
+                }}
+              />
+              <button type="submit">Submit</button>
+            </form>
+            {journalsList}
+          </div>
+        </div>
+      </div>
+      {/* <div className="col">
+        <div className="row">
+          {parentEditScreen ? (
+            <>
+              <div className="parent-info-container">
+                <div className="parent-info-col">
+                  <p>Profile Picture</p>
+                  <ReactFilestack
+                    className="btn btn-outline-info"
+                    apikey={api_key}
+                    buttonText="Upload Image"
+                    options={basicOptions}
+                    onSuccess={onSuccess}
+                    onError={onError}
                   />
                 </div>
                 <div className="parent-info-col">
@@ -235,130 +259,141 @@ function HomePage() {
                       }}
                     />
                     <p>State</p>
-                    <input
-                      type="text"
-                      placeholder="State"
-                      value={state}
-                      onChange={(e) => {
-                        setState(e.target.value);
-                      }}
-                    />
+                    <States />
                   </div>
                   <div className="parent-info-row">
                     <p>Email</p>
                     <input
                       type="text"
-                      placeholder="Email"
-                      value={email}
+                      placeholder="Image URL"
+                      value={img}
                       onChange={(e) => {
-                        setEmail(e.target.value);
+                        setImg(e.target.value);
                       }}
                     />
                   </div>
-                  <div className="parent-info-row">
-                    <p>Phone Number</p>
-                    <input
-                      type="text"
-                      placeholder="Phone Number"
-                      value={phone}
-                      onChange={(e) => {
-                        setPhone(e.target.value);
-                      }}
-                    />
+                  <div className="parent-info-col">
+                    <div className="parent-info-row">
+                      <p>First Name</p>
+                      <input
+                        type="text"
+                        placeholder="First Name"
+                        value={firstName}
+                        onChange={(e) => {
+                          setFirstName(e.target.value);
+                        }}
+                      />
+                      <p>Last Name</p>
+                      <input
+                        type="text"
+                        placeholder="Last Name"
+                        value={lastName}
+                        onChange={(e) => {
+                          setLastName(e.target.value);
+                        }}
+                      />
+                    </div>
+                    <div className="parent-info-row">
+                      <p>City</p>
+                      <input
+                        type="text"
+                        placeholder="City"
+                        value={city}
+                        onChange={(e) => {
+                          setCity(e.target.value);
+                        }}
+                      />
+                      <p>State</p>
+                      <input
+                        type="text"
+                        placeholder="State"
+                        value={state}
+                        onChange={(e) => {
+                          setState(e.target.value);
+                        }}
+                      />
+                    </div>
+                    <div className="parent-info-row">
+                      <p>Email</p>
+                      <input
+                        type="text"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => {
+                          setEmail(e.target.value);
+                        }}
+                      />
+                    </div>
+                    <div className="parent-info-row">
+                      <p>Phone Number</p>
+                      <input
+                        type="text"
+                        placeholder="Phone Number"
+                        value={phone}
+                        onChange={(e) => {
+                          setPhone(e.target.value);
+                        }}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-              <button onClick={saveParent}>Save</button>
+                <button onClick={saveParent}>Save</button>
               </div>
             </>
           ) : (
             <>
-              <div className="parent-info-container">
-                <div className="parent-info-col">
-                  <img src={user.profile_pic} />
-                </div>
-                <div className="parent-info-col">
-                  <div className="parent-info-row">
-                    <h3>
-                      {user.first_name} {user.last_name}
-                    </h3>
-                  </div>
-                  <div className="parent-info-row">
-                    <h5>{user.state}</h5>
-                  </div>
-                  <div className="parent-info-row">
-                    <h5>{user.email}</h5>
-                  </div>
-                  <div className="parent-info-row">
-                    <h5>{user.phone}</h5>
-                  </div>
-                </div>
-              </div>
+
               <button onClick={editParent}>Edit Profile Info</button>
             </>
           )}
-        </div>
-        <div className="row">
-          <table>
-            <thead>
-              <tr>
-                <th>
-                  <h3>Upcoming Events</h3>
-                </th>
-              </tr>
-            </thead>
-            <tbody>{eventsList}</tbody>
-          </table>
         </div>
       </div>
       <div className="col">
         <div className="row">
           <div className="child-info-container">
-            {
-            childEditScreen
-            ? (
-            <>
-              <div className="child-info-col">
-                    <p>Child's Picture</p>
-                    <ReactFilestack
-                      className="btn btn-outline-info"
-                      apikey={api_key}
-                      buttonText="Upload Image"
-                      options={basicOptions}
-                      onSuccess={onChildSuccess}
-                      onError={onError}
-                    />
-                    <p>Child's Last Name</p>
-                    <input
-                      type="text"
-                      placeholder="Child's Last Name"
-                      value={childLastName}
-                      onChange={(e) => {
-                        setChildLastName(e.target.value);
-                      }}
-                    />
-                  </div>
-                  <div className="child-info-row">
-                    <p>Child's Birthdate</p>
-                    <input
-                      type="date"
-                      placeholder="Child's Birthdate"
-                      value={bday}
-                      onChange={(e) => {
-                        setBday(e.target.value);
-                      }}
-                    />
-                    <p>Child's Memorial Date</p>
-                    <input
-                      type="date"
-                      placeholder="Child's Memorial Day"
-                      value={memDay}
-                      onChange={(e) => {
-                        setMemDay(e.target.value);
-                      }}
-                    />
-                  </div>
-               
+            {childEditScreen ? (
+              <>
+                <div className="child-info-col">
+                  <p>Child's Picture</p>
+                  <ReactFilestack
+                    className="btn btn-outline-info"
+                    apikey={api_key}
+                    buttonText="Upload Image"
+                    options={basicOptions}
+                    onSuccess={onChildSuccess}
+                    onError={onError}
+                  />
+                  <p>Child's Last Name</p>
+                  <input
+                    type="text"
+                    placeholder="Child's Last Name"
+                    value={childLastName}
+                    onChange={(e) => {
+                      setChildLastName(e.target.value);
+                    }}
+                  />
+                </div>
+                <div className="child-info-row">
+                  <p>Child's Birthdate</p>
+                  <input
+                    type="date"
+                    placeholder="Child's Birthdate"
+                    value={bday}
+                    onChange={(e) => {
+                      setBday(e.target.value);
+                    }}
+                  />
+                  <p>Child's Memorial Date</p>
+                  <input
+                    type="date"
+                    placeholder="Child's Memorial Day"
+                    value={memDay}
+                    onChange={(e) => {
+                      setMemDay(e.target.value);
+                    }}
+                  />
+                </div>
+
                 <div className="child-story">
                   <p>Story</p>
                   <input
@@ -384,50 +419,13 @@ function HomePage() {
               </>
             ) : (
               <>
-                <div className="child-info-col">
-                  <img src={user.second_photo} />
-                </div>
-                <div className="child-info-col">
-                  <div className="child-info-row">
-                    <h3>
-                      Remembering <br />
-                      {user.child_first_name} {user.child_last_name}
-                    </h3>
-                  </div>
-                  <div className="child-info-row">
-                    <h5>
-                      {moment(user.birthday).format("MMMM Do YYYY")} -{" "}
-                      {moment(user.memorial_day).format("MMMM Do YYYY")}
-                    </h5>
-                  </div>
-                </div>
-                <div className="child-story">
-                  <h2>Story</h2>
-                  <p>{user.story}</p>
                   <button onClick={editChild}>Edit Child Info</button>
-                </div>
+
               </>
             )}
           </div>
         </div>
-        <div className="row">
-          <h2>Journal</h2>
-          <div className="journal-entries">
-            <form onSubmit={addJournal}>
-              <input
-                type="text"
-                placeholder="What's on your mind?"
-                value={entry}
-                onChange={(e) => {
-                  setEntry(e.target.value);
-                }}
-              />
-              <button type="submit">Submit</button>
-            </form>
-            {journalsList}
-          </div>
-        </div>
-      </div>
+      </div> */}
     </div>
   );
 }

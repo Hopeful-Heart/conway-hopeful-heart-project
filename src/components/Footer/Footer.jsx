@@ -1,5 +1,3 @@
-import { useRouteMatch } from "react-router-dom";
-
 import "./Footer.css";
 
 import FacebookIcon from "@material-ui/icons/Facebook";
@@ -11,8 +9,6 @@ import InstagramIcon from "@material-ui/icons/Instagram";
 // or even care what the redux state is, so it doesn't need 'connect()'
 
 function Footer() {
-  const routeMatch = useRouteMatch("/landing");
-
   return (
     <footer>
       <div id="hopeful-heart-footer-info">
@@ -33,42 +29,6 @@ function Footer() {
             <InstagramIcon />
           </a>
         </div>
-      </div>
-      <div id='eda-footer-info'>
-        <p style={{ margin: 0 }}>
-          Powered By{" "}
-          <a href="https://www.emergingacademy.org/">
-            Emerging Digital Academy
-          </a>
-        </p>
-        {routeMatch && (
-          <div id="linkedin-footer-links-wrapper">
-            <a
-              href="https://www.linkedin.com/in/bryce-barsness-b70068207/"
-              target="_blank"
-            >
-              linkedin.com/in/bryce-barsness-b70068207
-            </a>
-            <a
-              href="https://www.linkedin.com/in/masonleonhart/"
-              target="_blank"
-            >
-              linkedin.com/in/masonleonhart
-            </a>
-            <a
-              href="https://www.linkedin.com/in/quinnjohnsonfargo/"
-              target="_blank"
-            >
-              linkedin.com/in/quinnjohnsonfargo
-            </a>
-            <a
-              href="https://www.linkedin.com/in/treolsonfargo/"
-              target="_blank"
-            >
-              linkedin.com/in/treolsonfargo
-            </a>
-          </div>
-        )}
       </div>
     </footer>
   );

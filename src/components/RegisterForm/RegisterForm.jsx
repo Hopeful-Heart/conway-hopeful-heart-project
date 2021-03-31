@@ -26,7 +26,8 @@ function RegisterForm() {
     phone: "",
     city: "",
     state: "",
-    pic: 'https://st3.depositphotos.com/4111759/13425/v/600/depositphotos_134255626-stock-illustration-avatar-male-profile-gray-person.jpg',
+    pic:
+      "https://st3.depositphotos.com/4111759/13425/v/600/depositphotos_134255626-stock-illustration-avatar-male-profile-gray-person.jpg",
   });
 
   const basicOptions = {
@@ -128,17 +129,14 @@ function RegisterForm() {
             />
             <br />
             <br />
-            <Button
-              variant="contained"
-              color="primary"
-              component={ReactFilestack}
+            <ReactFilestack
               apikey={api_key}
               pickerOptions={basicOptions}
               onSuccess={onSuccess}
               onError={onError}
-            >
-              Upload a Profile Picture (Optional)
-            </Button>
+              buttonText="UPLOAD A PROFILE PICTURE (OPTIONAL)"
+              buttonClass="filestack-button"
+            />
           </div>
           <br />
           <div>

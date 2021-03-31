@@ -58,14 +58,6 @@ function PendingPages() {
           </Button>
         </ButtonGroup>
       </Paper>
-      <br />
-      <button
-        onClick={() =>
-          dispatch({ type: "UPDATE_AUTHORIZED_USER", payload: true })
-        }
-      >
-        Authorize Account
-      </button>
     </div>
   );
 }

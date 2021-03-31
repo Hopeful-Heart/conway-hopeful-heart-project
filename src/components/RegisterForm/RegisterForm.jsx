@@ -26,7 +26,8 @@ function RegisterForm() {
     phone: "",
     city: "",
     state: "",
-    pic: 'https://st3.depositphotos.com/4111759/13425/v/600/depositphotos_134255626-stock-illustration-avatar-male-profile-gray-person.jpg',
+    pic:
+      "https://st3.depositphotos.com/4111759/13425/v/600/depositphotos_134255626-stock-illustration-avatar-male-profile-gray-person.jpg",
   });
 
   const basicOptions = {
@@ -128,17 +129,14 @@ function RegisterForm() {
             />
             <br />
             <br />
-            <Button
-              variant="contained"
-              color="primary"
-              component={ReactFilestack}
+            <ReactFilestack
               apikey={api_key}
               pickerOptions={basicOptions}
               onSuccess={onSuccess}
               onError={onError}
-            >
-              Upload a Profile Picture (Optional)
-            </Button>
+              buttonText="UPLOAD A PROFILE PICTURE (OPTIONAL)"
+              buttonClass="filestack-button"
+            />
           </div>
           <br />
           <div>
@@ -164,6 +162,20 @@ function RegisterForm() {
               required
               onChange={(event) =>
                 setNewUser({ ...newUser, lastName: event.target.value })
+              }
+            />
+            <br />
+            <br />
+            <TextField
+              type="text"
+              variant="outlined"
+              label="Phone Number"
+              size="small"
+              helperText="E.g. 701-555-5555"
+              value={newUser.phone}
+              required
+              onChange={(event) =>
+                setNewUser({ ...newUser, phone: event.target.value })
               }
             />
             <br />
@@ -203,20 +215,6 @@ function RegisterForm() {
                 ))}
               </Select>
             </FormControl>
-            <br />
-            <br />
-            <TextField
-              type="text"
-              variant="outlined"
-              label="Phone Number"
-              size="small"
-              helperText="E.g. 701-555-5555"
-              value={newUser.phone}
-              required
-              onChange={(event) =>
-                setNewUser({ ...newUser, phone: event.target.value })
-              }
-            />
           </div>
         </div>
         <br />

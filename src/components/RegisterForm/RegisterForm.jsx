@@ -169,6 +169,20 @@ function RegisterForm() {
             <TextField
               type="text"
               variant="outlined"
+              label="Phone Number"
+              size="small"
+              helperText="E.g. 701-555-5555"
+              value={newUser.phone}
+              required
+              onChange={(event) =>
+                setNewUser({ ...newUser, phone: event.target.value })
+              }
+            />
+            <br />
+            <br />
+            <TextField
+              type="text"
+              variant="outlined"
               label="City (Optional)"
               size="small"
               value={newUser.city}
@@ -201,20 +215,6 @@ function RegisterForm() {
                 ))}
               </Select>
             </FormControl>
-            <br />
-            <br />
-            <TextField
-              type="text"
-              variant="outlined"
-              label="Phone Number"
-              size="small"
-              helperText="E.g. 701-555-5555"
-              value={newUser.phone}
-              required
-              onChange={(event) =>
-                setNewUser({ ...newUser, phone: event.target.value })
-              }
-            />
           </div>
         </div>
         <br />

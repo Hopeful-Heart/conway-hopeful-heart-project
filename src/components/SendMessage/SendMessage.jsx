@@ -53,7 +53,7 @@ function SendMessage(props) {
   };
 
   useEffect(() => {
-    dispatch({ type: "FETCH_USER_SEARCH_LIST" });
+    dispatch({ type: "FETCH_USER_SEARCH_LIST", payload: {state: "All States"} });
   }, []);
 
   let allTokens = [];

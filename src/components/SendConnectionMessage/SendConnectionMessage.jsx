@@ -58,7 +58,7 @@ function SendConnectionMessage(props) {
   };
 
   useEffect(() => {
-    dispatch({ type: "FETCH_USER_SEARCH_LIST" });
+    dispatch({ type: "FETCH_USER_SEARCH_LIST", payload: {state: "All States"} });
   }, []);
 
   return (

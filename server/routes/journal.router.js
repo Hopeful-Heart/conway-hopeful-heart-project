@@ -30,7 +30,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
   const queryText = `INSERT INTO "journal" ("user_id", "date", "content", "public")
     VALUES ($1, NOW(), $2, FALSE)`;
   pool
-    .query(queryText, [journal.id, journal.content])
+    .query(queryText, [req.user.id, journal.entry])
     .then((result) => res.send(result.rows))
     .catch((err) => {
       console.log(`error in Journal Post with`, err);

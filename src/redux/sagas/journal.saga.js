@@ -15,7 +15,7 @@ function* addJournalSaga(action) {
     const response = yield axios.post("/api/journal", {
       journal: action.payload,
     });
-    yield put({ type: "FETCH_JOURNAL", payload: action.payload.id });
+    yield put({ type: "FETCH_JOURNAL", payload: action.payload.user_id });
   } catch (error) {
     console.log("error adding event", error);
   }

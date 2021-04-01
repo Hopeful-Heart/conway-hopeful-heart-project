@@ -17,18 +17,21 @@ import {
   Radio,
   FormControlLabel,
   Button,
+  IconButton,
+  Tooltip,
 } from "@material-ui/core";
 
 import "./HomePage.css";
 
 import EditUserInfo from "./EditUserInfo";
 import MemorialForm from "./MemorialForm";
+import AddJournal from "./AddJournal";
+
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 
 function HomePage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
-  const [entry, setEntry] = useState("");
-
   const events = useSelector((store) => store.events.recentEventsListReducer);
   const journals = useSelector((store) => store.journal.journalListReducer);
 
@@ -36,6 +39,7 @@ function HomePage() {
   const [parentEditScreen, setParentEditScreen] = useState(false);
   const [memorialFormToggle, setMemorialFormToggle] = useState(false);
   const [editMemorialToggle, setEditMemorialToggle] = useState(false);
+  const [addJournalToggle, setAddJournalToggle] = useState(false);
 
   const [anchorElement, setAnchorElement] = useState(null);
   const [popoverEvent, setPopoverEvent] = useState({});
@@ -48,20 +52,6 @@ function HomePage() {
     dispatch({ type: "FETCH_RECENT_EVENTS" });
     dispatch({ type: "FETCH_JOURNAL", payload: user.id });
   }, []);
-
-  const addJournal = (event) => {
-    event.preventDefault();
-
-    dispatch({
-      type: "ADD_JOURNAL",
-      payload: {
-        content: entry,
-        id: user.id,
-      },
-    });
-
-    setEntry("");
-  };
 
   const useStyles = makeStyles({
     homeContentPaper: {
@@ -99,7 +89,7 @@ function HomePage() {
               horizontal: "center",
             }}
           >
-            <div id="popover-content">
+            <div className="popover-content">
               <h3>{popoverEvent.name}</h3>
               <p>Date: {moment(popoverEvent.date).format("MM-DD-YYYY")}</p>
               <p>Location: {popoverEvent.location}</p>
@@ -175,7 +165,7 @@ function HomePage() {
             </div>
           </div>
           <Paper className={classes.homeContentPaper}>
-            {user.memorial ? (
+            {user.memorial && (
               <div>
                 <div
                   style={{
@@ -222,31 +212,43 @@ function HomePage() {
                 <h2>My Story</h2>
                 <p>{user.story}</p>
               </div>
-            ) : (
-              <Button
-                color="primary"
-                variant="contained"
-                onClick={() => {
-                  setHomeDefaultView(false);
-                  setMemorialFormToggle(true);
-                }}
-              >
-                Add a Memorial
-              </Button>
             )}
             <div>
-              <h2>Journal</h2>
-              <form onSubmit={addJournal}>
-                <input
-                  type="text"
-                  placeholder="What's on your mind?"
-                  value={entry}
-                  onChange={(e) => {
-                    setEntry(e.target.value);
-                  }}
-                />
-                <button type="submit">Submit</button>
-              </form>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginBottom: "1rem",
+                }}
+              >
+                <h2 id="home-journal">
+                  Journal
+                  <Tooltip title="Add Journal Entry">
+                    <IconButton
+                      color="primary"
+                      onClick={() => {
+                        setHomeDefaultView(false);
+                        setAddJournalToggle(true);
+                      }}
+                    >
+                      <AddCircleOutlineIcon />
+                    </IconButton>
+                  </Tooltip>
+                </h2>
+                {!user.memorial && (
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    onClick={() => {
+                      setHomeDefaultView(false);
+                      setAddJournalToggle(true);
+                    }}
+                  >
+                    Add a Memorial
+                  </Button>
+                )}
+              </div>
               {journals.length > 0 ? (
                 <TableContainer>
                   <Table>
@@ -320,6 +322,12 @@ function HomePage() {
           setHomeDefaultView={setHomeDefaultView}
           editMemorialToggle={editMemorialToggle}
           setEditMemorialToggle={setEditMemorialToggle}
+        />
+      )}
+      {addJournalToggle && (
+        <AddJournal
+          setAddJournalToggle={setAddJournalToggle}
+          setHomeDefaultView={setHomeDefaultView}
         />
       )}
     </>

@@ -48,3 +48,7 @@ footer {
   padding: .75rem;
   cursor: pointer;
 }
+
+.popover-content {
+  margin: 1rem
+}

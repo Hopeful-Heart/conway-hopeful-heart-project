@@ -86,7 +86,7 @@ function EditUserInfo({ setParentEditScreen, setHomeDefaultView }) {
         >
           <h2 style={{ fontSize: "2rem", marginTop: 0 }}>Edit User Info</h2>
           <div>
-            <div style={{ marginRight: "1rem" }}>
+            <div>
               <h2>Account Info</h2>
               <img
                 src={editUserInfo.pic}

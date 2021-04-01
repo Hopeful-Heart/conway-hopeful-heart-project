@@ -2,9 +2,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import Notifications from "../Notifications/Notifications";
 import connectionsReducer from "../../redux/reducers/connections.reducer";
-function SendMessage(props) {
-  const user = useSelector((store) => store.user);
+function SendConnectionMessage(props) {
+  //   const user = useSelector((store) => store.user);
   const userSearchList = useSelector((store) => store.userSearch);
+  const connection = props.connection;
+  const user = props.user;
   const [message, setMessage] = useState([]);
   const [title, setTitle] = useState([]);
   const [token, setToken] = useState([]);
@@ -12,27 +14,30 @@ function SendMessage(props) {
   const dispatch = useDispatch();
   const [newMessageToggle, setNewMessageToggle] = useState(false);
   const [newMessage, setNewMessage] = useState({
-    title: "",
+    title: `From : ${user.first_name}, ${user.last_name}`,
     body: "",
-    token: user.client_token,
+    token: connection.client_token,
+    user_id: connection.id,
   });
 
   const handleNewMessageReset = () => {
     setNewMessage({
-      title: "",
+      title: `From : ${user.first_name}, ${user.last_name}`,
       body: "",
-      token: user.client_token,
+      token: connection.client_token,
+      user_id: connection.id,
     });
     setNewMessageToggle(false);
   };
 
   const handleNewMessageSubmit = (e) => {
     e.preventDefault();
-    dispatch({ type: "ADD_MESSAGE", payload: newMessage });
+    dispatch({ type: "SEND_PERSONAL_MESSAGES", payload: newMessage });
     setNewMessage({
-      title: "",
+      title: `From : ${user.first_name}, ${user.last_name}`,
       body: "",
-      token: user.client_token,
+      token: connection.client_token,
+      user_id: connection.id,
     });
     setNewMessageToggle(false);
   };
@@ -42,11 +47,11 @@ function SendMessage(props) {
     setNewMessage({
       token: allTokens,
     });
-    dispatch({ type: "SEND_MESSAGE_ALL", payload: newMessage });
+    dispatch({ type: "SEND_PERSONAL_MESSAGES", payload: newMessage });
     setNewMessage({
-      title: "",
+      title: `From : ${user.first_name}, ${user.last_name}`,
       body: "",
-      token: user.client_token,
+      token: connection.client_token,
     });
     setSendAll(false);
     setNewMessageToggle(false);
@@ -56,17 +61,10 @@ function SendMessage(props) {
     dispatch({ type: "FETCH_USER_SEARCH_LIST" });
   }, []);
 
-  let allTokens = [];
-  for (let user in userSearchList) {
-    if (user.client_token) {
-      allTokens.push(user.client_token);
-    }
-  }
-
   return (
     <form
       onReset={handleNewMessageReset}
-      onSubmit={sendAll ? handleSendAllSubmit : handleNewMessageSubmit}
+      onSubmit={handleNewMessageSubmit}
       style={{ textAlign: "center" }}
     >
       <button
@@ -77,22 +75,10 @@ function SendMessage(props) {
             : setNewMessageToggle(true)
         }
       >
-        Post Announcement
+        Send Message
       </button>
       {newMessageToggle && (
         <div>
-          <br />
-          <label htmlFor="add-message-title">Title: </label>
-          <input
-            required
-            type="text"
-            id="add-message-title"
-            value={newMessage.title}
-            onChange={(e) =>
-              setNewMessage({ ...newMessage, title: e.target.value })
-            }
-          />
-          <br />
           <label htmlFor="add-message-body">Message: </label>
           <textarea
             required
@@ -103,16 +89,12 @@ function SendMessage(props) {
             }
           />
           <br />
-
           <button type="reset">Cancel</button>
-          {/* <button type="submit">Send</button> */}
-          <button onClick={() => setSendAll(true)} type="submit">
-            Send Announcement
-          </button>
+          <button type="submit">Send</button>
         </div>
       )}
     </form>
   );
 }
 
-export default SendMessage;
+export default SendConnectionMessage;

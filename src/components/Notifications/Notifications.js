@@ -10,6 +10,7 @@ function Notifications() {
   const [notification, setNotification] = useState({ title: "", body: "" });
   const [isTokenFound, setTokenFound] = useState(false);
   const [token, setToken] = useState("");
+  const [notificationToggle, setNotificationToggle] = useState(false);
 
   useEffect(() => {
     getToken(setTokenFound, setToken);
@@ -31,6 +32,7 @@ function Notifications() {
 
   function addClientToken(event, props) {
     event.preventDefault();
+    setNotificationToggle(false);
     dispatch({
       type: "FETCH_TOKEN",
       payload: {
@@ -50,8 +52,8 @@ function Notifications() {
         animation
         style={{
           position: "absolute",
-          top: 20,
-          right: 20,
+          top: 120,
+          right: 60,
         }}
       >
         <Toast.Header>
@@ -60,15 +62,32 @@ function Notifications() {
         </Toast.Header>
         <Toast.Body>{notification.body}</Toast.Body>
       </Toast>
-      {/* <header>
-        {isTokenFound && <h1> Notification permission enabled 👍🏻 </h1>}
-        {!isTokenFound && <h1> Need notification permission ❗️ </h1>}
-        <Button onClick={() => setShow(true)}>Show Toast</Button>
-      </header> */}
-
-      <button onClick={addClientToken}>
-        Click here to receive notifications
-      </button>
+      <form style={{ textAlign: "center" }}>
+        <button
+          type="button"
+          onClick={() =>
+            notificationToggle
+              ? setNotificationToggle(false)
+              : setNotificationToggle(true)
+          }
+        >
+          Subscribe to Push Notifications
+        </button>
+        {notificationToggle && (
+          <div>
+            <p>
+              To recieve announcements and be notified of new messageses, enable
+              push notifications on your main device
+            </p>
+            <button onClick={addClientToken}>
+              Click here to receive notifications
+            </button>
+            {/* <button onClick={() => setNotificationToggle(false)}>
+              Disable Notifications
+            </button> */}
+          </div>
+        )}
+      </form>
     </div>
   );
 }

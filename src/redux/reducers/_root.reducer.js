@@ -7,6 +7,7 @@ import admin from "./admin.reducer";
 import message from "./message.reducer";
 import userSearch from "./userSearch.reducer";
 import connection from "./connections.reducer";
+import personal from "./personal.reducer";
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   message,
   userSearch,
   connection,
+  personal,
 });
 
 export default rootReducer;

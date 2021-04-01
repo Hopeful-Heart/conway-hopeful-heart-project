@@ -73,10 +73,10 @@ function App() {
             <br />
             <br />
             <div id="content">
-              <Fragment>
+              {/* <Fragment>
                 <ToastContainer autoClose={2000} position="top-center" />
               </Fragment>
-              <Notifications />
+              <Notifications /> */}
               <Switch>
                 {/* Visiting localhost:3000 will redirect to localhost:3000/landing */}
                 <Redirect exact from="/" to="/landing" />

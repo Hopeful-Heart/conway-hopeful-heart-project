@@ -67,8 +67,9 @@ router.post("/urgent", (req, res) => {
 });
 
 router.post("/all", (req, res) => {
+  let tokens = [];
   const message = req.body;
-  const tokens = message.tokens;
+  tokens.push(message.token);
   const title = message.title;
   const body = message.body;
   const dataTitle = "urgent.dataTitle";
@@ -85,7 +86,9 @@ router.post("/all", (req, res) => {
       Urgency: "high",
     },
   };
-  messaging
+  console.log(notification, data, tokens, webpush);
+  admin
+    .messaging()
     .sendMulticast({ notification, data, tokens, webpush })
     .then((response) => {
       // Response is an object of the form { responses: [] }
@@ -97,9 +100,39 @@ router.post("/all", (req, res) => {
         "Notifications sent:",
         `${successes} successful, ${failures} failed`
       );
+      res.send(response);
     })
     .catch((error) => {
       console.log("Error sending notification:", error);
+    });
+});
+
+router.post("/urgent", (req, res) => {
+  const urgent = req.body;
+  const token = urgent.token;
+  const title = urgent.title;
+  const body = urgent.body;
+  const dataTitle = "urgent.dataTitle";
+  notification = {
+    title: title,
+    body: body,
+  };
+  data = {
+    dataTitle: dataTitle,
+    contents: "http://www.news-magazine.com/world-week/21659772",
+  };
+  webpush = {
+    headers: {
+      Urgency: "high",
+    },
+  };
+  admin
+    .messaging()
+    .send({ notification, data, token, webpush })
+    .then((result) => res.send(result))
+    .catch((err) => {
+      console.log(`Error sending message:`, err);
+      res.sendStatus(500);
     });
 });
 

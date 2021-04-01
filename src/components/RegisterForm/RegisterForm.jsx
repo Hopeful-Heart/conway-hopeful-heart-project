@@ -89,7 +89,7 @@ function RegisterForm() {
           </h3>
         )}
         <div>
-          <div style={{ marginRight: "1rem" }}>
+          <div>
             <h2>Account Info</h2>
             <TextField
               type="email"

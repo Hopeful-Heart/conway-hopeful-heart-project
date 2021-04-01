@@ -12,6 +12,7 @@ CREATE TABLE "user" (
     "phone" VARCHAR (100) NOT NULL,
     "state" VARCHAR (100) NOT NULL,    
     "city" VARCHAR (100) DEFAULT NULL,
+    "memorial" BOOLEAN DEFAULT FALSE,
     "child_first_name" VARCHAR (100) DEFAULT NULL,
     "child_last_name" VARCHAR (100) DEFAULT NULL,
     "special_sentiment" VARCHAR (700) DEFAULT NULL,

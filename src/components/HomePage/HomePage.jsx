@@ -21,7 +21,8 @@ import {
 
 import "./HomePage.css";
 
-import EditUserInfo from "./EditUserInfo/EditUserInfo";
+import EditUserInfo from "./EditUserInfo";
+import MemorialForm from "./MemorialForm";
 
 function HomePage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
@@ -43,7 +44,8 @@ function HomePage() {
 
   const [homeDefaultView, setHomeDefaultView] = useState(true);
   const [parentEditScreen, setParentEditScreen] = useState(false);
-  const [childEditScreen, setchildEditScreen] = useState(false);
+  const [memorialFormToggle, setMemorialFormToggle] = useState(false);
+  const [editMemorialToggle, setEditMemorialToggle] = useState(false);
 
   const [anchorElement, setAnchorElement] = useState(null);
   const [popoverEvent, setPopoverEvent] = useState({});
@@ -56,11 +58,6 @@ function HomePage() {
     dispatch({ type: "FETCH_RECENT_EVENTS" });
     dispatch({ type: "FETCH_JOURNAL", payload: user.id });
   }, []);
-
-  const onChildSuccess = (result) => {
-    console.log("Result from filestack success: ", result);
-    setChildImg(result.filesUploaded[0].url);
-  };
 
   const addJournal = (event) => {
     event.preventDefault();
@@ -80,30 +77,12 @@ function HomePage() {
     setchildEditScreen(true);
   };
 
-  const saveChild = () => {
-    setchildEditScreen(false);
-
-    dispatch({
-      type: "UPDATE_CHILD_INFO",
-      payload: {
-        firstName: childFirstName,
-        lastName: childLastName,
-        img: childImg,
-        birthday: bday,
-        memorial_day: memDay,
-        story: story,
-        id: user.id,
-        sentiment: sentiment,
-      },
-    });
-  };
-
   const useStyles = makeStyles({
     homeContentPaper: {
       margin: "auto",
       marginTop: "1rem",
       marginBottom: "1rem",
-      minWidth: "30rem",
+      minWidth: "50rem",
       maxWidth: "60rem",
       padding: "2rem",
     },
@@ -210,9 +189,29 @@ function HomePage() {
             </div>
           </div>
           <Paper className={classes.homeContentPaper}>
-            {user.child_first_name ? (
+            {user.memorial ? (
               <div>
-                <h1 id="home-remembering">Remembering</h1>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginBottom: "1rem",
+                  }}
+                >
+                  <h1 id="home-remembering">Remembering</h1>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    onClick={() => {
+                      setHomeDefaultView(false);
+                      setMemorialFormToggle(true);
+                      setEditMemorialToggle(true);
+                    }}
+                  >
+                    Edit Memorial
+                  </Button>
+                </div>
                 <div style={{ display: "flex" }}>
                   <img
                     src={user.second_photo}
@@ -238,7 +237,14 @@ function HomePage() {
                 <p>{user.story}</p>
               </div>
             ) : (
-              <Button color="primary" variant="contained">
+              <Button
+                color="primary"
+                variant="contained"
+                onClick={() => {
+                  setHomeDefaultView(false);
+                  setMemorialFormToggle(true);
+                }}
+              >
                 Add a Memorial
               </Button>
             )}
@@ -320,6 +326,14 @@ function HomePage() {
         <EditUserInfo
           setParentEditScreen={setParentEditScreen}
           setHomeDefaultView={setHomeDefaultView}
+        />
+      )}
+      {memorialFormToggle && (
+        <MemorialForm
+          setMemorialFormToggle={setMemorialFormToggle}
+          setHomeDefaultView={setHomeDefaultView}
+          editMemorialToggle={editMemorialToggle}
+          setEditMemorialToggle={setEditMemorialToggle}
         />
       )}
       {/*

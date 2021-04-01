@@ -100,18 +100,17 @@ router.put("/childinfo", rejectUnauthenticated, (req, res) => {
   // Updates the child info columns of user table
   let user = req.body.user;
 
-  const sqlQuery = `UPDATE "user" SET "birthday" = $1, "child_first_name" = $2, "child_last_name" = $3, "second_photo" = $4, "special_sentiment" = $5, "memorial_day" = $6, "story" = $7 WHERE "id" = $8;`;
+  const sqlQuery = `UPDATE "user" SET "birthday" = $1, "child_first_name" = $2, "child_last_name" = $3, "second_photo" = $4, "memorial_day" = $5, "story" = $6, "memorial" = 'TRUE' WHERE "id" = $7;`;
 
   pool
     .query(sqlQuery, [
       user.birthday,
       user.firstName,
       user.lastName,
-      user.img,
-      user.sentiment,
-      user.memorial_day,
+      user.pic,
+      user.memorialDay,
       user.story,
-      user.id,
+      req.user.id,
     ])
     .then(() => {
       console.log("Updated authorized user successfully");

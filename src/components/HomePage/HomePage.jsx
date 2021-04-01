@@ -29,16 +29,6 @@ function HomePage() {
   const user = useSelector((store) => store.user);
   const [entry, setEntry] = useState("");
 
-  const [childImg, setChildImg] = useState(`${user.second_photo}`);
-  const [childFirstName, setChildFirstName] = useState(
-    `${user.child_first_name}`
-  );
-  const [childLastName, setChildLastName] = useState(`${user.child_last_name}`);
-  const [bday, setBday] = useState(`${user.birthday}`);
-  const [story, setStory] = useState(`${user.story}`);
-  const [sentiment, setSentiment] = useState(`${user.special_sentiment}`);
-  const [memDay, setMemDay] = useState(`${user.memorial_day}`);
-
   const events = useSelector((store) => store.events.recentEventsListReducer);
   const journals = useSelector((store) => store.journal.journalListReducer);
 
@@ -71,10 +61,6 @@ function HomePage() {
     });
 
     setEntry("");
-  };
-
-  const editChild = () => {
-    setchildEditScreen(true);
   };
 
   const useStyles = makeStyles({
@@ -336,85 +322,6 @@ function HomePage() {
           setEditMemorialToggle={setEditMemorialToggle}
         />
       )}
-      {/*
-      <div className="col">
-        <div className="row">
-          <div className="child-info-container">
-            {childEditScreen ? (
-              <>
-                <div className="child-info-col">
-                  <p>Child's Picture</p>
-                  <ReactFilestack
-                    className="btn btn-outline-info"
-                    apikey={api_key}
-                    buttonText="Upload Image"
-                    options={basicOptions}
-                    onSuccess={onChildSuccess}
-                    onError={onError}
-                  />
-                  <p>Child's Last Name</p>
-                  <input
-                    type="text"
-                    placeholder="Child's Last Name"
-                    value={childLastName}
-                    onChange={(e) => {
-                      setChildLastName(e.target.value);
-                    }}
-                  />
-                </div>
-                <div className="child-info-row">
-                  <p>Child's Birthdate</p>
-                  <input
-                    type="date"
-                    placeholder="Child's Birthdate"
-                    value={bday}
-                    onChange={(e) => {
-                      setBday(e.target.value);
-                    }}
-                  />
-                  <p>Child's Memorial Date</p>
-                  <input
-                    type="date"
-                    placeholder="Child's Memorial Day"
-                    value={memDay}
-                    onChange={(e) => {
-                      setMemDay(e.target.value);
-                    }}
-                  />
-                </div>
-
-                <div className="child-story">
-                  <p>Story</p>
-                  <input
-                    type="text"
-                    placeholder="Story"
-                    value={story}
-                    onChange={(e) => {
-                      setStory(e.target.value);
-                    }}
-                  />
-                  <p>Child's Special Setiment</p>
-                  <input
-                    type="text"
-                    placeholder="Special Sentiment"
-                    value={sentiment}
-                    onChange={(e) => {
-                      setSentiment(e.target.value);
-                    }}
-                  />
-                  <br />
-                  <button onClick={saveChild}>Save</button>
-                </div>
-              </>
-            ) : (
-              <>
-                  <button onClick={editChild}>Edit Child Info</button>
-
-              </>
-            )}
-          </div>
-        </div>
-      </div> */}
     </>
   );
 }

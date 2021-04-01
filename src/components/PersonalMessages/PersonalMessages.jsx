@@ -2,24 +2,36 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 
-function Messaging() {
+function PersonalMessages() {
   const [message, setMessage] = useState([]);
   const [title, setTitle] = useState([]);
   const [token, setToken] = useState([]);
   const user = useSelector((store) => store.user);
-  const messages = useSelector((store) => store.message.messageReducer);
+  const messages = useSelector(
+    (store) => store.personal.personalMessagesReducer
+  );
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({ type: "FETCH_MESSAGES" });
+    console.log(user.id);
+    dispatch({ type: "FETCH_PERSONAL_MESSAGES", payload: user.id });
   }, []);
 
   const deleteMessage = (message) => {
-    dispatch({ type: "DELETE_MESSAGE", payload: message });
+    dispatch({ type: "DELETE_PERSONAL_MESSAGES", payload: message });
   };
 
   let messageList;
+
+  //   {/* <td>
+  //       {/* <button
+  //         onClick={() => deleteMessage(message)}
+  //         style={{ margin: 2.5 }}
+  //       >
+  //         remove
+  //       </button> */}
+  //     </td> */}
 
   if (messages[0]) {
     messageList = messages.map((message) => (
@@ -30,20 +42,12 @@ function Messaging() {
       >
         <td>{message.title}</td>
         <td>{message.body}</td>
-        <td>
-          {/* <button
-            onClick={() => deleteMessage(message)}
-            style={{ margin: 2.5 }}
-          >
-            remove
-          </button> */}
-        </td>
       </tr>
     ));
   } else {
     messageList = (
       <tr>
-        <td>No Anouncements</td>
+        <td>No MESSAGES</td>
       </tr>
     );
   }
@@ -55,7 +59,7 @@ function Messaging() {
         <thead>
           <tr>
             <th>
-              <h3>Anouncements</h3>
+              <h3>Messages</h3>
             </th>
           </tr>
         </thead>
@@ -64,4 +68,4 @@ function Messaging() {
     </div>
   );
 }
-export default Messaging;
+export default PersonalMessages;

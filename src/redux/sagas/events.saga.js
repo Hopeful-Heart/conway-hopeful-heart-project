@@ -30,59 +30,68 @@ function* addEventsSaga(action) {
 
 function* fetchPendingEventsAdmin(action) {
   try {
-    const response = yield axios.get(`/api/admin/events/pending`)
-    yield put({ type: 'SET_PENDING_EVENTS_ADMIN', payload: response.data })
+    const response = yield axios.get(`/api/admin/events/pending`);
+    yield put({ type: "SET_PENDING_EVENTS_ADMIN", payload: response.data });
   } catch (error) {
-    console.log(error)
-  };
-};
+    console.log(error);
+  }
+}
 
 function* fetchApprovedEventsAdmin(action) {
   try {
-    const response = yield axios.get(`/api/admin/events/approved`)
-    yield put({ type: 'SET_APPROVED_EVENTS_ADMIN', payload: response.data })
+    const response = yield axios.get(`/api/admin/events/approved`);
+    yield put({ type: "SET_APPROVED_EVENTS_ADMIN", payload: response.data });
   } catch (error) {
-    console.log(error)
-  };
-};
+    console.log(error);
+  }
+}
 
 function* updatePendingEventsAdmin(action) {
   try {
-      const update = yield axios.put(`/api/admin/events/pending/${action.payload.id}`)
-      yield put ({ type: 'FETCH_EVENTS_LIST', payload:update.data})
-      yield put({ type: "FETCH_APPROVED_EVENTS" });
-  } catch(error) {
-      console.log('error updating pending event!', error);
+    const update = yield axios.put(
+      `/api/admin/events/pending/${action.payload.id}`
+    );
+    yield put({ type: "FETCH_EVENTS_LIST", payload: update.data });
+    yield put({ type: "FETCH_APPROVED_EVENTS" });
+  } catch (error) {
+    console.log("error updating pending event!", error);
+    console.log(action.payload);
   }
 }
 
 function* updateApprovedEventsAdmin(action) {
   try {
-      const update = yield axios.put(`/api/admin/events/approved/${action.payload.id}`)
-      yield put ({ type: 'FETCH_EVENTS_LIST', payload:update.data})
-      yield put({ type: "FETCH_APPROVED_EVENTS" });
-  } catch(error) {
-      console.log('error updating approved event!', error);
+    const update = yield axios.put(
+      `/api/admin/events/approved/${action.payload.id}`
+    );
+    yield put({ type: "FETCH_EVENTS_LIST", payload: update.data });
+    yield put({ type: "FETCH_APPROVED_EVENTS" });
+  } catch (error) {
+    console.log("error updating approved event!", error);
   }
 }
 
 function* deletePendingEventsAdmin(action) {
   try {
-      const update = yield axios.delete(`/api/admin/events/pending/${action.payload.id}`)
-      yield put ({ type: 'FETCH_EVENTS_LIST', payload:update.data})
-      yield put({ type: "FETCH_APPROVED_EVENTS" });
-  } catch(error) {
-      console.log('error updating approved event!', error);
+    const update = yield axios.delete(
+      `/api/admin/events/pending/${action.payload.id}`
+    );
+    yield put({ type: "FETCH_EVENTS_LIST", payload: update.data });
+    yield put({ type: "FETCH_APPROVED_EVENTS" });
+  } catch (error) {
+    console.log("error updating approved event!", error);
   }
 }
 
 function* deleteApprovedEventsAdmin(action) {
   try {
-      const update = yield axios.delete(`/api/admin/events/approved/${action.payload.id}`)
-      yield put ({ type: 'FETCH_EVENTS_LIST', payload:update.data})
-      yield put({ type: "FETCH_APPROVED_EVENTS" });
-  } catch(error) {
-      console.log('error updating approved event!', error);
+    const update = yield axios.delete(
+      `/api/admin/events/approved/${action.payload.id}`
+    );
+    yield put({ type: "FETCH_EVENTS_LIST", payload: update.data });
+    yield put({ type: "FETCH_APPROVED_EVENTS" });
+  } catch (error) {
+    console.log("error updating approved event!", error);
   }
 }
 

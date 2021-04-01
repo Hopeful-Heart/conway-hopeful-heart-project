@@ -20,7 +20,7 @@ CREATE TABLE "user" (
     "birthday" DATE DEFAULT NULL,
     "memorial_day" DATE DEFAULT NULL,
     "story" VARCHAR (1000) DEFAULT NULL,
-    "client_token" VARCHAR (100) DEFAULT NULL,
+    "client_token" VARCHAR (300) DEFAULT NULL,
     "approved_user" BOOLEAN DEFAULT FALSE,
     "admin_user" BOOLEAN DEFAULT FALSE
 );
@@ -50,4 +50,17 @@ CREATE TABLE "connections" (
     "user1_id" INTEGER REFERENCES "user" NOT NULL,
     "user2_id" INTEGER REFERENCES "user" NOT NULL,
     "approved" BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE "messages" (
+"id" SERIAL PRIMARY KEY,
+  "title" VARCHAR (100) NOT NULL,
+  "body" VARCHAR (1000) NOT NULL
+  );
+
+CREATE TABLE "personalMessages" (
+"id" SERIAL PRIMARY KEY,
+"user_id" INTEGER,
+"title" VARCHAR (1000) NOT NULL,
+"body" VARCHAR (500) NOT NULL
 );

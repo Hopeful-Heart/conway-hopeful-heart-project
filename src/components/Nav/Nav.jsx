@@ -3,7 +3,8 @@ import { Link, useRouteMatch } from "react-router-dom";
 import { Link as ScrollLink } from "react-scroll";
 import { useSelector, useDispatch } from "react-redux";
 import whiteTitle from "./whitetitle.png";
-
+import { ToastContainer } from "react-toastify";
+import { Fragment } from "react";
 import {
   Button,
   makeStyles,
@@ -56,6 +57,9 @@ function Nav() {
   return (
     <>
       <AppBar className={classes.appBar}>
+        <Fragment>
+          <ToastContainer autoClose={2000} position="top-center" />
+        </Fragment>
         <Toolbar className={classes.toolbar}>
           <Link to="/landing">
             <img style={{ height: "3rem" }} src={whiteTitle}></img>

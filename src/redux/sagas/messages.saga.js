@@ -29,7 +29,19 @@ function* deleteMessage(action) {
   }
 }
 
+function* sendMessageAll(action) {
+  console.log(action.payload);
+  try {
+    yield axios.post("/api/message", action.payload);
+    yield axios.post("/api/notify/all", action.payload);
+    yield put({ type: "FETCH_MESSAGES" });
+  } catch (error) {
+    console.log("error adding event", error);
+  }
+}
+
 function* messagesSaga() {
+  yield takeLatest("SEND_MESSAGE_ALL", sendMessageAll);
   yield takeLatest("DELETE_MESSAGE", deleteMessage);
   yield takeLatest("ADD_MESSAGE", addMessagesSaga);
   yield takeLatest("FETCH_MESSAGES", fetchMessagesSaga);

@@ -242,7 +242,7 @@ function HomePage() {
                     variant="contained"
                     onClick={() => {
                       setHomeDefaultView(false);
-                      setAddJournalToggle(true);
+                      setMemorialFormToggle(true);
                     }}
                   >
                     Add a Memorial

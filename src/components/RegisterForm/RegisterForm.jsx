@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import ReactFilestack from 'react-filestack';
+import ReactFilestack from "react-filestack";
 
 import {
   Paper,
@@ -9,6 +9,10 @@ import {
   TextField,
   Button,
   ButtonGroup,
+  FormControl,
+  Select,
+  InputLabel,
+  MenuItem,
 } from "@material-ui/core";
 
 import Logo from "../LandingPage/Logo_Primary.png";
@@ -22,27 +26,31 @@ function RegisterForm() {
     phone: "",
     city: "",
     state: "",
-    pic: "",
+    pic:
+      "https://st3.depositphotos.com/4111759/13425/v/600/depositphotos_134255626-stock-illustration-avatar-male-profile-gray-person.jpg",
   });
 
   const basicOptions = {
-    accept: ['image/*'],
-    maxSize: 1024 * 1024,
+    accept: ["image/*"],
     maxFiles: 1,
-  }
+  };
+
+  const api_key = process.env.REACT_APP_FILESTACK_API_KEY;
 
   const onSuccess = (result) => {
-    console.log('Result from filestack success: ', result);
+    console.log("Result from filestack success: ", result);
     setNewUser({ ...newUser, pic: result.filesUploaded[0].url });
-  }
+  };
 
   const onError = (error) => {
-    alert('Error Uploading' + error)
-    console.error('error', error);
-  }
+    alert("Error Uploading" + error);
+    console.error("error", error);
+  };
 
+  const states = useSelector((store) => store.states.statesReducer);
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const registerUser = (event) => {
     event.preventDefault();
@@ -65,10 +73,10 @@ function RegisterForm() {
     registerInputSpaceLeft: {
       marginLeft: "1rem",
     },
+    formControl: { minWidth: 120 },
   });
 
   const classes = useStyles();
-  const api_key = process.env.REACT_APP_FILESTACK_API_KEY;
 
   return (
     <Paper className={classes.paper}>
@@ -81,7 +89,7 @@ function RegisterForm() {
           </h3>
         )}
         <div>
-          <div style={{ marginRight: "1rem" }}>
+          <div>
             <h2>Account Info</h2>
             <TextField
               type="email"
@@ -109,13 +117,25 @@ function RegisterForm() {
             />
             <br />
             <br />
+            <img
+              src={newUser.pic}
+              style={{
+                height: 250,
+                width: 250,
+                objectFit: "cover",
+                borderRadius: "50%",
+                border: "solid gray 1px",
+              }}
+            />
+            <br />
+            <br />
             <ReactFilestack
-              className="btn btn-outline-info"
               apikey={api_key}
-              buttonText="Upload Image"
-              options={basicOptions}
+              pickerOptions={basicOptions}
               onSuccess={onSuccess}
               onError={onError}
+              buttonText="UPLOAD A PROFILE PICTURE (OPTIONAL)"
+              buttonClass="filestack-button"
             />
           </div>
           <br />
@@ -149,6 +169,20 @@ function RegisterForm() {
             <TextField
               type="text"
               variant="outlined"
+              label="Phone Number"
+              size="small"
+              helperText="E.g. 701-555-5555"
+              value={newUser.phone}
+              required
+              onChange={(event) =>
+                setNewUser({ ...newUser, phone: event.target.value })
+              }
+            />
+            <br />
+            <br />
+            <TextField
+              type="text"
+              variant="outlined"
               label="City (Optional)"
               size="small"
               value={newUser.city}
@@ -156,30 +190,31 @@ function RegisterForm() {
                 setNewUser({ ...newUser, city: event.target.value })
               }
             />
-            <TextField
-              className={classes.registerInputSpaceLeft}
-              type="text"
-              variant="outlined"
-              label="State"
-              size="small"
-              value={newUser.state}
-              required
-              onChange={(event) =>
-                setNewUser({ ...newUser, state: event.target.value })
-              }
-            />
             <br />
             <br />
-            <TextField
-              type="text"
+            <FormControl
               variant="outlined"
-              label="Phone Number"
-              size="small"
-              helperText="E.g. 701-555-5555"
-              value={newUser.phone}
+              className={classes.formControl}
               required
-              onChange={(event) => setNewUser({ ...newUser, phone: event.target.value })}
-            />
+            >
+              <InputLabel id="register-select-state-label">State</InputLabel>
+              <Select
+                labelId="register-select-state-label"
+                id="demo-simple-select-outlined"
+                value={newUser.state}
+                onChange={(event) =>
+                  setNewUser({ ...newUser, state: event.target.value })
+                }
+                label="State"
+                required
+              >
+                {states.map((state) => (
+                  <MenuItem key={state} value={state}>
+                    {state}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </div>
         </div>
         <br />

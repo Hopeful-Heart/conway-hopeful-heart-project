@@ -1,0 +1,33 @@
+#home-wrapper {
+    display: flex;
+    height: 100%;
+    background-color: #BCBEC0;
+}
+
+#home-user-info {
+    background-color: #A89BA7;
+    padding: 1rem;
+}
+
+#home-user-content {
+    margin-left: .5rem;
+}
+
+#user-info-name {
+    margin-bottom: 0;
+}
+
+#home-user-content h5 {
+    margin-top: .25rem;
+    margin-bottom: 4rem;
+}
+
+#home-remembering {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+#memorial-info {
+    margin-left: 1rem;
+}
+

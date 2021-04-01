@@ -36,3 +36,15 @@ footer {
   color: #e01616;
   font-size: 0.8rem;
 }
+
+.filestack-button {
+  border: none;
+  background-color: #553959;
+  color: #fafafa;
+  font-family: Avenir;
+  font-weight: 500;
+  border-radius: 5px;
+  font-size: .75rem;
+  padding: .75rem;
+  cursor: pointer;
+}

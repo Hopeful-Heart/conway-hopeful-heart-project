@@ -2,7 +2,6 @@ import { put, takeEvery, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 
 function* addMessagesSaga(action) {
-  console.log(action.payload);
   try {
     yield axios.post("/api/message", action.payload);
     yield axios.post("/api/notify", action.payload);

@@ -12,14 +12,28 @@ function* fetchJournalSaga(action) {
 
 function* addJournalSaga(action) {
   try {
-    const response = yield axios.post("/api/journal", {journal: action.payload})
-    yield put({ type: "FETCH_JOURNAL",  payload: action.payload.id});
+    const response = yield axios.post("/api/journal", {
+      journal: action.payload,
+    });
+    yield put({ type: "FETCH_JOURNAL", payload: action.payload.id });
   } catch (error) {
     console.log("error adding event", error);
   }
 }
 
+function* updateJournalPrivacySaga(action) {
+  try {
+    yield axios.put(`/api/journal/privacy/${action.payload.journalId}`, {
+      newPrivacy: action.payload.newPrivacy,
+    });
+    yield put({ type: "FETCH_JOURNAL", payload: action.payload.userId });
+  } catch (error) {
+    console.log("error in updating journal entry privacy", error);
+  }
+}
+
 function* journalSaga() {
+  yield takeLatest("UPDATE_JOURNAL_ENTRY_PRIVACY", updateJournalPrivacySaga);
   yield takeLatest("FETCH_JOURNAL", fetchJournalSaga);
   yield takeLatest("ADD_JOURNAL", addJournalSaga);
 }

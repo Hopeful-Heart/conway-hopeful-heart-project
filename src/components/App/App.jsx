@@ -20,7 +20,6 @@ import RegisterPage from "../RegisterPage/RegisterPage";
 import PendingPage from "../PendingPage/PendingPage";
 import Messaging from "../Messaging/Messaging";
 import Notifications from "../Notifications/Notifications";
-import { Fragment } from "react";
 import UserDetails from "../AllUsersPage/userDetails";
 import Connections from "../Connections/Connections";
 import { ToastContainer } from "react-toastify";

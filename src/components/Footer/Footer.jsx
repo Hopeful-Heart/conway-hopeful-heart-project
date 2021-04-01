@@ -1,5 +1,3 @@
-import React from "react";
-
 import "./Footer.css";
 
 import FacebookIcon from "@material-ui/icons/Facebook";
@@ -32,28 +30,6 @@ function Footer() {
             <InstagramIcon />
           </a>
         </div>
-      </div>
-      Powered By{" "}
-      <a href="https://www.emergingacademy.org/">Emerging Digital Academy</a>
-      <div id="linkedin-footer-links-wrapper">
-        <a
-          href="https://www.linkedin.com/in/bryce-barsness-b70068207/"
-          target="_blank"
-        >
-          linkedin.com/in/bryce-barsness-b70068207
-        </a>
-        <a href="https://www.linkedin.com/in/masonleonhart/" target="_blank">
-          linkedin.com/in/masonleonhart
-        </a>
-        <a
-          href="https://www.linkedin.com/in/quinnjohnsonfargo/"
-          target="_blank"
-        >
-          linkedin.com/in/quinnjohnsonfargo
-        </a>
-        <a href="https://www.linkedin.com/in/treolsonfargo/" target="_blank">
-          linkedin.com/in/treolsonfargo
-        </a>
       </div>
     </footer>
   );

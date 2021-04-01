@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getToken, onMessageListener } from "./firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { Toast } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
+
 function Notifications() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);

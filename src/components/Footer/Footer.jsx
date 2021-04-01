@@ -13,7 +13,7 @@ function Footer() {
     <footer>
       <Notifications />
       <div id="hopeful-heart-footer-info">
-        <a href="mailto:info@hopefulheartproject.org">
+        <a href="mailto:info@hopefulheartproject.org?subject=Family Connections">
           info@hopefulheartproject.org
         </a>
         <div id="hopeful-heart-links">

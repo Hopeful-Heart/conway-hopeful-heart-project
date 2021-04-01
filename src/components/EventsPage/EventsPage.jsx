@@ -42,7 +42,7 @@ function EventsPage() {
           horizontal: "center",
         }}
       >
-        <div id="popover-content">
+        <div className="popover-content">
           <h3>{popoverEvent.name}</h3>
           <p>Date: {moment(popoverEvent.date).format('MM-DD-YYYY')}</p>
           <p>Location: {popoverEvent.location}</p>

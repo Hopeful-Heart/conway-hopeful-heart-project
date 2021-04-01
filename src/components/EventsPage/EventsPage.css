@@ -24,7 +24,3 @@
 .react-calendar__month-view__days__day--weekend {
   color: #d10000 !important;
 }
-
-#popover-content {
-  margin: 1rem
-}

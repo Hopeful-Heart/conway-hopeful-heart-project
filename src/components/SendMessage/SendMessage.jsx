@@ -53,7 +53,10 @@ function SendMessage(props) {
   };
 
   useEffect(() => {
-    dispatch({ type: "FETCH_USER_SEARCH_LIST", payload: { state: "All States" }, });
+    dispatch({
+      type: "FETCH_USER_SEARCH_LIST",
+      payload: { state: "All States" },
+    });
   }, []);
 
   let allTokens = [];
@@ -70,7 +73,9 @@ function SendMessage(props) {
       style={{ textAlign: "center" }}
     >
       <button
+        class="filestack-button"
         type="button"
+        className=""
         onClick={() =>
           newMessageToggle
             ? setNewMessageToggle(false)
@@ -104,9 +109,15 @@ function SendMessage(props) {
           />
           <br />
 
-          <button type="reset">Cancel</button>
+          <button class="filestack-button" type="reset">
+            Cancel
+          </button>
           {/* <button type="submit">Send</button> */}
-          <button onClick={() => setSendAll(true)} type="submit">
+          <button
+            class="filestack-button"
+            onClick={() => setSendAll(true)}
+            type="submit"
+          >
             Send Announcement
           </button>
         </div>

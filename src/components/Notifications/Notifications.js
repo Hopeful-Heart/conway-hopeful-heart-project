@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getToken, onMessageListener } from "./firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { Toast } from "react-bootstrap";
-
+import "./Notifications.css";
 function Notifications() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
@@ -47,7 +47,7 @@ function Notifications() {
       <Toast
         onClose={() => setShow(false)}
         show={show}
-        delay={3000}
+        delay={6000}
         autohide
         animation
         style={{
@@ -65,6 +65,7 @@ function Notifications() {
       <form style={{ textAlign: "center" }}>
         <button
           type="button"
+          className="notifyButton"
           onClick={() =>
             notificationToggle
               ? setNotificationToggle(false)
@@ -79,7 +80,7 @@ function Notifications() {
               To recieve announcements and be notified of new messageses, enable
               push notifications on your main device
             </p>
-            <button onClick={addClientToken}>
+            <button className="notifyButton" onClick={addClientToken}>
               Click here to receive notifications
             </button>
             {/* <button onClick={() => setNotificationToggle(false)}>

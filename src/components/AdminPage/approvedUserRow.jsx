@@ -4,7 +4,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Button from '@material-ui/core/Button';
 
-function ApprovedUserRow({ user, superAdmin }) {
+function ApprovedUserRow({ user, superAdmin, setDefaultAdminView, setAdminUserView  }) {
 
     const dispatch = useDispatch();
 

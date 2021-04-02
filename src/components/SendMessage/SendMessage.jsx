@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import Notifications from "../Notifications/Notifications";
 import connectionsReducer from "../../redux/reducers/connections.reducer";
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
-function SendMessage(props) {
+function SendMessage({ setDefaultAdminView, setMessagingAdminView }) {
   const user = useSelector((store) => store.user);
   const userSearchList = useSelector((store) => store.userSearch);
   const [message, setMessage] = useState([]);
@@ -55,7 +56,7 @@ function SendMessage(props) {
   };
 
   useEffect(() => {
-    dispatch({ type: "FETCH_USER_SEARCH_LIST", payload: {state: "All States"} });
+    dispatch({ type: "FETCH_USER_SEARCH_LIST", payload: { state: "All States" } });
   }, []);
 
   let allTokens = [];
@@ -65,56 +66,71 @@ function SendMessage(props) {
     }
   }
 
-  return (
-    <form
-      onReset={handleNewMessageReset}
-      onSubmit={sendAll ? handleSendAllSubmit : handleNewMessageSubmit}
-      style={{ textAlign: "center" }}
-    >
-      <Button
-        type="button"
-        variant="contained" color="primary"
-        onClick={() =>
-          newMessageToggle
-            ? setNewMessageToggle(false)
-            : setNewMessageToggle(true)
-        }
-      >
-        Post Announcement
-      </Button>
-      {newMessageToggle && (
-        <div>
-          <br />
-          <label htmlFor="add-message-title">Title: </label>
-          <input
-            required
-            type="text"
-            id="add-message-title"
-            value={newMessage.title}
-            onChange={(e) =>
-              setNewMessage({ ...newMessage, title: e.target.value })
-            }
-          />
-          <br />
-          <label htmlFor="add-message-body">Message: </label>
-          <textarea
-            required
-            id="add-message-body"
-            value={newMessage.body}
-            onChange={(e) =>
-              setNewMessage({ ...newMessage, body: e.target.value })
-            }
-          />
-          <br />
+  const resetDefaultAdminView = () => {
+    setDefaultAdminView(true)
+    setMessagingAdminView(false)
+  }
 
-          <Button variant="contained" color="primary" type="reset">Cancel</Button>
-          {/* <button type="submit">Send</button> */}
-          <Button variant="contained" color="primary" onClick={() => setSendAll(true)} type="submit">
-            Send Announcement
+  return (
+    <>
+      <Button  style={{margin:20}} onClick={resetDefaultAdminView} variant="contained" color="primary">Back</Button>
+      <form
+        onReset={handleNewMessageReset}
+        onSubmit={sendAll ? handleSendAllSubmit : handleNewMessageSubmit}
+        style={{ textAlign: "center" }}
+      >
+        <Button
+          type="button"
+          variant="contained" color="primary"
+          onClick={() =>
+            newMessageToggle
+              ? setNewMessageToggle(false)
+              : setNewMessageToggle(true)
+          }
+        >
+          Post Announcement
+      </Button>
+        {newMessageToggle && (
+          <div>
+            <br />
+            <TextField
+              required
+              style={{margin:10}}
+              type="text"
+              id="add-message-title"
+              variant="outlined" 
+              label="Title"
+              value={newMessage.title}
+              onChange={(e) =>
+                setNewMessage({ ...newMessage, title: e.target.value })
+              }
+            />
+            <br />
+            <TextField
+              style={{margin:10}}
+              label="Message"
+              multiline
+              rows={5}
+              rowsMax={10}
+              variant="outlined"
+              required
+              id="add-message-body"
+              value={newMessage.body}
+              onChange={(e) =>
+                setNewMessage({ ...newMessage, body: e.target.value })
+              }
+            />
+            <br />
+
+            <Button style={{margin:10}} variant="contained" color="primary" type="reset">Cancel</Button>
+            {/* <button type="submit">Send</button> */}
+            <Button style={{margin:10}} variant="contained" color="primary" onClick={() => setSendAll(true)} type="submit">
+              Send Announcement
           </Button>
-        </div>
-      )}
-    </form>
+          </div>
+        )}
+      </form>
+    </>
   );
 }
 

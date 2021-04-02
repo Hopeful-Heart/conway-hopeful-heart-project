@@ -68,9 +68,9 @@ function AdminPage() {
             <Button onClick={handleMessagingClick}>Messaging</Button>
           </>
         }
-        {messagingAdminView && <div ><Messaging /> <SendMessage /></div>}
-        {adminUserView && <AdminUserView admin={admin} superAdmin={superAdmin} />}
-        {adminEventView && <AdminEventView admin={admin} superAdmin={superAdmin} />}
+        {messagingAdminView && <div ><Messaging /> <SendMessage setDefaultAdminView={setDefaultAdminView} setMessagingAdminView={setMessagingAdminView}/></div>}
+        {adminUserView && <AdminUserView setDefaultAdminView={setDefaultAdminView} setAdminUserView={setAdminUserView} admin={admin} superAdmin={superAdmin} />}
+        {adminEventView && <AdminEventView setDefaultAdminView={setDefaultAdminView} setAdminEventView={setAdminEventView} admin={admin} superAdmin={superAdmin} />}
       </div>
     </div>
   )

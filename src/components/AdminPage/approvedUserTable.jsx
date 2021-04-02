@@ -5,7 +5,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
 
-function ApprovedUserTable({ admin, superAdmin }) {
+function ApprovedUserTable({ admin, superAdmin, setDefaultAdminView, setAdminUserView }) {
 
   return (
     <Table>
@@ -26,6 +26,8 @@ function ApprovedUserTable({ admin, superAdmin }) {
               key={user.id}
               user={user}
               superAdmin={superAdmin}
+              setDefaultAdminView={setDefaultAdminView}
+              setAdminUserView={setAdminUserView}
             />
           )
         })}

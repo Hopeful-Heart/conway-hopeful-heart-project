@@ -204,7 +204,10 @@ function HomePage() {
                       {user.child_first_name} {user.child_last_name}
                     </h2>
                     <h4>
-                      {moment(user.birthday).format("MM-DD-YYYY")} -{" "}
+                      Birth Date: {moment(user.birthday).format("MM-DD-YYYY")}
+                    </h4>
+                    <h4>
+                      Memorial Date:{" "}
                       {moment(user.memorial_day).format("MM-DD-YYYY")}
                     </h4>
                   </div>
@@ -213,6 +216,7 @@ function HomePage() {
                 <p>{user.story}</p>
               </div>
             )}
+            <br />
             <div>
               <div
                 style={{

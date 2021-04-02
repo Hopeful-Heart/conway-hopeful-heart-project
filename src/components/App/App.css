@@ -50,5 +50,6 @@ footer {
 }
 
 .popover-content {
-  margin: 1rem
+  margin: 1rem;
+  max-width: 20rem;
 }

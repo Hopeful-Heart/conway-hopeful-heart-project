@@ -53,11 +53,13 @@ router.get("/recent", rejectUnauthenticated, (req, res) => {
 });
 
 //GET for admin approved events
-router.get("/approved", rejectUnauthenticated, (req, res) => {
-  const sqlQuery = `SELECT * FROM "events" WHERE "admin_approved" = 'true';`;
+router.get("/approved/:sort", rejectUnauthenticated, (req, res) => {
+  const sortParam = req.params.sort;
+
+  const sqlQuery = `SELECT * FROM "events" WHERE "admin_approved" = 'true'
+                    ${sortParam !== "all" ? `AND "type" = '${sortParam}'` : ""};`;
 
   pool
-
     .query(sqlQuery)
     .then((response) => {
       console.log("Retrieved admin approved events successfully");

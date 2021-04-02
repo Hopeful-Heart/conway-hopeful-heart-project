@@ -9,8 +9,8 @@ const router = express.Router();
 router.post("/", rejectUnauthenticated, (req, res) => {
   // Creates a new event
   const queryText = `
-    INSERT INTO "events" ( "user_id", "name", "date", "location", "description", "type", "link", "admin_approved" )
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
+    INSERT INTO "events" ( "user_id", "name", "date", "location", "description", "type", "link", "picture", "admin_approved" )
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);
   `;
 
   pool
@@ -22,6 +22,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
       req.body.description,
       req.body.type,
       req.body.link,
+      req.body.picture,
       req.user.admin_user ? true : false,
     ])
     .then(() => {

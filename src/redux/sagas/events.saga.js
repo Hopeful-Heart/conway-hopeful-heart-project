@@ -22,7 +22,7 @@ function* fetchRecentEventsSaga(action) {
 function* addEventsSaga(action) {
   try {
     yield axios.post("/api/events", action.payload);
-    yield put({ type: "FETCH_APPROVED_EVENTS" });
+    yield put({ type: "FETCH_APPROVED_EVENTS", payload: "all" });
   } catch (error) {
     console.log("error adding event", error);
   }

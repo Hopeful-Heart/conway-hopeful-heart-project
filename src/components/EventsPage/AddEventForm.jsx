@@ -1,6 +1,7 @@
 import { useState } from "react";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
+import ReactFilestack from "react-filestack";
 
 import {
   Paper,
@@ -29,6 +30,7 @@ function addEventForm({ setAddEventToggle, setEventsDefaultView }) {
     description: "",
     type: "user",
     link: "",
+    picture: "https://cdn.filestackcontent.com/pLNYHuIqSVeXHykZEhWY",
   });
 
   const eventTypes = [
@@ -36,6 +38,23 @@ function addEventForm({ setAddEventToggle, setEventsDefaultView }) {
     { value: "ne", name: "Nebraska" },
     { value: "virtual", name: "Virtual" },
   ];
+
+  const basicOptions = {
+    accept: ["image/*"],
+    maxFiles: 1,
+  };
+
+  const api_key = process.env.REACT_APP_FILESTACK_API_KEY;
+
+  const onSuccess = (result) => {
+    console.log("Result from filestack success: ", result);
+    setNewEvent({ ...newEvent, picture: result.filesUploaded[0].url });
+  };
+
+  const onError = (error) => {
+    alert("Error Uploading" + error);
+    console.error("error", error);
+  };
 
   const handleAddEventReset = () => {
     setEventsDefaultView(true);
@@ -74,7 +93,28 @@ function addEventForm({ setAddEventToggle, setEventsDefaultView }) {
   return (
     <Paper className={classes.paper}>
       <form onReset={handleAddEventReset} onSubmit={handleAddEventSubmit}>
-        <h2 style={{ fontSize: "2rem", marginTop: 0 }}>Add Event</h2>
+        <h2 style={{ fontSize: "2rem", margin: 0 }}>Add Event</h2>
+        <br />
+        <img
+          src={newEvent.picture}
+          style={{
+            width: "30rem",
+            maxHeight: "15rem",
+            objectFit: "cover",
+          }}
+        />
+        <br />
+        <br />
+        <ReactFilestack
+          apikey={api_key}
+          buttonText="UPLOAD A PICTURE (OPTIONAL)"
+          pickerOptions={basicOptions}
+          onSuccess={onSuccess}
+          onError={onError}
+          buttonClass="filestack-button"
+        />
+        <br />
+        <br />
         <TextField
           required
           type="text"
@@ -111,7 +151,7 @@ function addEventForm({ setAddEventToggle, setEventsDefaultView }) {
           <InputLabel id="event-select-event-type-label">Event Type</InputLabel>
           <Select
             labelId="event-select-event-type-label"
-            value={newEvent.type}
+            defaultValue="user"
             onChange={(event) =>
               setNewEvent({
                 ...newEvent,
@@ -185,83 +225,6 @@ function addEventForm({ setAddEventToggle, setEventsDefaultView }) {
         </ButtonGroup>
       </form>
     </Paper>
-    // <form
-    //   onReset={handleAddEventReset}
-    //   onSubmit={handleAddEventSubmit}
-    //   style={{ textAlign: "center" }}
-    // >
-    //   <button type="button" onClick={() => addEventToggle ? setAddEventToggle(false) : setAddEventToggle(true)}>
-    //     Add Event
-    //   </button>
-    //   {addEventToggle && (
-    //     <div>
-    //       <br />
-    //       <label htmlFor="add-event-name">Name: </label>
-    //       <input
-    //         required
-    //         type="text"
-    //         id="add-event-name"
-    //         value={newEvent.name}
-    //         onChange={(e) => setNewEvent({ ...newEvent, name: e.target.value })}
-    //       />
-    //       <br />
-    //       <label htmlFor="add-event-date">Date: </label>
-    //       <input
-    //         required
-    //         type="date"
-    //         id="add-event-date"
-    //         value={newEvent.date}
-    //         onChange={(e) => setNewEvent({ ...newEvent, date: e.target.value })}
-    //       />
-    //       <br />
-    //       <label htmlFor="add-event-location">Location: </label>
-    //       <input
-    //         required
-    //         type="text"
-    //         id="add-event-location"
-    //         value={newEvent.location}
-    //         onChange={(e) =>
-    //           setNewEvent({ ...newEvent, location: e.target.value })
-    //         }
-    //       />
-    //       <br />
-    //       <label htmlFor="add-event-type">Type: </label>
-    //       <select
-    //         required
-    //         id="add-event-type"
-    //         value={newEvent.type}
-    //         onChange={(e) => setNewEvent({ ...newEvent, type: e.target.value })}
-    //       >
-    //         <option value="ND">ND</option>
-    //         <option value="NE">NE</option>
-    //         <option value="Virtual">Virtual</option>
-    //         <option value="User">User</option>
-    //       </select>
-    //       <br />
-    //       <label htmlFor="add-event-link">Link: </label>
-    //       <input
-    //         required
-    //         type="url"
-    //         id="add-event-link"
-    //         value={newEvent.link}
-    //         onChange={(e) => setNewEvent({ ...newEvent, link: e.target.value })}
-    //       />
-    //       <br />
-    //       <label htmlFor="add-event-description">Description: </label>
-    //       <textarea
-    //         required
-    //         id="add-event-location"
-    //         value={newEvent.description}
-    //         onChange={(e) =>
-    //           setNewEvent({ ...newEvent, description: e.target.value })
-    //         }
-    //       />
-    //       <br />
-    //       <button type="reset">Cancel</button>
-    //       <button type="submit">Submit</button>
-    //     </div>
-    //   )}
-    // </form>
   );
 }
 

@@ -32,6 +32,23 @@ function* updateUserToken(action) {
   }
 }
 
+function* fetchAdminUsers(action) {
+  try {
+    const response = yield axios.get(`/api/admin/adminUsers`);
+    yield put({ type: "SET_ADMIN_USERS", payload: response.data });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function* updateAdminUser() {
+  try {
+    const response = yield axios.put('/api/admin/promoteUser')
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 function* fetchPendingUsersAdmin(action) {
   try {
     const response = yield axios.get(`/api/admin/pending`);
@@ -153,6 +170,8 @@ function* userSaga() {
   yield takeLatest("UPDATE_CHILD_INFO", updateChildInfo);
   yield takeLatest("FETCH_USER_SEARCH_LIST", fetchUserSearchList);
   yield takeLatest("FETCH_USER_DETAILS", fetchUserDetails);
+  yield takeLatest("UPDATE_ADMIN_USER", updateAdminUser);
+  yield takeLatest("FETCH_ADMIN_USERS", fetchAdminUsers);
 }
 
 export default userSaga;

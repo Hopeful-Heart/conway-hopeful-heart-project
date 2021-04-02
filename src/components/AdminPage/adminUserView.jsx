@@ -1,9 +1,10 @@
 import PendingUserTable from "../AdminPage/pendingUserTable";
 import ApprovedUserTable from "../AdminPage/approvedUserTable";
+import AdminUserTable from './adminUserTable';
 import Messaging from "../Messaging/Messaging";
 import SendMessage from "../SendMessage/SendMessage";
 
-function AdminEventView({ admin }) {
+function AdminUserView({ admin, superAdmin }) {
   return (
     <div className="container">
       <h1 style={{ textAlign: "center" }}>Admin Page</h1>
@@ -30,10 +31,22 @@ function AdminEventView({ admin }) {
             alignItems: "center",
           }}
         >
-          <ApprovedUserTable admin={admin} />
+          <ApprovedUserTable admin={admin} superAdmin={superAdmin} />
+        </div>
+      </div>
+      <div>
+        <h3 style={{ textAlign: "center" }}>Admin Users</h3>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <AdminUserTable admin={admin} />
         </div>
       </div>
     </div>
   );
 }
-export default AdminEventView;
+export default AdminUserView;

@@ -2,6 +2,7 @@ const express = require("express");
 const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
+const { query } = require("../modules/pool");
 const pool = require("../modules/pool");
 const router = express.Router();
 
@@ -131,6 +132,21 @@ router.delete("/approved/:id", rejectUnauthenticated, (req, res) => {
     .catch((err) => {
       res.send(err).status(500);
     });
+});
+
+router.get("/adminUsers", rejectUnauthenticated, (req,res) => {
+
+  const queryText = `
+    SELECT * FROM "user" WHERE "admin_user"= 'true';
+  `
+
+  pool.query(queryText)
+  .then(result => {
+    res.send(result.rows).status(200)
+  }).catch((err) => {
+    console.log(err)
+    res.sendStatus(500)
+  });
 });
 
 router.get("/events/pending", rejectUnauthenticated, (req, res) => {

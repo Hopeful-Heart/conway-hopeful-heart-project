@@ -1,19 +1,24 @@
 import ApprovedEventRow from '../AdminPage/approvedEventRow';
+import Table from '@material-ui/core/Table';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import TableBody from '@material-ui/core/TableBody';
 
 function ApprovedEventTable({ admin }) {
 
     return (
-        <table style={{ textAlign: 'center' }}>
-            <thead>
-                <tr>
-                    <td>Name</td>
-                    <td>User's Name</td>
-                    <td>Date</td>
-                    <td>Location</td>
-                    <td>Link</td>
-                    <td>Controls</td>
-                </tr>
-            </thead>
+        <Table style={{ textAlign: 'center' }}>
+            <TableHead>
+                <TableRow>
+                    <TableCell align="center">Name</TableCell>
+                    <TableCell align="center">User's Name</TableCell>
+                    <TableCell align="center">Date</TableCell>
+                    <TableCell align="center">Location</TableCell>
+                    <TableCell align="center">Link</TableCell>
+                    <TableCell align="center">Controls</TableCell>
+                </TableRow>
+            </TableHead>
             {admin.approvedEventsReducer.length > 0 && <tbody>
                 {admin.approvedEventsReducer.map(event => {
                     return (
@@ -24,7 +29,7 @@ function ApprovedEventTable({ admin }) {
                     )
                 })}
             </tbody>}
-        </table>
+        </Table>
     )
 }
 export default ApprovedEventTable;

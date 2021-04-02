@@ -12,6 +12,7 @@ function LoginPage() {
       <LoginForm />
       <center>
         <Button
+          variant="outlined"
           color="primary"
           onClick={() => {
             history.push("/registration");

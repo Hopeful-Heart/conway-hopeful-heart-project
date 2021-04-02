@@ -1,9 +1,16 @@
 .active {
-    color: #FBB672 !important;
+  color: #fbb672 !important;
 }
 
 #drawer-content {
-    display: flex;
-    flex-direction: column;
-    padding: 0rem 1rem;
+  display: flex;
+  flex-direction: column;
+  padding: 0rem 1rem;
+}
+
+.toast {
+  color: white;
+  background-color: #503c52;
+  opacity: 0.5;
+  padding: 15px;
 }

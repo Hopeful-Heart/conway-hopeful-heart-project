@@ -56,7 +56,11 @@ function SendMessage({ setDefaultAdminView, setMessagingAdminView }) {
   };
 
   useEffect(() => {
-    dispatch({ type: "FETCH_USER_SEARCH_LIST", payload: { state: "All States" } });
+    dispatch({
+      type: "FETCH_USER_SEARCH_LIST",
+      payload: { state: "All States" },
+    });
+
   }, []);
 
   let allTokens = [];
@@ -89,7 +93,7 @@ function SendMessage({ setDefaultAdminView, setMessagingAdminView }) {
           }
         >
           Post Announcement
-      </Button>
+        </Button>
         {newMessageToggle && (
           <div>
             <br />
@@ -121,16 +125,15 @@ function SendMessage({ setDefaultAdminView, setMessagingAdminView }) {
               }
             />
             <br />
-
             <Button style={{margin:10}} variant="contained" color="primary" type="reset">Cancel</Button>
-            {/* <button type="submit">Send</button> */}
             <Button style={{margin:10}} variant="contained" color="primary" onClick={() => setSendAll(true)} type="submit">
               Send Announcement
-          </Button>
+            </Button>
           </div>
         )}
       </form>
     </>
+
   );
 }
 

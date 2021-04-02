@@ -46,6 +46,13 @@ function HomePage() {
 
   const open = Boolean(anchorElement);
 
+  const eventTypes = [
+    { value: "nd", name: "North Dakota" },
+    { value: "ne", name: "Nebraska" },
+    { value: "virtual", name: "Virtual" },
+    { value: "user", name: "User" },
+  ];
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -89,13 +96,29 @@ function HomePage() {
               horizontal: "center",
             }}
           >
-            <div className="popover-content">
-              <h3>{popoverEvent.name}</h3>
-              <p>Date: {moment(popoverEvent.date).format("MM-DD-YYYY")}</p>
-              <p>Location: {popoverEvent.location}</p>
-              <p>Event Type: {popoverEvent.type}</p>
-              <p>Description: {popoverEvent.description}</p>
-              <a href={popoverEvent.link}>Link to Event</a>
+            <div className="popover">
+              <img
+                src={popoverEvent.picture}
+                style={{
+                  width: "100%",
+                  maxHeight: "10rem",
+                  objectFit: "cover",
+                  borderRadius: "4, 4, 0, 0",
+                }}
+              />
+              <div className="popover-content">
+                <h3>{popoverEvent.name}</h3>
+                <p>Date: {moment(popoverEvent.date).format("MM-DD-YYYY")}</p>
+                <p>Location: {popoverEvent.location}</p>
+                <p>
+                  Event Type:{" "}
+                  {eventTypes.map(
+                    (type) => type.value === popoverEvent.type && type.name
+                  )}
+                </p>
+                <p>Description: {popoverEvent.description}</p>
+                <a href={popoverEvent.link}>Link to Event</a>
+              </div>
             </div>
           </Popover>
           <div id="home-user-info">
@@ -204,7 +227,10 @@ function HomePage() {
                       {user.child_first_name} {user.child_last_name}
                     </h2>
                     <h4>
-                      {moment(user.birthday).format("MM-DD-YYYY")} -{" "}
+                      Birth Date: {moment(user.birthday).format("MM-DD-YYYY")}
+                    </h4>
+                    <h4>
+                      Memorial Date:{" "}
                       {moment(user.memorial_day).format("MM-DD-YYYY")}
                     </h4>
                   </div>
@@ -213,6 +239,7 @@ function HomePage() {
                 <p>{user.story}</p>
               </div>
             )}
+            <br />
             <div>
               <div
                 style={{

@@ -1,6 +1,5 @@
 import PendingUserTable from "../AdminPage/pendingUserTable";
 import ApprovedUserTable from "../AdminPage/approvedUserTable";
-import AdminUserTable from './adminUserTable';
 import Messaging from "../Messaging/Messaging";
 import SendMessage from "../SendMessage/SendMessage";
 
@@ -32,18 +31,6 @@ function AdminUserView({ admin, superAdmin }) {
           }}
         >
           <ApprovedUserTable admin={admin} superAdmin={superAdmin} />
-        </div>
-      </div>
-      <div>
-        <h3 style={{ textAlign: "center" }}>Admin Users</h3>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <AdminUserTable admin={admin} />
         </div>
       </div>
     </div>

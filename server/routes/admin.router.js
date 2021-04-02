@@ -135,12 +135,49 @@ router.delete("/approved/:id", rejectUnauthenticated, (req, res) => {
 });
 
 router.get("/adminUsers", rejectUnauthenticated, (req,res) => {
-
   const queryText = `
-    SELECT * FROM "user" WHERE "admin_user"= 'true';
+    SELECT * FROM "user" WHERE "admin_user" = 'true';
   `
-
   pool.query(queryText)
+  .then(result => {
+    res.send(result.rows).status(200)
+  }).catch((err) => {
+    console.log(err)
+    res.sendStatus(500)
+  });
+});
+
+router.put("/promoteUser/:id", rejectUnauthenticated, (req,res) => {
+  const queryText = `
+    UPDATE "user" SET "admin_user" = 'true' WHERE "user"."id"=$1;
+  `
+  pool.query(queryText,[req.params.id])
+  .then(result => {
+    res.send(result.rows).status(200)
+  }).catch((err) => {
+    console.log(err)
+    res.sendStatus(500)
+  });
+});
+
+router.get("/nonAdminUsers", rejectUnauthenticated, (req,res) => {
+  const queryText = `
+    SELECT * FROM "user" WHERE "admin_user" = 'false';
+  `
+  pool.query(queryText)
+  .then(result => {
+    res.send(result.rows).status(200)
+  }).catch((err) => {
+    console.log(err)
+    res.sendStatus(500)
+  });
+});
+
+router.put("/demoteUser/:id", rejectUnauthenticated, (req,res) => {
+  const queryText = `
+    UPDATE "user" SET "admin_user" = 'false' WHERE "user"."id"=$1;
+  `
+  pool.query(queryText,[req.params.id])
   .then(result => {
     res.send(result.rows).status(200)
   }).catch((err) => {

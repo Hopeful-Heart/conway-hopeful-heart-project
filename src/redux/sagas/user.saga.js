@@ -41,9 +41,19 @@ function* fetchAdminUsers(action) {
   }
 }
 
-function* updateAdminUser() {
+function* updateNonAdminUser(action) {
   try {
-    const response = yield axios.put('/api/admin/promoteUser')
+    const response = yield axios.put(`/api/admin/promoteUser/${action.payload.id}`)
+    yield put({ type: "FETCH_USER_LIST", payload: response.data });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function* updateAdminUser(action) {
+  try {
+    const response = yield axios.put(`/api/admin/demoteUser/${action.payload.id}`)
+    yield put({ type: "FETCH_USER_LIST", payload: response.data });
   } catch (error) {
     console.log(error);
   }
@@ -172,6 +182,8 @@ function* userSaga() {
   yield takeLatest("FETCH_USER_DETAILS", fetchUserDetails);
   yield takeLatest("UPDATE_ADMIN_USER", updateAdminUser);
   yield takeLatest("FETCH_ADMIN_USERS", fetchAdminUsers);
+  yield takeLatest("UPDATE_ADMIN_USER", updateAdminUser);
+  yield takeLatest("UPDATE_NONADMIN_USER", updateNonAdminUser);
 }
 
 export default userSaga;

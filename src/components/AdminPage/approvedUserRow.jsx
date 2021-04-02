@@ -13,8 +13,12 @@ function ApprovedUserRow({ user, superAdmin }) {
         dispatch({ type: 'DELETE_APPROVED_USER', payload: user })
     }
 
-    const adminUser = (user) => {
-        dispatch({ type: 'ADMIN_USER', payload: user })
+    const updateNonAdminUser = (user) => {
+        dispatch({ type: 'UPDATE_NONADMIN_USER', payload: user })
+    }
+
+    const updateAdminUser = (user) => {
+        dispatch({ type: 'UPDATE_ADMIN_USER', payload: user })
     }
 
     return (
@@ -24,7 +28,7 @@ function ApprovedUserRow({ user, superAdmin }) {
             <td>{user.phone}</td>
             <td>{user.state}</td>
             <td><button onClick={() => updateApproved(user)} style={{ margin: 2.5 }}>Freeze</button><button onClick={() => deleteApproved(user)} style={{ margin: 2.5 }}>Delete</button></td>
-            {!superAdmin && !user.admin_user && <td><button onClick={() => adminUser(user)}>Admin</button></td>}
+            {!superAdmin ? <></> : !user.admin_user ? <td><button onClick={() => updateNonAdminUser(user)}>Admin</button></td> : <td><button onClick={() => updateAdminUser(user)}>Revoke Admin</button></td>}
         </tr>
     );
 }

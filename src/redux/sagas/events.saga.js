@@ -1,9 +1,9 @@
 import { put, takeEvery, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 
-function* fetchApprovedEventsSaga() {
+function* fetchApprovedEventsSaga(action) {
   try {
-    const response = yield axios.get("/api/events/approved");
+    const response = yield axios.get(`/api/events/approved/${action.payload}`);
     yield put({ type: "SET_APPROVED_EVENTS_LIST", payload: response.data });
   } catch (error) {
     console.log("Error in fetching events", error);
@@ -22,7 +22,7 @@ function* fetchRecentEventsSaga(action) {
 function* addEventsSaga(action) {
   try {
     yield axios.post("/api/events", action.payload);
-    yield put({ type: "FETCH_APPROVED_EVENTS" });
+    yield put({ type: "FETCH_APPROVED_EVENTS", payload: "all" });
   } catch (error) {
     console.log("error adding event", error);
   }

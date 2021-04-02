@@ -2,6 +2,14 @@
   width: 70rem !important;
   margin: auto;
   font-family: Avenir !important;
+  padding-left: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+.react-calendar__navigation__label {
+  background-color: white !important;
+  color: black;
+  font-family: Avenir !important;
 }
 
 .react-calendar__tile {
@@ -9,11 +17,24 @@
   display: flex;
   flex-direction: column;
   cursor: initial !important;
+  font-family: Avenir !important;
+  border: 1px solid #a0a096 !important;
+  border-collapse: collapse !important;
+  margin-top: -1px !important;
+  margin-left: -1px !important;
+  overflow: scroll !important;
 }
 
 .react-calendar__tile p {
   margin: 0;
   cursor: pointer;
+  width: 100%;
+  text-align: left;
+  margin: .1rem;
+}
+
+.react-calendar__tile--now {
+  background: white !important;
 }
 
 .react-calendar__tile--active {
@@ -23,4 +44,20 @@
 
 .react-calendar__month-view__days__day--weekend {
   color: #d10000 !important;
+}
+
+.nd-event {
+  background-color: rgba(0, 86, 67, .25);
+}
+
+.ne-event {
+  background-color: rgba(228, 28, 56, .25);
+}
+
+.virtual-event {
+  background-color: rgba(85, 57, 89, .25);
+}
+
+.user-event {
+  background-color: rgba(251, 182, 114, .25);
 }

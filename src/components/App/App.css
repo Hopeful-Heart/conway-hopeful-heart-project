@@ -24,6 +24,7 @@ footer {
 
 .container {
   padding: 20px;
+  background-color: #BCBEC0 !important;
 }
 
 .alert {
@@ -49,6 +50,10 @@ footer {
   cursor: pointer;
 }
 
+.popover {
+  max-width: 20rem;
+}
+
 .popover-content {
-  margin: 1rem
+  margin: 1rem;
 }

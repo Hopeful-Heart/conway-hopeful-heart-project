@@ -30,10 +30,11 @@ CREATE TABLE "events" (
     "user_id" INTEGER REFERENCES "user" NOT NULL,
     "name" VARCHAR (100) NOT NULL,
     "date" DATE NOT NULL,
-    "location" VARCHAR (100) NOT NULL,
-    "description" VARCHAR (500) NOT NULL,
+    "location" VARCHAR (100) DEFAULT NULL,
+    "description" VARCHAR (500) DEFAULT NULL,
     "type" VARCHAR (100) NOT NULL,
-    "link" VARCHAR (1000) DEFAULT NULL, 
+    "link" VARCHAR (1000) DEFAULT NULL,
+    "picture" VARCHAR (1000) NOT NULL, 
     "admin_approved" BOOLEAN DEFAULT FALSE
 );
 

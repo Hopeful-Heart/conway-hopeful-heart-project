@@ -14,7 +14,7 @@ function SendConnectionMessage(props) {
   const dispatch = useDispatch();
   const [newMessageToggle, setNewMessageToggle] = useState(false);
   const [newMessage, setNewMessage] = useState({
-    title: `From : ${user.first_name}, ${user.last_name}`,
+    title: `From : ${user.first_name} ${user.last_name}`,
     body: "",
     token: connection.client_token,
     user_id: connection.id,
@@ -22,7 +22,7 @@ function SendConnectionMessage(props) {
 
   const handleNewMessageReset = () => {
     setNewMessage({
-      title: `From : ${user.first_name}, ${user.last_name}`,
+      title: `From : ${user.first_name} ${user.last_name}`,
       body: "",
       token: connection.client_token,
       user_id: connection.id,
@@ -34,7 +34,7 @@ function SendConnectionMessage(props) {
     e.preventDefault();
     dispatch({ type: "SEND_PERSONAL_MESSAGES", payload: newMessage });
     setNewMessage({
-      title: `From : ${user.first_name}, ${user.last_name}`,
+      title: `From : ${user.first_name} ${user.last_name}`,
       body: "",
       token: connection.client_token,
       user_id: connection.id,
@@ -49,7 +49,7 @@ function SendConnectionMessage(props) {
     });
     dispatch({ type: "SEND_PERSONAL_MESSAGES", payload: newMessage });
     setNewMessage({
-      title: `From : ${user.first_name}, ${user.last_name}`,
+      title: `From : ${user.first_name} ${user.last_name}`,
       body: "",
       token: connection.client_token,
     });
@@ -58,7 +58,10 @@ function SendConnectionMessage(props) {
   };
 
   useEffect(() => {
-    dispatch({ type: "FETCH_USER_SEARCH_LIST", payload: { state: "All States" } });
+    dispatch({
+      type: "FETCH_USER_SEARCH_LIST",
+      payload: { state: "All States" },
+    });
   }, []);
 
   return (
@@ -69,6 +72,7 @@ function SendConnectionMessage(props) {
     >
       <button
         type="button"
+        class="filestack-button"
         onClick={() =>
           newMessageToggle
             ? setNewMessageToggle(false)
@@ -89,8 +93,12 @@ function SendConnectionMessage(props) {
             }
           />
           <br />
-          <button type="reset">Cancel</button>
-          <button type="submit">Send</button>
+          <button margin="20px" class="filestack-button" type="reset">
+            Cancel
+          </button>
+          <button margin="20px" class="filestack-button" type="submit">
+            Send
+          </button>
         </div>
       )}
     </form>

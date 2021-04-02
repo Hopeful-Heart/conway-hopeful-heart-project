@@ -3,6 +3,7 @@ import moment from 'moment';
 import { useDispatch } from 'react-redux'
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
+import Button from '@material-ui/core/Button';
 
 function ApprovedEventRow({ event }) {
 

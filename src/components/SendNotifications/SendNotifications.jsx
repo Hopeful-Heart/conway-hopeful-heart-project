@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
+import Button from '@material-ui/core/Button';
 
 function SendMessage() {
   const [message, setMessage] = useState([]);
@@ -37,7 +38,8 @@ function SendMessage() {
       onSubmit={handleNewMessageSubmit}
       style={{ textAlign: "center" }}
     >
-      <button
+      <Button
+        variant="contained" color="primary"
         type="button"
         onClick={() =>
           newMessageToggle
@@ -46,7 +48,7 @@ function SendMessage() {
         }
       >
         Add Message
-      </button>
+      </Button>
       {newMessageToggle && (
         <div>
           <br />
@@ -71,8 +73,8 @@ function SendMessage() {
             }
           />
           <br />
-          <button type="reset">Cancel</button>
-          <button type="submit">Submit</button>
+          <Button variant="contained" color="primary" type="reset">Cancel</Button>
+          <Button variant="contained" color="primary" type="submit">Submit</Button>
         </div>
       )}
     </form>

@@ -6,7 +6,6 @@ import {
   Switch,
 } from "react-router-dom";
 import { useDispatch } from "react-redux";
-
 import Nav from "../Nav/Nav";
 import Footer from "../Footer/Footer";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
@@ -24,9 +23,7 @@ import UserDetails from "../AllUsersPage/userDetails";
 import Connections from "../Connections/Connections";
 import { ToastContainer } from "react-toastify";
 import "./App.css";
-
 import { CssBaseline } from "@material-ui/core";
-
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 
@@ -115,15 +112,7 @@ function App() {
                 >
                   <Connections />
                 </ProtectedRoute>
-
-                <ProtectedRoute
-                  // logged in shows Messaging else shows LoginPage
-                  exact
-                  path="/messaging"
-                >
-                  <Messaging />
-                </ProtectedRoute>
-
+                
                 <ProtectedRoute
                   // logged in shows UserDetails else shows LoginPage
                   exact

@@ -1,15 +1,10 @@
 import PendingUserTable from "../AdminPage/pendingUserTable";
 import ApprovedUserTable from "../AdminPage/approvedUserTable";
-import Messaging from "../Messaging/Messaging";
-import SendMessage from "../SendMessage/SendMessage";
 
 function AdminUserView({ admin, superAdmin }) {
   return (
     <div className="container">
-      <h1 style={{ textAlign: "center" }}>Admin Page</h1>
       <br />
-      <Messaging />
-      <SendMessage />
       <h3 style={{ textAlign: "center" }}>Pending Users</h3>
       <div
         style={{

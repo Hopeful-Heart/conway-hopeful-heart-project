@@ -2,6 +2,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import Notifications from "../Notifications/Notifications";
 import connectionsReducer from "../../redux/reducers/connections.reducer";
+import Button from '@material-ui/core/Button';
+
 function SendMessage(props) {
   const user = useSelector((store) => store.user);
   const userSearchList = useSelector((store) => store.userSearch);
@@ -69,8 +71,9 @@ function SendMessage(props) {
       onSubmit={sendAll ? handleSendAllSubmit : handleNewMessageSubmit}
       style={{ textAlign: "center" }}
     >
-      <button
+      <Button
         type="button"
+        variant="contained" color="primary"
         onClick={() =>
           newMessageToggle
             ? setNewMessageToggle(false)
@@ -78,7 +81,7 @@ function SendMessage(props) {
         }
       >
         Post Announcement
-      </button>
+      </Button>
       {newMessageToggle && (
         <div>
           <br />
@@ -104,11 +107,11 @@ function SendMessage(props) {
           />
           <br />
 
-          <button type="reset">Cancel</button>
+          <Button variant="contained" color="primary" type="reset">Cancel</Button>
           {/* <button type="submit">Send</button> */}
-          <button onClick={() => setSendAll(true)} type="submit">
+          <Button variant="contained" color="primary" onClick={() => setSendAll(true)} type="submit">
             Send Announcement
-          </button>
+          </Button>
         </div>
       )}
     </form>

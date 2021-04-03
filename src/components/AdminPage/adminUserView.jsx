@@ -1,15 +1,18 @@
 import PendingUserTable from "../AdminPage/pendingUserTable";
 import ApprovedUserTable from "../AdminPage/approvedUserTable";
-import Messaging from "../Messaging/Messaging";
-import SendMessage from "../SendMessage/SendMessage";
+import Button from '@material-ui/core/Button';
 
-function AdminUserView({ admin, superAdmin }) {
+function AdminUserView({ admin, superAdmin, setDefaultAdminView, setAdminUserView }) {
+  
+  const resetDefaultAdminView = () => {
+    setDefaultAdminView(true)
+    setAdminUserView(false)
+  }
+  
   return (
     <div className="container">
-      <h1 style={{ textAlign: "center" }}>Admin Page</h1>
+      <Button onClick={resetDefaultAdminView} variant="contained" color="primary">Back</Button>
       <br />
-      <Messaging />
-      <SendMessage />
       <h3 style={{ textAlign: "center" }}>Pending Users</h3>
       <div
         style={{
@@ -18,7 +21,7 @@ function AdminUserView({ admin, superAdmin }) {
           alignItems: "center",
         }}
       >
-        <PendingUserTable admin={admin} />
+        <PendingUserTable setDefaultAdminView={setDefaultAdminView} setAdminUserView={setAdminUserView} admin={admin} />
       </div>
       <br />
       <div>
@@ -30,7 +33,7 @@ function AdminUserView({ admin, superAdmin }) {
             alignItems: "center",
           }}
         >
-          <ApprovedUserTable admin={admin} superAdmin={superAdmin} />
+          <ApprovedUserTable setDefaultAdminView={setDefaultAdminView} setAdminUserView={setAdminUserView} admin={admin} superAdmin={superAdmin}  />
         </div>
       </div>
     </div>

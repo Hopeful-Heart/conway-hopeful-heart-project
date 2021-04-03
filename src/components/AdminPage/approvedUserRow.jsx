@@ -1,7 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch } from "react-redux";
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import Button from '@material-ui/core/Button';
 
-function ApprovedUserRow({ user, superAdmin }) {
+function ApprovedUserRow({ user, superAdmin, setDefaultAdminView, setAdminUserView  }) {
 
     const dispatch = useDispatch();
 
@@ -22,14 +25,16 @@ function ApprovedUserRow({ user, superAdmin }) {
     }
 
     return (
-        <tr key={user.id}>
-            <td>{`${user.first_name} ${user.last_name}`}</td>
-            <td>{user.email}</td>
-            <td>{user.phone}</td>
-            <td>{user.state}</td>
-            <td><button onClick={() => updateApproved(user)} style={{ margin: 2.5 }}>Freeze</button><button onClick={() => deleteApproved(user)} style={{ margin: 2.5 }}>Delete</button></td>
-            {!superAdmin ? <></> : !user.admin_user ? <td><button onClick={() => updateNonAdminUser(user)}>Admin</button></td> : <td><button onClick={() => updateAdminUser(user)}>Revoke Admin</button></td>}
-        </tr>
+        <TableRow key={user.id}>
+            <TableCell align="center">{`${user.first_name} ${user.last_name}`}</TableCell>
+            <TableCell align="center">{user.email}</TableCell>
+            <TableCell align="center">{user.phone}</TableCell>
+            <TableCell align="center">{user.state}</TableCell>
+            <TableCell align="center"><Button variant="contained" color="primary" onClick={() => updateApproved(user)} style={{ margin: 2.5 }}>Freeze</Button><Button variant="contained" color="primary" onClick={() => deleteApproved(user)} style={{ margin: 2.5 }}>Delete</Button></TableCell>
+            {!superAdmin ? <></> : !user.admin_user ? <TableCell align="center"><Button variant="contained" color="primary" onClick={() => updateNonAdminUser(user)}>Admin</Button></TableCell> : <TableCell align="center"><Button variant="contained" color="primary" onClick={() => updateAdminUser(user)}>Revoke Admin</Button></TableCell>}
+        </TableRow>
+
     );
 }
+
 export default ApprovedUserRow;

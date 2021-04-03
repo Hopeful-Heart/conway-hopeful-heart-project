@@ -1,6 +1,9 @@
 import React from 'react';
 import moment from 'moment';
 import {useDispatch} from 'react-redux'
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import Button from '@material-ui/core/Button';
 
 function PendingEventRow({ event }) {
 
@@ -15,14 +18,14 @@ function PendingEventRow({ event }) {
     }
 
     return (
-        <tr key={event.id}>
-            <td>{event.name}</td>
-            <td>{`${event.first_name}  ${event.last_name}`}</td>
-            <td>{moment(event.date).format('YYYY-MM-DD')}</td>
-            <td>{event.location}</td>
-            <td>{event.link ? <a href={event.link}>Link</a> : 'No Link Provided'}</td>
-            <td><button  style={{margin:2.5}} onClick={() => updatePending(event)}>Approve</button><button onClick={() => deletePending(event)} style={{margin:2.5}}>Deny</button></td>
-        </tr>
+        <TableRow key={event.id}>
+            <TableCell align="center">{event.name}</TableCell>
+            <TableCell align="center">{`${event.first_name}  ${event.last_name}`}</TableCell>
+            <TableCell align="center">{moment(event.date).format('YYYY-MM-DD')}</TableCell>
+            <TableCell align="center">{event.location}</TableCell>
+            <TableCell align="center">{event.link ? <a href={event.link}>Link</a> : 'No Link Provided'}</TableCell>
+            <TableCell align="center"><Button variant="contained" color="primary" style={{margin:2.5}} onClick={() => updatePending(event)}>Approve</Button><Button variant="contained" color="primary" onClick={() => deletePending(event)} style={{margin:2.5}}>Deny</Button></TableCell>
+        </TableRow>
     );
 }
 export default PendingEventRow;

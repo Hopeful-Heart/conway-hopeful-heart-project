@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router'
+import { useHistory } from 'react-router';
+import Button from '@material-ui/core/Button';
 import '../AllUsersPage/userSearch.css'
 
 function UserSearchRow({ user }) {
@@ -17,8 +18,8 @@ function UserSearchRow({ user }) {
         <div className="profileCard" key={user.id}>
             <img style={{ maxHeight: 250, maxWidth: 250, borderRadius: "50%" }} src={user.profile_pic}></img>
             <h2>{`${user.first_name} ${user.last_name}`}</h2> 
-            <p>{`${user.city},${user.state}`}</p>
-            <button onClick={() => userDetails(user)}>Learn More</button>
+            {user.city ? <p>{`${user.city},${user.state}`}</p> : <p>{user.state}</p> }
+            <Button  variant="contained" color="primary" style={{margin:20}} onClick={() => userDetails(user)}>Learn More</Button>
         </div>
     )
 }

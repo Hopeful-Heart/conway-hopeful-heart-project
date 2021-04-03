@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Button from '@material-ui/core/Button';
 import Messaging from "../Messaging/Messaging";
 import PersonalMessages from "../PersonalMessages/PersonalMessages";
 import SendConnectionMessage from "../SendConnectionMessage/SendConnectionMessage";
@@ -86,14 +87,16 @@ function AllUsersPage() {
           {connection.first_name} {connection.last_name} wants to be a
           connection!
         </p>
-        <button
+        <Button
+          variant="contained" color="primary"
           onClick={() => {
             forwardConnection(connection);
           }}
         >
           Approve
-        </button>
-        <button
+        </Button>
+        <Button
+          variant="contained" color="primary"
           onClick={() => {
             dispatch({
               type: "DISMISS_CONNECTION",
@@ -102,7 +105,7 @@ function AllUsersPage() {
           }}
         >
           Delete
-        </button>
+        </Button>
         <br />
       </div>
     ));
@@ -123,15 +126,15 @@ function AllUsersPage() {
             <SendConnectionMessage connection={connection} user={user} />
             {connection.email} | {connection.phone}
           </h4>
-          <h4>{`${connection.state}, ${connection.city}`}</h4>
+          {connection.city ? <h4>{`${connection.city},${connection.state}`}</h4> : <h4>{connection.state}</h4>}
           <h2>{connection.child_first_name}</h2>
           {connection.child_first_name === "" ||
-          connection.child_last_name === "" ||
-          connection.second_photo === "" ||
-          connection.story === "" ||
-          connection.special_sentiment === "" ||
-          connection.birthday === null ||
-          connection.memorial_date === null ? (
+            connection.child_last_name === "" ||
+            connection.second_photo === "" ||
+            connection.story === "" ||
+            connection.special_sentiment === "" ||
+            connection.birthday === null ||
+            connection.memorial_date === null ? (
             <p>No Child Information</p>
           ) : (
             <>

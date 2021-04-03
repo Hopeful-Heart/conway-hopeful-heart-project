@@ -1,6 +1,11 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
+import Table from '@material-ui/core/Table';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import TableBody from '@material-ui/core/TableBody';
 
 function PersonalMessages() {
   const [message, setMessage] = useState([]);
@@ -22,50 +27,40 @@ function PersonalMessages() {
     dispatch({ type: "DELETE_PERSONAL_MESSAGES", payload: message });
   };
 
-  let messageList;
-
-  //   {/* <td>
-  //       {/* <button
-  //         onClick={() => deleteMessage(message)}
-  //         style={{ margin: 2.5 }}
-  //       >
-  //         remove
-  //       </button> */}
-  //     </td> */}
-
-  if (messages[0]) {
-    messageList = messages.map((message) => (
-      <tr
-        key={message.id}
-        onClick={() => deleteMessage(message)}
-        style={{ margin: 2.5 }}
-      >
-        <td>{message.title}</td>
-        <td>{message.body}</td>
-      </tr>
-    ));
-  } else {
-    messageList = (
-      <tr>
-        <td>No MESSAGES</td>
-      </tr>
-    );
-  }
-
   return (
-    <div>
-      <p>click notification to dismiss</p>
-      <table>
-        <thead>
-          <tr>
-            <th>
-              <h3>Messages</h3>
-            </th>
-          </tr>
-        </thead>
-        <tbody>{messageList}</tbody>
-      </table>
-    </div>
+    <>
+      { messages[0] ?
+        <>
+          <h1>Messages</h1>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>
+                  Sender
+              </TableCell>
+                <TableCell>
+                  Message
+              </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {messages.map(message => {
+                return (
+                  <TableRow
+                    key={message.id}
+                    onClick={() => deleteMessage(message)}
+                    style={{ margin: 2.5 }}
+                  >
+                    <TableCell>{message.title}</TableCell>
+                    <TableCell>{message.body}</TableCell>
+                  </TableRow>
+                )
+              })}
+            </TableBody>
+          </Table> </> :
+        <h1 style={{ textAlign: 'center' }}>No Messages</h1>
+      }
+    </>
   );
 }
 export default PersonalMessages;

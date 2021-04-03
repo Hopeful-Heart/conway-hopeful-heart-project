@@ -56,7 +56,7 @@ function Messaging() {
               {messageList}
             </TableBody>
           </Table>
-        </> : <h1>No Announcements</h1>}
+        </> : <h1 style={{textAlign:'center'}}>No Announcements</h1>}
 
     </div>
   );

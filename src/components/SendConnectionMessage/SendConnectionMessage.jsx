@@ -1,5 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import Notifications from "../Notifications/Notifications";
 import connectionsReducer from "../../redux/reducers/connections.reducer";
 function SendConnectionMessage(props) {
@@ -70,7 +72,9 @@ function SendConnectionMessage(props) {
       onSubmit={handleNewMessageSubmit}
       style={{ textAlign: "center" }}
     >
-      <button
+      <Button
+        variant="contained" color="primary"
+        style={{margin:20, width:150}}
         type="button"
         class="filestack-button"
         onClick={() =>
@@ -80,11 +84,15 @@ function SendConnectionMessage(props) {
         }
       >
         Send Message
-      </button>
+      </Button>
       {newMessageToggle && (
         <div>
-          <label htmlFor="add-message-body">Message: </label>
-          <textarea
+          <TextField
+            variant='outlined'
+            label='Message'
+            multiline
+            rows={5}
+            rowsMax={10}
             required
             id="add-message-body"
             value={newMessage.body}
@@ -93,12 +101,12 @@ function SendConnectionMessage(props) {
             }
           />
           <br />
-          <button margin="20px" class="filestack-button" type="reset">
+          <Button style={{margin:10}} variant="contained" color="primary" margin="20px" class="filestack-button" type="reset">
             Cancel
-          </button>
-          <button margin="20px" class="filestack-button" type="submit">
+          </Button>
+          <Button style={{margin:10}} variant="contained" color="primary" margin="20px" class="filestack-button" type="submit">
             Send
-          </button>
+          </Button>
         </div>
       )}
     </form>

@@ -3,10 +3,12 @@ import ApprovedUserTable from "../AdminPage/approvedUserTable";
 import Button from '@material-ui/core/Button';
 
 function AdminUserView({ admin, superAdmin, setDefaultAdminView, setAdminUserView }) {
+  
   const resetDefaultAdminView = () => {
     setDefaultAdminView(true)
     setAdminUserView(false)
   }
+  
   return (
     <div className="container">
       <Button onClick={resetDefaultAdminView} variant="contained" color="primary">Back</Button>

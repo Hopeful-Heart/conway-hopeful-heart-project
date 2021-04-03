@@ -26,6 +26,8 @@ function Nav() {
   const routeMatch = useRouteMatch("/landing");
   const desktopView = useMediaQuery("(min-width:950px)");
 
+  const style = {};
+
   let loginLinkData = {
     path: "/login",
     text: "Login / Register",

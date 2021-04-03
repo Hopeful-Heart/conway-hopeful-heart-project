@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import React, { useEffect } from "react";
 import moment from "moment";
+import Button from '@material-ui/core/Button';
 import "./userDetails.css";
 function UserDetails() {
   const user = useSelector((store) => store.userSearch.userDetailsReucer);
@@ -58,7 +59,7 @@ function UserDetails() {
         <h4>
           {user.email} | {user.phone}
         </h4>
-        <h4>{`${user.state}, ${user.city}`}</h4>
+        {user.city ? <h3>{`${user.city},${user.state}`}</h3> : <h3>{user.state}</h3> }
         <h2>{user.child_first_name}</h2>
         {user.child_first_name === "" ||
         user.child_last_name === "" ||
@@ -77,7 +78,7 @@ function UserDetails() {
             <p>{user.story}</p>
           </>
         )}
-        <button onClick={connectRequest}>Connect</button>
+        <Button variant="contained" color="primary" style={{ margin: 30  }} onClick={connectRequest}>Connect</Button>
       </div>
     </div>
   );

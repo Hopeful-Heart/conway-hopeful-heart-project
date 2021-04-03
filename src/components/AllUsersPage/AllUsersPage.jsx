@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import UserSearchRow from "./UserSearchRow";
-
+import Button from '@material-ui/core/Button';
 import {
   FormControl,
   Select,
@@ -46,7 +46,7 @@ function AllUsersPage() {
       <h1 style={{ textAlign: "center" }}>All Users Page</h1>
       <div style={{ textAlign: "center" }}>
         <h3>Filter Results</h3>
-        <button onClick={seeAllStates}>See All Users</button>
+        <Button variant="contained" color="primary" style={{ margin: 20  }} onClick={seeAllStates}>See All Users</Button>
         <FormControl
           variant="outlined"
           className={classes.formControl}
@@ -54,6 +54,7 @@ function AllUsersPage() {
         >
           <InputLabel id="register-select-state-label">State</InputLabel>
           <Select
+            style={{ width: 150 }}
             labelId="register-select-state-label"
             id="demo-simple-select-outlined"
             value={''}
@@ -63,7 +64,6 @@ function AllUsersPage() {
                 payload: { state: event.target.value },
               })
             }
-            label="State"
             required
           >
             {states.map((state) => (

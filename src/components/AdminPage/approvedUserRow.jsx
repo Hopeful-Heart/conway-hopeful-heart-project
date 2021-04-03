@@ -33,6 +33,7 @@ function ApprovedUserRow({ user, superAdmin, setDefaultAdminView, setAdminUserVi
             <TableCell align="center"><Button variant="contained" color="primary" onClick={() => updateApproved(user)} style={{ margin: 2.5 }}>Freeze</Button><Button variant="contained" color="primary" onClick={() => deleteApproved(user)} style={{ margin: 2.5 }}>Delete</Button></TableCell>
             {!superAdmin ? <></> : !user.admin_user ? <TableCell align="center"><Button variant="contained" color="primary" onClick={() => updateNonAdminUser(user)}>Admin</Button></TableCell> : <TableCell align="center"><Button variant="contained" color="primary" onClick={() => updateAdminUser(user)}>Revoke Admin</Button></TableCell>}
         </TableRow>
+
     );
 }
 

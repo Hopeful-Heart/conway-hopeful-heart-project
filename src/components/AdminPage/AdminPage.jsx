@@ -26,25 +26,30 @@ function AdminPage() {
   const superAdmin = useSelector((store) => store.user.super_admin);
   const history = useHistory();
   const dispatch = useDispatch();
-  console.log(superAdmin);
   const [defaultAdminView, setDefaultAdminView] = useState(true);
   const [messagingAdminView, setMessagingAdminView] = useState(false);
   const [adminUserView, setAdminUserView] = useState(false);
   const [adminEventView, setAdminEventView] = useState(false);
+  
+  console.log(superAdmin);
+  
   useEffect(() => {
     dispatch({ type: 'FETCH_USER_LIST' });
     dispatch({ type: 'FETCH_EVENTS_LIST' });
     dispatch({ type: 'FETCH_ADMIN_USERS' });
     !adminUser && history.push('/home');
   }, []);
+  
   const handleUserClick = () => {
     setDefaultAdminView(false);
     setAdminUserView(true);
   }
+  
   const handleEventClick = () => {
     setDefaultAdminView(false);
     setAdminEventView(true);
   }
+  
   const handleMessagingClick = () => {
     setDefaultAdminView(false);
     setMessagingAdminView(true);

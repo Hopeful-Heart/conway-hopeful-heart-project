@@ -1,3 +1,4 @@
+import { SupervisedUserCircle } from '@material-ui/icons';
 import ApprovedUserRow from '../AdminPage/approvedUserRow';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
@@ -6,7 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
 
 function ApprovedUserTable({ admin, superAdmin, setDefaultAdminView, setAdminUserView }) {
-
+  
   return (
     <Table>
       <TableHead>

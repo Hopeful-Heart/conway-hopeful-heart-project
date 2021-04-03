@@ -35,10 +35,20 @@ const approvedEventsReducer = (state = [], action) => {
       return state;
   }
 }
+
+const adminUserReducer = (state = [], action) => {
+  switch (action.type) {
+    case "SET_ADMIN_USERS":
+      return action.payload;
+      default:
+        return state;
+  }
+}
 export default combineReducers({
   pendingUsersReducer,
   approvedUsersReducer,
   pendingEventsReducer,
   approvedEventsReducer,
+  adminUserReducer,
 });
 

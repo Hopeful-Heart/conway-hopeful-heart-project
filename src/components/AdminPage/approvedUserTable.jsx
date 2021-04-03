@@ -1,6 +1,7 @@
+import { SupervisedUserCircle } from '@material-ui/icons';
 import ApprovedUserRow from '../AdminPage/approvedUserRow';
 
-function ApprovedUserTable({ admin }) {
+function ApprovedUserTable({ admin, superAdmin }) {
 
   return (
     <table style={{ textAlign: 'center' }}>
@@ -19,6 +20,7 @@ function ApprovedUserTable({ admin }) {
             <ApprovedUserRow
               key={user.id}
               user={user}
+              superAdmin={superAdmin}
             />
           )
         })}

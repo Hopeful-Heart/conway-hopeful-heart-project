@@ -30,26 +30,26 @@ function AdminPage() {
   const [messagingAdminView, setMessagingAdminView] = useState(false);
   const [adminUserView, setAdminUserView] = useState(false);
   const [adminEventView, setAdminEventView] = useState(false);
-  
+
   console.log(superAdmin);
-  
+
   useEffect(() => {
     dispatch({ type: 'FETCH_USER_LIST' });
     dispatch({ type: 'FETCH_EVENTS_LIST' });
     dispatch({ type: 'FETCH_ADMIN_USERS' });
     !adminUser && history.push('/home');
   }, []);
-  
+
   const handleUserClick = () => {
     setDefaultAdminView(false);
     setAdminUserView(true);
   }
-  
+
   const handleEventClick = () => {
     setDefaultAdminView(false);
     setAdminEventView(true);
   }
-  
+
   const handleMessagingClick = () => {
     setDefaultAdminView(false);
     setMessagingAdminView(true);
@@ -70,10 +70,10 @@ function AdminPage() {
             <Button onClick={handleEventClick}>Events</Button>
             <br />
             <br />
-            <Button onClick={handleMessagingClick}>Messaging</Button>
+            <Button onClick={handleMessagingClick}>Announcements</Button>
           </>
         }
-        {messagingAdminView && <div ><Messaging /> <SendMessage setDefaultAdminView={setDefaultAdminView} setMessagingAdminView={setMessagingAdminView}/></div>}
+        {messagingAdminView && <div ><Messaging /> <SendMessage setDefaultAdminView={setDefaultAdminView} setMessagingAdminView={setMessagingAdminView} /></div>}
         {adminUserView && <AdminUserView setDefaultAdminView={setDefaultAdminView} setAdminUserView={setAdminUserView} admin={admin} superAdmin={superAdmin} />}
         {adminEventView && <AdminEventView setDefaultAdminView={setDefaultAdminView} setAdminEventView={setAdminEventView} admin={admin} superAdmin={superAdmin} />}
       </div>

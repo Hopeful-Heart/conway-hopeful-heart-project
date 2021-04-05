@@ -19,22 +19,35 @@ function ApprovedEventRow({ event }) {
     }
     const dispatch = useDispatch();
 
-    const [open, setOpen] = React.useState(false);
+    const [openDelete, setOpenDelete] = useState(false);
 
-    const handleClickOpen = () => {
-      setOpen(true);
+    const [deleteEvent, setDeleteEvent] = useState({
+        date: "",
+        description: "",
+        first_name: "",
+        id: "",
+        last_name: "",
+        link: "",
+        location: "",
+        name: "",
+        type: "",
+    })
+
+    const handleOpenDelete = (event) => {
+        setDeleteEvent(event);
+        setOpenDelete(true);
     };
-  
-    const handleClose = () => {
-      setOpen(false);
+
+    const handleCloseDelete = () => {
+        setOpenDelete(false);
     };
 
     const updateApproved = (event) => {
-        handleClick();
         dispatch({ type: 'UPDATE_APPROVED_EVENT', payload: event })
     }
-    const deleteApproved = (event) => {
-        dispatch({ type: 'DELETE_APPROVED_EVENT', payload: event })
+
+    const deleteApprovedEvent = (deleteEvent) => {
+        dispatch({ type: 'DELETE_APPROVED_EVENT', payload: deleteEvent })
     }
 
     return (
@@ -45,32 +58,28 @@ function ApprovedEventRow({ event }) {
                 <TableCell align="center">{moment(event.date).format('YYYY-MM-DD')}</TableCell>
                 <TableCell align="center">{event.location}</TableCell>
                 <TableCell align="center">{event.link ? <a href={event.link}>Link</a> : 'No Link Provided'}</TableCell>
-                <TableCell align="center"><Button variant="contained" color="primary" style={{ margin: 2.5 }} onClick={() => updateApproved(event)}>Unapprove</Button><Button variant="contained" color="primary" onClick={() => deleteApproved(event)} style={{ margin: 2.5 }}>Delete</Button></TableCell>
+                <TableCell align="center"><Button variant="contained" color="primary" style={{ margin: 2.5 }} onClick={() => updateApproved(event)}>Unapprove</Button><Button variant="contained" color="primary" onClick={() => handleOpenDelete(event)} style={{ margin: 2.5 }}>Delete</Button></TableCell>
             </TableRow>
             {/* <Snackbar>
                 <Alert open={open} autoHideDuration={2500} onClose={handleClose} variant="filled" severity="error">Event Unapproved</Alert>
             </Snackbar> */}
-            <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                Open alert dialog
-            </Button>
             <Dialog
-                open={open}
-                onClose={handleClose}
+                open={openDelete}
+                onClose={handleCloseDelete}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
+                <DialogTitle id="alert-dialog-title">{"Delete Event?"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Let Google help apps determine location. This means sending anonymous location data to
-                        Google, even when no apps are running.
-                </DialogContentText>
+                        Are You Sure You want to delete this event? It will be lost forever!    
+                    </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary">
+                    <Button onClick={handleCloseDelete} color="primary">
                         Cancel
                     </Button>
-                    <Button onClick={handleClose} color="primary" autoFocus>
+                    <Button onClick={() => deleteApprovedEvent(deleteEvent)} color="primary" autoFocus>
                         Delete
                     </Button>
                 </DialogActions>

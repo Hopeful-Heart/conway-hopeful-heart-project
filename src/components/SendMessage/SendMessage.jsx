@@ -2,8 +2,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import Notifications from "../Notifications/Notifications";
 import connectionsReducer from "../../redux/reducers/connections.reducer";
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 
 function SendMessage({ setDefaultAdminView, setMessagingAdminView }) {
   const user = useSelector((store) => store.user);
@@ -17,6 +17,7 @@ function SendMessage({ setDefaultAdminView, setMessagingAdminView }) {
   const [newMessage, setNewMessage] = useState({
     title: "",
     body: "",
+    sent: new Date(),
     token: user.client_token,
   });
 
@@ -24,6 +25,7 @@ function SendMessage({ setDefaultAdminView, setMessagingAdminView }) {
     setNewMessage({
       title: "",
       body: "",
+      sent: new Date(),
       token: user.client_token,
     });
     setNewMessageToggle(false);
@@ -35,6 +37,7 @@ function SendMessage({ setDefaultAdminView, setMessagingAdminView }) {
     setNewMessage({
       title: "",
       body: "",
+      sent: new Date(),
       token: user.client_token,
     });
     setNewMessageToggle(false);
@@ -49,6 +52,7 @@ function SendMessage({ setDefaultAdminView, setMessagingAdminView }) {
     setNewMessage({
       title: "",
       body: "",
+      sent: new Date(),
       token: user.client_token,
     });
     setSendAll(false);
@@ -60,7 +64,6 @@ function SendMessage({ setDefaultAdminView, setMessagingAdminView }) {
       type: "FETCH_USER_SEARCH_LIST",
       payload: { state: "All States" },
     });
-
   }, []);
 
   let allTokens = [];
@@ -71,13 +74,20 @@ function SendMessage({ setDefaultAdminView, setMessagingAdminView }) {
   }
 
   const resetDefaultAdminView = () => {
-    setDefaultAdminView(true)
-    setMessagingAdminView(false)
-  }
+    setDefaultAdminView(true);
+    setMessagingAdminView(false);
+  };
 
   return (
     <>
-      <Button  style={{margin:20}} onClick={resetDefaultAdminView} variant="contained" color="primary">Back</Button>
+      <Button
+        style={{ margin: 20 }}
+        onClick={resetDefaultAdminView}
+        variant="contained"
+        color="primary"
+      >
+        Back
+      </Button>
       <form
         onReset={handleNewMessageReset}
         onSubmit={sendAll ? handleSendAllSubmit : handleNewMessageSubmit}
@@ -85,7 +95,8 @@ function SendMessage({ setDefaultAdminView, setMessagingAdminView }) {
       >
         <Button
           type="button"
-          variant="contained" color="primary"
+          variant="contained"
+          color="primary"
           onClick={() =>
             newMessageToggle
               ? setNewMessageToggle(false)
@@ -99,10 +110,10 @@ function SendMessage({ setDefaultAdminView, setMessagingAdminView }) {
             <br />
             <TextField
               required
-              style={{margin:10}}
+              style={{ margin: 10 }}
               type="text"
               id="add-message-title"
-              variant="outlined" 
+              variant="outlined"
               label="Title"
               value={newMessage.title}
               onChange={(e) =>
@@ -111,7 +122,7 @@ function SendMessage({ setDefaultAdminView, setMessagingAdminView }) {
             />
             <br />
             <TextField
-              style={{margin:10}}
+              style={{ margin: 10 }}
               label="Message"
               multiline
               rows={5}
@@ -125,15 +136,27 @@ function SendMessage({ setDefaultAdminView, setMessagingAdminView }) {
               }
             />
             <br />
-            <Button style={{margin:10}} variant="contained" color="primary" type="reset">Cancel</Button>
-            <Button style={{margin:10}} variant="contained" color="primary" onClick={() => setSendAll(true)} type="submit">
+            <Button
+              style={{ margin: 10 }}
+              variant="contained"
+              color="primary"
+              type="reset"
+            >
+              Cancel
+            </Button>
+            <Button
+              style={{ margin: 10 }}
+              variant="contained"
+              color="primary"
+              onClick={() => setSendAll(true)}
+              type="submit"
+            >
               Send Announcement
             </Button>
           </div>
         )}
       </form>
     </>
-
   );
 }
 

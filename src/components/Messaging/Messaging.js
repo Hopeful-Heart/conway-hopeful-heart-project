@@ -47,7 +47,7 @@ function Messaging() {
 
   let messageList;
 
-  if (messages[0]) {
+  if (messages[0] && user.admin_user) {
     messageList = messages.map((message) => (
       <TableRow key={message.id}>
         <TableCell align="center">
@@ -60,8 +60,17 @@ function Messaging() {
         </TableCell>
       </TableRow>
     ));
+  } else if (messages[0]) {
+    messageList = messages.map((message) => (
+      <TableRow key={message.id}>
+        <TableCell align="center">
+          {moment(message.sent).format("MM-DD-YYYY")}
+        </TableCell>
+        <TableCell align="center">{message.title}</TableCell>
+        <TableCell align="center">{message.body}</TableCell>
+      </TableRow>
+    ));
   }
-
   return (
     <div className="container">
       <Paper className={classes.paper}>

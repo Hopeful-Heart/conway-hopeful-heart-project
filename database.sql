@@ -55,6 +55,7 @@ CREATE TABLE "connections" (
 
 CREATE TABLE "messages" (
 "id" SERIAL PRIMARY KEY,
+"sent" DATE NOT NULL,
   "title" VARCHAR (100) NOT NULL,
   "body" VARCHAR (1000) NOT NULL
   );
@@ -62,6 +63,7 @@ CREATE TABLE "messages" (
 CREATE TABLE "personalMessages" (
 "id" SERIAL PRIMARY KEY,
 "user_id" INTEGER,
+"sent" DATE NOT NULL,
 "title" VARCHAR (1000) NOT NULL,
 "body" VARCHAR (500) NOT NULL
 );

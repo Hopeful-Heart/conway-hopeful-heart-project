@@ -6,12 +6,11 @@ const pool = require("../modules/pool");
 const router = express.Router();
 
 router.post("/", (req, res) => {
-
   const messages = req.body;
-  const queryText = `INSERT INTO "messages" ("title", "body")
-    VALUES ($1, $2);`;
+  const queryText = `INSERT INTO "messages" ("sent", "title", "body")
+    VALUES ($1, $2, $3);`;
   pool
-    .query(queryText, [messages.title, messages.body])
+    .query(queryText, [messages.sent, messages.title, messages.body])
     .then((result) => res.send(result.rows))
     .catch((err) => {
       console.log(`error in messagePost with`, err);

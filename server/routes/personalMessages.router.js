@@ -8,10 +8,15 @@ const router = express.Router();
 router.post("/", (req, res) => {
   console.log(req.body);
   const messages = req.body;
-  const queryText = `INSERT INTO "personalMessages" ( "user_id", "title", "body")
-    VALUES ($1, $2, $3);`;
+  const queryText = `INSERT INTO "personalMessages" ( "user_id", "sent", "title", "body")
+    VALUES ($1, $2, $3, $4);`;
   pool
-    .query(queryText, [messages.user_id, messages.title, messages.body])
+    .query(queryText, [
+      messages.user_id,
+      messages.sent,
+      messages.title,
+      messages.body,
+    ])
     .then((result) => res.send(result.rows))
     .catch((err) => {
       console.log(`error in messagePost with`, err);

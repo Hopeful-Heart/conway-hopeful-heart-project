@@ -1,9 +1,14 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Notifications from "../Notifications/Notifications";
 import connectionsReducer from "../../redux/reducers/connections.reducer";
+import {
+  Paper,
+  makeStyles,
+  Button,
+  ButtonGroup,
+  TextField,
+} from "@material-ui/core";
 function SendConnectionMessage(props) {
   //   const user = useSelector((store) => store.user);
   const userSearchList = useSelector((store) => store.userSearch);
@@ -18,14 +23,32 @@ function SendConnectionMessage(props) {
   const [newMessage, setNewMessage] = useState({
     title: `From : ${user.first_name} ${user.last_name}`,
     body: "",
+    sent: new Date(),
     token: connection.client_token,
     user_id: connection.id,
   });
+
+  const useStyles = makeStyles({
+    paper: {
+      margin: "auto",
+      marginTop: "1rem",
+      marginBottom: "1rem",
+      width: "fit-content",
+      padding: "2rem",
+      textAlign: "center",
+    },
+    multiline: {
+      minWidth: "20rem",
+    },
+  });
+
+  const classes = useStyles();
 
   const handleNewMessageReset = () => {
     setNewMessage({
       title: `From : ${user.first_name} ${user.last_name}`,
       body: "",
+      sent: new Date(),
       token: connection.client_token,
       user_id: connection.id,
     });
@@ -38,6 +61,7 @@ function SendConnectionMessage(props) {
     setNewMessage({
       title: `From : ${user.first_name} ${user.last_name}`,
       body: "",
+      sent: new Date(),
       token: connection.client_token,
       user_id: connection.id,
     });
@@ -53,6 +77,7 @@ function SendConnectionMessage(props) {
     setNewMessage({
       title: `From : ${user.first_name} ${user.last_name}`,
       body: "",
+      sent: new Date(),
       token: connection.client_token,
     });
     setSendAll(false);
@@ -73,8 +98,9 @@ function SendConnectionMessage(props) {
       style={{ textAlign: "center" }}
     >
       <Button
-        variant="contained" color="primary"
-        style={{margin:20, width:150}}
+        variant="contained"
+        color="primary"
+        style={{ margin: 20, width: 150 }}
         type="button"
         class="filestack-button"
         onClick={() =>
@@ -86,27 +112,45 @@ function SendConnectionMessage(props) {
         Send Message
       </Button>
       {newMessageToggle && (
-        <div>
-          <TextField
-            variant='outlined'
-            label='Message'
-            multiline
-            rows={5}
-            rowsMax={10}
-            required
-            id="add-message-body"
-            value={newMessage.body}
-            onChange={(e) =>
-              setNewMessage({ ...newMessage, body: e.target.value })
-            }
-          />
-          <br />
-          <Button style={{margin:10}} variant="contained" color="primary" margin="20px" class="filestack-button" type="reset">
-            Cancel
-          </Button>
-          <Button style={{margin:10}} variant="contained" color="primary" margin="20px" class="filestack-button" type="submit">
-            Send
-          </Button>
+        <div className="container">
+          <Paper className={classes.paper}>
+            <div>
+              <TextField
+                variant="outlined"
+                label="Message"
+                multiline
+                rows={5}
+                rowsMax={10}
+                required
+                id="add-message-body"
+                value={newMessage.body}
+                onChange={(e) =>
+                  setNewMessage({ ...newMessage, body: e.target.value })
+                }
+              />
+              <br />
+              <Button
+                style={{ margin: 10 }}
+                variant="contained"
+                color="primary"
+                margin="20px"
+                class="filestack-button"
+                type="reset"
+              >
+                Cancel
+              </Button>
+              <Button
+                style={{ margin: 10 }}
+                variant="contained"
+                color="primary"
+                margin="20px"
+                class="filestack-button"
+                type="submit"
+              >
+                Send
+              </Button>
+            </div>
+          </Paper>
         </div>
       )}
     </form>

@@ -63,6 +63,7 @@ function PersonalMessages() {
                     <TableCell>Date</TableCell>
                     <TableCell>Sender</TableCell>
                     <TableCell>Message</TableCell>
+                    <TableCell></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -72,11 +73,15 @@ function PersonalMessages() {
                         <TableCell>
                           {moment(message.sent).format("MM-DD-YYYY")}
                         </TableCell>
-                        <TableCell>{message.title}</TableCell>
-                        <TableCell>{message.body}</TableCell>
-                        <Button onClick={() => deleteMessage(message)}>
-                          Delete
-                        </Button>
+                        <TableCell>
+                          {message.title}
+                        </TableCell>
+                        <TableCell>
+                          {message.body}
+                        </TableCell>
+                        <TableCell>
+                          <Button style={{ textAlign: 'center' }} onClick={() => deleteMessage(message)}>Delete</Button>
+                        </TableCell>
                       </TableRow>
                     );
                   })}

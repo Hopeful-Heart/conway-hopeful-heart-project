@@ -7,6 +7,7 @@ body,
 body {
   font-family: 'Avenir' !important;
   margin: 0px;
+  background-color: #BCBEC0;
 }
 
 #react-root {

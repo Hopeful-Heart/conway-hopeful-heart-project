@@ -1,7 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
 import React, { useEffect } from "react";
 import moment from "moment";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
+import { Paper, makeStyles } from "@material-ui/core";
 import "./userDetails.css";
 function UserDetails() {
   const user = useSelector((store) => store.userSearch.userDetailsReucer);
@@ -48,19 +49,41 @@ function UserDetails() {
     );
   };
 
+  const useStyles = makeStyles({
+    paper: {
+      margin: "auto",
+      marginTop: "1rem",
+      marginBottom: "1rem",
+      width: "fit-content",
+      padding: "2rem",
+      textAlign: "center",
+    },
+  });
+
+  const classes = useStyles();
+
   return (
     <div className="detailsDiv container">
       <div className="detailsInfo">
         <h2>{`${user.first_name} ${user.last_name}`}</h2>
         <img
           src={user.profile_pic}
-          style={{ maxWidth: 225, maxHeight: 225, borderRadius: "50%" }}
+          style={{
+            height: 200,
+            width: 200,
+            objectFit: "cover",
+            borderRadius: "50%",
+            border: "solid gray 1px",
+          }}
         ></img>
         <h4>
           {user.email} | {user.phone}
         </h4>
-        {user.city ? <h3>{`${user.city},${user.state}`}</h3> : <h3>{user.state}</h3> }
-        <h2>{user.child_first_name}</h2>
+        {user.city ? (
+          <h3>{`${user.city},${user.state}`}</h3>
+        ) : (
+          <h3>{user.state}</h3>
+        )}
         {user.child_first_name === "" ||
         user.child_last_name === "" ||
         user.second_photo === "" ||
@@ -72,13 +95,31 @@ function UserDetails() {
         ) : (
           <>
             <h1>{`${user.child_first_name}'s Story`}</h1>
-            <p>{moment(user.birthday).format("MMMM Do YYYY")}</p>
-            <p>{moment(user.memorial_day).format("MMMM Do YYYY")}</p>
-            <img src={user.second_photo} />
+            <p>Birth Date: {moment(user.birthday).format("MMMM Do YYYY")}</p>
+            <p>
+              Memorial Date: {moment(user.memorial_day).format("MMMM Do YYYY")}
+            </p>
+            <img
+              src={user.second_photo}
+              style={{
+                height: 200,
+                width: 200,
+                objectFit: "cover",
+                borderRadius: "50%",
+                border: "solid gray 1px",
+              }}
+            />
             <p>{user.story}</p>
           </>
         )}
-        <Button variant="contained" color="primary" style={{ margin: 30  }} onClick={connectRequest}>Connect</Button>
+        <Button
+          variant="contained"
+          color="primary"
+          style={{ margin: 30 }}
+          onClick={connectRequest}
+        >
+          Connect
+        </Button>
       </div>
     </div>
   );

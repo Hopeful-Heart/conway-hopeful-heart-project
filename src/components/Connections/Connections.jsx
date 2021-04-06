@@ -4,6 +4,8 @@ import Button from '@material-ui/core/Button';
 import Messaging from "../Messaging/Messaging";
 import PersonalMessages from "../PersonalMessages/PersonalMessages";
 import SendConnectionMessage from "../SendConnectionMessage/SendConnectionMessage";
+import moment from 'moment';
+
 function AllUsersPage() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -88,6 +90,7 @@ function AllUsersPage() {
           connection!
         </p>
         <Button
+          style={{ margin: 10 }}
           variant="contained" color="primary"
           onClick={() => {
             forwardConnection(connection);
@@ -96,6 +99,7 @@ function AllUsersPage() {
           Approve
         </Button>
         <Button
+          style={{ margin: 10 }}
           variant="contained" color="primary"
           onClick={() => {
             dispatch({
@@ -110,7 +114,7 @@ function AllUsersPage() {
       </div>
     ));
   } else {
-    toApproveList = <p>No Requests!</p>;
+    toApproveList = <p style={{textAlign:'center'}}>No Requests!</p>;
   }
 
   if (approvedList[0]) {
@@ -127,7 +131,7 @@ function AllUsersPage() {
             {connection.email} | {connection.phone}
           </h4>
           {connection.city ? <h4>{`${connection.city},${connection.state}`}</h4> : <h4>{connection.state}</h4>}
-          <h2>{connection.child_first_name}</h2>
+          {/* <h2>{connection.child_first_name}</h2> */}
           {connection.child_first_name === "" ||
             connection.child_last_name === "" ||
             connection.second_photo === "" ||
@@ -139,9 +143,9 @@ function AllUsersPage() {
           ) : (
             <>
               <h1>{`${connection.child_first_name}'s Story`}</h1>
-              <p>{connection.birthday}</p>
-              <p>{connection.memorial_date}</p>
-              <img src={connection.second_photo} />
+              <p>{`${connection.child_first_name}'s Birthday`}: {moment(connection.birthday).format("MMMM Do YYYY")}</p>
+              <p>{`${connection.child_first_name}'s Memorial Date`}: {moment(connection.memorial_date).format('MMMM Do YYYY')}</p>
+              <img style={{maxHeight:200, maxWidth:200}} src={connection.second_photo} />
               <p>{connection.story}</p>
             </>
           )}
@@ -155,9 +159,9 @@ function AllUsersPage() {
   return (
     <div className="container">
       <Messaging />
-      <h3>Requests:</h3>
+      <h2 style={{textAlign:'center'}}>Requests</h2>
       {toApproveList}
-      <h3>Connections:</h3>
+      <h1 style={{textAlign:'center'}}>Connections</h1>
       {connectionsList}
       <PersonalMessages />
     </div>

@@ -62,6 +62,7 @@
 }
 
 #learn-content {
+  background-color: '#fafafa' !important;
   max-width: 45rem;
   margin-right: 2rem;
   text-align: left;

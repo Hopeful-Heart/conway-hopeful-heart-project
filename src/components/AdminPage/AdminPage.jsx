@@ -56,7 +56,7 @@ function AdminPage() {
   }
 
   return (
-    <div>
+    <div className="container" style={{ width: '100%', height: '100%' }}>
       <br />
       <br />
       <br />
@@ -64,13 +64,13 @@ function AdminPage() {
         {defaultAdminView &&
           <>
             <h1 style={{ textAlign: "center" }}>Admin Page</h1>
-            <Button onClick={handleUserClick}>Users</Button>
+            <Button color="primary" variant="contained" style={{ color: 'white' }} onClick={handleUserClick}>Users</Button>
             <br />
             <br />
-            <Button onClick={handleEventClick}>Events</Button>
+            <Button color="primary" variant="contained" style={{ color: 'white' }} onClick={handleEventClick}>Events</Button>
             <br />
             <br />
-            <Button onClick={handleMessagingClick}>Announcements</Button>
+            <Button color="primary" variant="contained" style={{ color: 'white' }} onClick={handleMessagingClick}>Announcements</Button>
           </>
         }
         {messagingAdminView && <div ><Messaging /> <SendMessage setDefaultAdminView={setDefaultAdminView} setMessagingAdminView={setMessagingAdminView} /></div>}

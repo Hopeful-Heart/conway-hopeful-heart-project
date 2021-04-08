@@ -5,7 +5,7 @@ const {
 const pool = require("../modules/pool");
 const router = express.Router();
 
-router.post("/", (req, res) => {
+router.post("/", rejectUnauthenticated, (req, res) => {
   console.log(req.body);
   const messages = req.body;
   const queryText = `INSERT INTO "personalMessages" ( "user_id", "sent", "title", "body")
@@ -24,7 +24,7 @@ router.post("/", (req, res) => {
     });
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", rejectUnauthenticated, (req, res) => {
   id = req.params.id;
   console.log("log in personalMessage router", id);
   const queryText = `SELECT * FROM "personalMessages" WHERE "user_id" = ${id};`;
@@ -41,7 +41,7 @@ router.get("/:id", (req, res) => {
 });
 
 //DELETE for specific message
-router.delete("/:id", (req, res) => {
+router.delete("/:id", rejectUnauthenticated, (req, res) => {
   // Deletes an event by id
   id = req.params.id;
   console.log("log in delete personalMessage router", id);

@@ -76,9 +76,10 @@ function AllUsersPage() {
         {userSearchList.userSearchListReducer[0] ? (
           userSearchList.userSearchListReducer.map((user) => {
             return (
+              user.approved_user ? 
               <div className="userDiv" key={user.id}>
                 <UserSearchRow key={user.id} user={user} />
-              </div>
+              </div> : <></>
             );
           })
         ) : (

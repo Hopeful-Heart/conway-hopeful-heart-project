@@ -45,8 +45,9 @@ function PendingUserRow({ user }) {
         dispatch({ type: 'UPDATE_PENDING_USER', payload: user })
     }
 
-    const  denyPendingUser = (user) => {
+    const denyPendingUser = (user) => {
         dispatch({ type: 'DELETE_PENDING_USER', payload: user })
+        setOpenDeny(false);
     }
     const handleOpenDeny = (user) => {
         setDenyUser(user);

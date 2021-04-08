@@ -84,6 +84,7 @@ function Messaging() {
                     <TableCell align="center">Date</TableCell>
                     <TableCell align="center">Title</TableCell>
                     <TableCell align="center">Message</TableCell>
+                    <TableCell align='center'></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>{messageList}</TableBody>

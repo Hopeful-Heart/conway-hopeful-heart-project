@@ -119,7 +119,7 @@ function AllUsersPage() {
 
   if (approvedList[0]) {
     connectionsList = approvedList.map((connection) => (
-      <div className="detailsDiv container" key={connection.id}>
+      <div className="detailsDiv" key={connection.id}>
         <div className="detailsInfo">
           <h2>{`${connection.first_name} ${connection.last_name}`}</h2>
           <img

@@ -17,7 +17,7 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
 
-router.post("/", (req, res) => {
+router.post("/", rejectUnauthenticated, (req, res) => {
 
   const notify = req.body;
   const token = notify.token;
@@ -37,7 +37,7 @@ router.post("/", (req, res) => {
     });
 });
 
-router.post("/urgent", (req, res) => {
+router.post("/urgent", rejectUnauthenticated, (req, res) => {
   const urgent = req.body;
   const token = urgent.token;
   const title = urgent.title;
@@ -66,7 +66,7 @@ router.post("/urgent", (req, res) => {
     });
 });
 
-router.post("/all", (req, res) => {
+router.post("/all", rejectUnauthenticated, (req, res) => {
   let tokens = [];
   const message = req.body;
   tokens.push(message.token);
@@ -107,7 +107,7 @@ router.post("/all", (req, res) => {
     });
 });
 
-router.post("/urgent", (req, res) => {
+router.post("/urgent", rejectUnauthenticated, (req, res) => {
   const urgent = req.body;
   const token = urgent.token;
   const title = urgent.title;

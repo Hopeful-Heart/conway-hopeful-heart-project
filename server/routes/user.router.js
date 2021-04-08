@@ -11,7 +11,7 @@ const router = express.Router();
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
-router.post("/register", (req, res, next) => {
+router.post("/register", (req, res) => {
   const user = req.body;
   const password = encryptLib.encryptPassword(user.password);
   const queryText = `INSERT INTO "user" ("email", "password", "first_name", "last_name", "profile_pic", "phone", "state", "city")
@@ -139,7 +139,8 @@ router.put("/token/:id", rejectUnauthenticated, (req, res) => {
       res.sendStatus(500);
     });
 });
-router.get("/token/:id", (req, res) => {
+
+router.get("/token/:id", rejectUnauthenticated, (req, res) => {
   // Gets a user by id
   const sqlQuery = `SELECT "client_token" FROM "user" WHERE "id" = $1;`;
   pool

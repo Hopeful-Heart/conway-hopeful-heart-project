@@ -72,7 +72,7 @@ function Messaging() {
     ));
   }
   return (
-    <div className="container">
+    <div>
       <Paper className={classes.paper}>
         <div style={{ paddingLeft: 50, paddingRight: 50 }}>
           {messages[0] ? (

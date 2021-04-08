@@ -5,7 +5,7 @@ const {
 const pool = require("../modules/pool");
 const router = express.Router();
 
-router.post("/", (req, res) => {
+router.post("/", rejectUnauthenticated, (req, res) => {
   const messages = req.body;
   const queryText = `INSERT INTO "messages" ("sent", "title", "body")
     VALUES ($1, $2, $3);`;
@@ -18,7 +18,7 @@ router.post("/", (req, res) => {
     });
 });
 
-router.get("/", (req, res) => {
+router.get("/", rejectUnauthenticated, (req, res) => {
   const queryText = `SELECT * FROM "messages";`;
   pool
     .query(queryText)
@@ -33,7 +33,7 @@ router.get("/", (req, res) => {
 });
 
 //DELETE for specific message
-router.delete("/:id", (req, res) => {
+router.delete("/:id", rejectUnauthenticated, (req, res) => {
   // Deletes an event by id
   const queryText = ` 
     DELETE FROM "messages" WHERE "id"=$1;

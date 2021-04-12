@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import { getToken, onMessageListener } from "./firebase";
 import { useDispatch, useSelector } from "react-redux";
-import { Toast } from "react-bootstrap";
-import "./Notifications.css";
+import Snackbar from '@material-ui/core/Snackbar';
+import Button from "@material-ui/core/Button";
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+// import { Toast } from "react-bootstrap";
+
 function Notifications() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
@@ -11,6 +15,18 @@ function Notifications() {
   const [isTokenFound, setTokenFound] = useState(false);
   const [token, setToken] = useState("");
   const [notificationToggle, setNotificationToggle] = useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setShow(false);
+  };
+
+  const handleExited = () => {
+    setShow(false);
+  };
+
 
   useEffect(() => {
     getToken(setTokenFound, setToken);
@@ -29,7 +45,6 @@ function Notifications() {
       })
       .catch((err) => console.log("failed: ", err));
   }, [show, notification]);
-
   function addClientToken(event, props) {
     event.preventDefault();
     setNotificationToggle(false);
@@ -40,57 +55,60 @@ function Notifications() {
         client_token: token,
       },
     });
+    alert('Subscribed To Notifications!')
   }
-
   return (
-    <div className="App">
-      <Toast
-        onClose={() => setShow(false)}
-        show={show}
-        delay={6000}
+    <div>
+      <Snackbar
         autohide
-        animation
-        style={{
-          position: "absolute",
-          top: 120,
-          right: 60,
+        open={show}
+        onClose={handleClose}
+        onExited={handleExited}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
         }}
-      >
-        <Toast.Header>
-          <strong>{notification.title}</strong>
-          <small> ... just now </small>
-        </Toast.Header>
-        <Toast.Body>{notification.body}</Toast.Body>
-      </Toast>
+        autoHideDuration={6000}
+        message={`From: ${notification.title} Message: ${notification.body}`}
+        action={
+          <IconButton
+          aria-label="close"
+          color="inherit"
+          onClick={handleClose}
+        >
+          <CloseIcon />
+        </IconButton>
+        }
+      />
       <form style={{ textAlign: "center" }}>
-        <button
+        <Button
           type="button"
-          className="notifyButton"
-          onClick={() =>
-            notificationToggle
-              ? setNotificationToggle(false)
-              : setNotificationToggle(true)
-          }
+          variant="contained"
+          color="primary"
+          onClick={addClientToken}
         >
           Subscribe to Push Notifications
-        </button>
-        {notificationToggle && (
-          <div>
-            <p>
-              To recieve announcements and be notified of new messageses, enable
-              push notifications on your main device
-            </p>
-            <button className="notifyButton" onClick={addClientToken}>
-              Click here to receive notifications
-            </button>
-            {/* <button onClick={() => setNotificationToggle(false)}>
-              Disable Notifications
-            </button> */}
-          </div>
-        )}
+        </Button>
       </form>
     </div>
   );
 }
 
 export default Notifications;
+/* <Toast
+  onClose={() => setShow(false)}
+  show={show}
+  delay={6000}
+  autohide
+  animation
+  style={{
+    position: "absolute",
+    top: 120,
+    right: 60,
+  }}
+>
+  <Toast.Header>
+    <strong>{notification.title}</strong>
+  </Toast.Header>
+  <Toast.Body>{notification.body}</Toast.Body>
+</Toast> */

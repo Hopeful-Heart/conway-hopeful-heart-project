@@ -21,7 +21,7 @@ function SendConnectionMessage(props) {
   const dispatch = useDispatch();
   const [newMessageToggle, setNewMessageToggle] = useState(false);
   const [newMessage, setNewMessage] = useState({
-    title: `From : ${user.first_name} ${user.last_name}`,
+    title: `${user.first_name} ${user.last_name}`,
     body: "",
     sent: new Date(),
     token: connection.client_token,
@@ -46,7 +46,7 @@ function SendConnectionMessage(props) {
 
   const handleNewMessageReset = () => {
     setNewMessage({
-      title: `From : ${user.first_name} ${user.last_name}`,
+      title: `${user.first_name} ${user.last_name}`,
       body: "",
       sent: new Date(),
       token: connection.client_token,
@@ -59,7 +59,7 @@ function SendConnectionMessage(props) {
     e.preventDefault();
     dispatch({ type: "SEND_PERSONAL_MESSAGES", payload: newMessage });
     setNewMessage({
-      title: `From : ${user.first_name} ${user.last_name}`,
+      title: `${user.first_name} ${user.last_name}`,
       body: "",
       sent: new Date(),
       token: connection.client_token,
@@ -75,7 +75,7 @@ function SendConnectionMessage(props) {
     });
     dispatch({ type: "SEND_PERSONAL_MESSAGES", payload: newMessage });
     setNewMessage({
-      title: `From : ${user.first_name} ${user.last_name}`,
+      title: `${user.first_name} ${user.last_name}`,
       body: "",
       sent: new Date(),
       token: connection.client_token,

@@ -66,7 +66,6 @@ function Nav() {
           <Link to="/landing">
             <img style={{ height: "3rem" }} src={whiteTitle}></img>
           </Link>
-
           {desktopView ? (
             <>
               {routeMatch && routeMatch.path === "/landing" && (

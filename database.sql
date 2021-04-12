@@ -22,7 +22,8 @@ CREATE TABLE "user" (
     "story" VARCHAR (1000) DEFAULT NULL,
     "client_token" VARCHAR (300) DEFAULT NULL,
     "approved_user" BOOLEAN DEFAULT FALSE,
-    "admin_user" BOOLEAN DEFAULT FALSE
+    "admin_user" BOOLEAN DEFAULT FALSE,
+    "super_admin" BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE "events" (

@@ -1,5 +1,6 @@
 html,
 body,
+.container,
 #react-root {
   height: 100%;
 }
@@ -7,6 +8,7 @@ body,
 body {
   font-family: 'Avenir' !important;
   margin: 0px;
+  background-color: #BCBEC0;
 }
 
 #react-root {

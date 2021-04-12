@@ -51,7 +51,7 @@ function PersonalMessages() {
   };
 
   return (
-    <div className="container">
+    <div>
       <Paper className={classes.paper}>
         <>
           {messages[0] ? (

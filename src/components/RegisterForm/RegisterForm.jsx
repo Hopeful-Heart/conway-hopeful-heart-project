@@ -37,8 +37,6 @@ function RegisterForm() {
 
   const api_key = process.env.REACT_APP_FILESTACK_API_KEY;
 
-  console.log(api_key);
-
   const onSuccess = (result) => {
     console.log("Result from filestack success: ", result);
     setNewUser({ ...newUser, pic: result.filesUploaded[0].url });

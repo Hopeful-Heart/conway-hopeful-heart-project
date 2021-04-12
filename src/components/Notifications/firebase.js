@@ -22,7 +22,6 @@ export const getToken = (setTokenFound, setToken) => {
     })
     .then((currentToken) => {
       if (currentToken) {
-        console.log("current token for client: ", currentToken);
         setTokenFound(true); // dispatch token to backend
         setToken(currentToken);
 

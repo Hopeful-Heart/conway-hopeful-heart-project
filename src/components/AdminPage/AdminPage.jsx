@@ -31,8 +31,6 @@ function AdminPage() {
   const [adminUserView, setAdminUserView] = useState(false);
   const [adminEventView, setAdminEventView] = useState(false);
 
-  console.log(superAdmin);
-
   useEffect(() => {
     dispatch({ type: 'FETCH_USER_LIST' });
     dispatch({ type: 'FETCH_EVENTS_LIST' });

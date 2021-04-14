@@ -5,20 +5,28 @@ const {
 const pool = require("../modules/pool");
 const router = express.Router();
 
-var admin = require("firebase-admin");
-GOOGLE_APPLICATION_CREDENTIALS =
-  "../constants/hopeful-heart-conway-firebase-adminsdk-sdlr5-298fbe284b.json";
-// const GOOGLE_APPLICATION_CREDENTIALS =
-//   process.env.GOOGLE_APPLICATION_CREDENTIALS;
+const env = process.env;
 
-const serviceAccount = require(GOOGLE_APPLICATION_CREDENTIALS);
+var admin = require("firebase-admin");
+
+const serviceAccount = {
+  type: env.TYPE,
+  project_id: env.PROJECT_ID,
+  private_key_id: env.PRIVATE_KEY_ID,
+  private_key: env.PRIVATE_KEY.replace(/\\n/g, '\n'),
+  client_email: env.CLIENT_EMAIL,
+  client_id: env.CLIENT_ID,
+  auth_uri: env.AUTH_URI,
+  token_uri: env.TOKEN_URI,
+  auth_provider_x509_cert_url: env.AUTH_PROVIDER_CERT_URL,
+  client_x509_cert_url: env.CLIENT_CERT_URL
+};
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
 
 router.post("/", rejectUnauthenticated, (req, res) => {
-
   const notify = req.body;
   const token = notify.token;
   const title = notify.title;

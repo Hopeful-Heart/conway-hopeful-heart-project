@@ -27,7 +27,6 @@ function Notifications() {
     setShow(false);
   };
 
-
   useEffect(() => {
     getToken(setTokenFound, setToken);
     onMessageListener()
@@ -45,6 +44,7 @@ function Notifications() {
       })
       .catch((err) => console.log("failed: ", err));
   }, [show, notification]);
+
   function addClientToken(event, props) {
     event.preventDefault();
     setNotificationToggle(false);

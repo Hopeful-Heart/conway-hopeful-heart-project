@@ -17,6 +17,7 @@ app.configure(function () {
   }
 })
 
+
 const sessionMiddleware = require("./modules/session-middleware");
 const passport = require("./strategies/user.strategy");
 

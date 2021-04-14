@@ -4,6 +4,19 @@ require("dotenv").config();
 
 const app = express();
 
+const forceSsl = function (req, res, next) {
+  if (req.headers['x-forwarded-proto'] !== 'https') {
+    return res.redirect(['https://', req.get("Host"), req.url].join(''));
+  }
+  return next();
+};
+
+app.configure(function () {
+  if (process.env.NODE_ENV === "production") {
+    app.use(forceSsl);
+  }
+})
+
 const sessionMiddleware = require("./modules/session-middleware");
 const passport = require("./strategies/user.strategy");
 

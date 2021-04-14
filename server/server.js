@@ -2,8 +2,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 
-import sslRedirect from 'heroku-ssl-redirect';
-
 const app = express();
 
 const sessionMiddleware = require("./modules/session-middleware");
@@ -42,9 +40,6 @@ app.use("/api/usersearch", userSearchRouter);
 app.use("/api/connection", connectionRouter);
 // Serve static files
 app.use(express.static("build"));
-
-//Redirect to HTTPS
-app.use(sslRedirect());
 
 // App Set //
 const PORT = process.env.PORT || 5000;

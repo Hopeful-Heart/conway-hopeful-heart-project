@@ -80,7 +80,7 @@ function Notifications() {
         </IconButton>
         }
       />
-      <form style={{ textAlign: "center" }}>
+      {!user.client_token && <form style={{ textAlign: "center" }}>
         <Button
           type="button"
           variant="contained"
@@ -89,7 +89,7 @@ function Notifications() {
         >
           Subscribe to Push Notifications
         </Button>
-      </form>
+      </form>}
     </div>
   );
 }

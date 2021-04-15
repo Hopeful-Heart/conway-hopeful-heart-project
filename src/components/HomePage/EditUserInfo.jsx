@@ -36,7 +36,6 @@ function EditUserInfo({ setParentEditScreen, setHomeDefaultView }) {
   const api_key = process.env.REACT_APP_FILESTACK_API_KEY;
 
   const onSuccess = (result) => {
-    console.log("Result from filestack success: ", result);
     setEditUserInfo({ ...editUserInfo, pic: result.filesUploaded[0].url });
   };
 

@@ -69,7 +69,6 @@ function MemorialForm({
   const api_key = process.env.REACT_APP_FILESTACK_API_KEY;
 
   const onSuccess = (result) => {
-    console.log("Result from filestack success: ", result);
     setMemorialInfo({ ...memorialInfo, pic: result.filesUploaded[0].url });
   };
 
@@ -109,7 +108,7 @@ function MemorialForm({
           onSubmit={saveMemorial}
         >
           <h2 style={{ fontSize: "2rem", marginTop: 0 }}>
-            {editMemorialToggle ? "Edit Memorial" : "Add a Memorial"}
+            {editMemorialToggle ? "Edit Details" : "Add Your Child"}
           </h2>
           <div>
             <div>

@@ -47,7 +47,6 @@ function addEventForm({ setAddEventToggle, setEventsDefaultView }) {
   const api_key = process.env.REACT_APP_FILESTACK_API_KEY;
 
   const onSuccess = (result) => {
-    console.log("Result from filestack success: ", result);
     setNewEvent({ ...newEvent, picture: result.filesUploaded[0].url });
   };
 
@@ -176,7 +175,7 @@ function addEventForm({ setAddEventToggle, setEventsDefaultView }) {
             className={classes.registerInputSpaceLeft}
             variant="inline"
             format="MM-DD-YYYY"
-            label="Memorial Date"
+            label="Event Date"
             value={moment(newEvent.date).format()}
             onChange={(date) =>
               setNewEvent({

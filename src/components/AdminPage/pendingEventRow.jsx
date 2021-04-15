@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import moment from 'moment';
 import { useDispatch } from 'react-redux'
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import {
+    TableRow,
+    TableCell,
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    Tooltip,
+} from '@material-ui/core'
 
 
 function PendingEventRow({ event }) {
@@ -56,7 +57,7 @@ function PendingEventRow({ event }) {
                 <TableCell align="center">{moment(event.date).format('YYYY-MM-DD')}</TableCell>
                 <TableCell align="center">{event.location}</TableCell>
                 <TableCell align="center">{event.link ? <a href={event.link}>Link</a> : 'No Link Provided'}</TableCell>
-                <TableCell align="center"><Button variant="contained" color="primary" style={{ margin: 2.5 }} onClick={() => updatePending(event)}>Approve</Button><Button variant="contained" color="primary" onClick={() => handleOpenDeny(event)} style={{ margin: 2.5 }}>Deny</Button></TableCell>
+                <TableCell align="center"><Tooltip title="This will approve an event, making it visible on the calendar view."><Button variant="contained" color="primary" style={{ margin: 2.5 }} onClick={() => updatePending(event)}>Approve</Button></Tooltip><Tooltip title="This will deny the creation of an event, deleting it forever."><Button variant="contained" color="primary" onClick={() => handleOpenDeny(event)} style={{ margin: 2.5 }}>Deny</Button></Tooltip></TableCell>
             </TableRow>
             <Dialog
                 open={openDeny}

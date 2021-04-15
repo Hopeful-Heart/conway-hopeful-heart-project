@@ -55,7 +55,6 @@ function* updatePendingEventsAdmin(action) {
     yield put({ type: "FETCH_APPROVED_EVENTS" });
   } catch (error) {
     console.log("error updating pending event!", error);
-    console.log(action.payload);
   }
 }
 

@@ -30,7 +30,6 @@ function* deleteMessage(action) {
 }
 
 function* sendMessageAll(action) {
-  console.log(action.payload);
   try {
     yield axios.post("/api/message", action.payload);
     yield axios.post("/api/notify/all", action.payload);

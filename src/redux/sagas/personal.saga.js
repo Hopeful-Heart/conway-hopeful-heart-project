@@ -2,7 +2,6 @@ import { put, takeEvery, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 
 function* SendPersonalMessagesSaga(action) {
-  console.log(action.payload);
   try {
     yield axios.post("/api/personalMessages", action.payload);
     yield axios.post("/api/notify", action.payload);
@@ -13,7 +12,6 @@ function* SendPersonalMessagesSaga(action) {
 
 function* fetchPersonalMessagesSaga(action) {
   try {
-    console.log("in fetch personalMessages", action.payload);
     const response = yield axios.get(`/api/personalMessages/${action.payload}`);
     yield put({ type: "SET_PERSONAL_MESSAGES", payload: response.data });
   } catch (error) {
@@ -22,7 +20,6 @@ function* fetchPersonalMessagesSaga(action) {
 }
 
 function* deletePersonalMessages(action) {
-  console.log("in delete personal message", action.payload, action.payload.id);
   try {
     yield axios.delete(`/api/personalMessages/${action.payload.id}`);
     yield put({
@@ -35,7 +32,6 @@ function* deletePersonalMessages(action) {
 }
 
 function* sendMessageAll(action) {
-  console.log(action.payload);
   try {
     yield axios.post("/api/personalMessages", action.payload);
     yield axios.post("/api/notify/all", action.payload);

@@ -17,6 +17,7 @@ const adminRouter = require("./routes/admin.router");
 const notifyRouter = require("./routes/notify.router");
 const userSearchRouter = require("./routes/userSearch.router");
 const connectionRouter = require("./routes/connection.router");
+
 // Body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

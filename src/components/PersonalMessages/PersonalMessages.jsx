@@ -42,7 +42,6 @@ function PersonalMessages() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(user.id);
     dispatch({ type: "FETCH_PERSONAL_MESSAGES", payload: user.id });
   }, []);
 
@@ -60,10 +59,10 @@ function PersonalMessages() {
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell style={{ textAlign:"center" }}>Date</TableCell>
-                    <TableCell style={{ textAlign:"center" }}>Sender</TableCell>
-                    <TableCell style={{ textAlign:"center" }}>Message</TableCell>
-                    <TableCell style={{ textAlign:"center" }}></TableCell>
+                    <TableCell style={{ textAlign: "center" }}>Date</TableCell>
+                    <TableCell style={{ textAlign: "center" }}>Sender</TableCell>
+                    <TableCell style={{ textAlign: "center" }}>Message</TableCell>
+                    <TableCell style={{ textAlign: "center" }}></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -73,8 +72,8 @@ function PersonalMessages() {
                         <TableCell>
                           {moment(message.sent).format("MM-DD-YYYY")}
                         </TableCell>
-                        <TableCell style={{ textAlign:"center" }}>{message.title}</TableCell>
-                        <TableCell style={{ textAlign:"center" }}>{message.body}</TableCell>
+                        <TableCell style={{ textAlign: "center" }}>{message.title}</TableCell>
+                        <TableCell style={{ textAlign: "center" }}>{message.body}</TableCell>
                         <TableCell>
                           <Button onClick={() => deleteMessage(message)}>Delete</Button>
                         </TableCell>

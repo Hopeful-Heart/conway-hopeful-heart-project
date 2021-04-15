@@ -1,6 +1,4 @@
-import {
-    combineReducers
-} from "redux";
+import {combineReducers} from "redux";
 
 const connectionsReducer = (state = [], action) => {
     switch (action.type) {

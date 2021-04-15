@@ -4,13 +4,14 @@ import moment from "moment";
 import Button from "@material-ui/core/Button";
 import { Paper, makeStyles } from "@material-ui/core";
 import "./userDetails.css";
+import { useHistory } from "react-router";
 function UserDetails() {
+
   const user = useSelector((store) => store.userSearch.userDetailsReucer);
   const loggedUser = useSelector((store) => store.user);
-  const connections = useSelector(
-    (store) => store.connection.allConnectionsReducer
-  );
+  const connections = useSelector((store) => store.connection.allConnectionsReducer);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch({ type: "FETCH_ALL_CONNECTIONS" });
@@ -29,7 +30,6 @@ function UserDetails() {
       }
       resolve("A Connection Request has been sent!");
     });
-
     alreadyConnected.then(
       (value) => {
         // fulfillment
@@ -49,6 +49,10 @@ function UserDetails() {
     );
   };
 
+  const handleReturn = () => {
+    history.push('/allusers')
+  }
+
   const useStyles = makeStyles({
     paper: {
       margin: "auto",
@@ -65,6 +69,7 @@ function UserDetails() {
   return (
     <div className="detailsDiv container">
       <div className="detailsInfo">
+        <Button onClick={handleReturn} variant="contained" color="primary">Return</Button>
         <h2>{`${user.first_name} ${user.last_name}`}</h2>
         <img
           src={user.profile_pic}
@@ -85,12 +90,12 @@ function UserDetails() {
           <h3>{user.state}</h3>
         )}
         {user.child_first_name === "" ||
-        user.child_last_name === "" ||
-        user.second_photo === "" ||
-        user.story === "" ||
-        user.special_sentiment === "" ||
-        user.birthday === null ||
-        user.memorial_day === null ? (
+          user.child_last_name === "" ||
+          user.second_photo === "" ||
+          user.story === "" ||
+          user.special_sentiment === "" ||
+          user.birthday === null ||
+          user.memorial_day === null ? (
           <p>No Child Information</p>
         ) : (
           <>

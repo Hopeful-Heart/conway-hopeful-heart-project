@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
 import moment from 'moment';
 import { useDispatch } from 'react-redux'
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import {
+    TableRow,
+    TableCell,
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    Tooltip,
+} from '@material-ui/core'
 
 function ApprovedEventRow({ event }) {
 
-    const Alert = (props) => {
-        return <MuiAlert elevation={6} variant="filled" {...props} />;
-    }
     const dispatch = useDispatch();
 
     const [openDelete, setOpenDelete] = useState(false);
@@ -58,7 +56,7 @@ function ApprovedEventRow({ event }) {
                 <TableCell align="center">{moment(event.date).format('YYYY-MM-DD')}</TableCell>
                 <TableCell align="center">{event.location}</TableCell>
                 <TableCell align="center">{event.link ? <a href={event.link}>Link</a> : 'No Link Provided'}</TableCell>
-                <TableCell align="center"><Button variant="contained" color="primary" style={{ margin: 2.5 }} onClick={() => updateApproved(event)}>Unapprove</Button><Button variant="contained" color="primary" onClick={() => handleOpenDelete(event)} style={{ margin: 2.5 }}>Delete</Button></TableCell>
+                <TableCell align="center"><Tooltip title="This will move the event to the pending table, removing it from view on the calendar"><Button variant="contained" color="primary" style={{ margin: 2.5 }} onClick={() => updateApproved(event)}>Unapprove</Button></Tooltip><Tooltip title="This is will remove the event forever!"><Button variant="contained" color="primary" onClick={() => handleOpenDelete(event)} style={{ margin: 2.5 }}>Delete</Button></Tooltip></TableCell>
             </TableRow>
             {/* <Snackbar>
                 <Alert open={open} autoHideDuration={2500} onClose={handleClose} variant="filled" severity="error">Event Unapproved</Alert>

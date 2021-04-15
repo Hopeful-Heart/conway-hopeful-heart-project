@@ -51,10 +51,8 @@ function App() {
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker
       .register("./firebase-messaging-sw.js")
-      .then(function (registration) {
-      })
-      .catch(function (err) {
-      });
+      .then(function (registration) {})
+      .catch(function (err) {});
   }
 
   return (
@@ -106,7 +104,7 @@ function App() {
                 >
                   <Connections />
                 </ProtectedRoute>
-                
+
                 <ProtectedRoute
                   // logged in shows UserDetails else shows LoginPage
                   exact
@@ -148,16 +146,13 @@ function App() {
                   <RegisterPage />
                 </ProtectedRoute>
 
-                <ProtectedRoute
-                  // with authRedirect:
-                  // - if logged in, redirects to "/home"
-                  // - else shows LandingPage at "/landing"
+                <Route
+                  // shows LandingPage at "/landing"
                   exact
                   path="/landing"
-                  authRedirect="/home"
                 >
                   <LandingPage />
-                </ProtectedRoute>
+                </Route>
 
                 <ProtectedRoute
                   // with authRedirect:

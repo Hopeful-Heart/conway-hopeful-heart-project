@@ -13,6 +13,10 @@ import {
   useMediaQuery,
   IconButton,
   Drawer,
+  Popover,
+  Paper,
+  MenuList,
+  MenuItem,
 } from "@material-ui/core";
 
 import "./Nav.css";
@@ -21,12 +25,11 @@ import MenuIcon from "@material-ui/icons/Menu";
 
 function Nav() {
   const [toggleDrawer, setToggleDrawer] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   const routeMatch = useRouteMatch("/landing");
   const desktopView = useMediaQuery("(min-width:950px)");
-
-  const style = {};
 
   let loginLinkData = {
     path: "/login",
@@ -66,6 +69,9 @@ function Nav() {
           <Link to="/landing">
             <img style={{ height: "3rem" }} src={whiteTitle}></img>
           </Link>
+
+          {/* Landing page scroll naviagtion */}
+
           {desktopView ? (
             <>
               {routeMatch && routeMatch.path === "/landing" && (
@@ -111,52 +117,156 @@ function Nav() {
                 </div>
               )}
 
-              <div>
-                <Button
-                  color="secondary"
-                  component={Link}
-                  to={loginLinkData.path}
-                >
-                  {loginLinkData.text}
-                </Button>
+              {/* Non-landing page navigation */}
 
-                {user.id && user.approved_user === true && (
-                  <>
-                    <Button color="secondary" component={Link} to="/events">
-                      Events
-                    </Button>
+              {!routeMatch ? (
+                <div>
+                  <Button
+                    color="secondary"
+                    component={Link}
+                    to={loginLinkData.path}
+                  >
+                    {loginLinkData.text}
+                  </Button>
 
-                    <Button color="secondary" component={Link} to="/allusers">
-                      All Users
-                    </Button>
-
-                    <Button
-                      color="secondary"
-                      component={Link}
-                      to="/connections"
-                    >
-                      Connections
-                    </Button>
-
-                    {user.admin_user && (
-                      <Button color="secondary" component={Link} to="/admin">
-                        Admin
+                  {user.id && user.approved_user === true && (
+                    <>
+                      <Button color="secondary" component={Link} to="/events">
+                        Events
                       </Button>
-                    )}
-                  </>
-                )}
 
-                {user.id && (
-                  <>
+                      <Button color="secondary" component={Link} to="/allusers">
+                        All Users
+                      </Button>
+
+                      <Button
+                        color="secondary"
+                        component={Link}
+                        to="/connections"
+                      >
+                        Connections
+                      </Button>
+
+                      <Button color="secondary" component={Link} to="/landing">
+                        About
+                      </Button>
+
+                      {user.admin_user && (
+                        <Button color="secondary" component={Link} to="/admin">
+                          Admin
+                        </Button>
+                      )}
+                    </>
+                  )}
+
+                  {user.id && (
                     <Button
                       color="secondary"
                       onClick={() => dispatch({ type: "LOGOUT" })}
                     >
                       Log Out
                     </Button>
-                  </>
-                )}
-              </div>
+                  )}
+                </div>
+              ) : (
+                // app menu navigation for the landing page
+                <>
+                  <IconButton
+                    color="secondary"
+                    onClick={(e) => setAnchorEl(e.target)}
+                  >
+                    <MenuIcon />
+                  </IconButton>
+                  <Popover
+                    anchorEl={anchorEl}
+                    open={Boolean(anchorEl)}
+                    onClose={() => setAnchorEl(null)}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "right",
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                  >
+                    <Paper>
+                      <MenuList>
+                        <MenuItem
+                          component={Link}
+                          onClick={() => setAnchorEl(null)}
+                          to={loginLinkData.path}
+                        >
+                          {loginLinkData.text}
+                        </MenuItem>
+
+                        {user.id && user.approved_user === true && (
+                          <div>
+                            <MenuItem
+                              color="secondary"
+                              component={Link}
+                              onClick={() => setAnchorEl(null)}
+                              to="/events"
+                            >
+                              Events
+                            </MenuItem>
+
+                            <MenuItem
+                              color="secondary"
+                              component={Link}
+                              onClick={() => setAnchorEl(null)}
+                              to="/allusers"
+                            >
+                              All Users
+                            </MenuItem>
+
+                            <MenuItem
+                              color="secondary"
+                              component={Link}
+                              onClick={() => setAnchorEl(null)}
+                              to="/connections"
+                            >
+                              Connections
+                            </MenuItem>
+
+                            <MenuItem
+                              color="secondary"
+                              component={Link}
+                              onClick={() => setAnchorEl(null)}
+                              to="/landing"
+                            >
+                              About
+                            </MenuItem>
+
+                            {user.admin_user && (
+                              <MenuItem
+                                color="secondary"
+                                component={Link}
+                                onClick={() => setAnchorEl(null)}
+                                to="/admin"
+                              >
+                                Admin
+                              </MenuItem>
+                            )}
+                          </div>
+                        )}
+
+                        {user.id && (
+                          <MenuItem
+                            color="secondary"
+                            onClick={() => {
+                              dispatch({ type: "LOGOUT" });
+                              setAnchorEl(null);
+                            }}
+                          >
+                            Log Out
+                          </MenuItem>
+                        )}
+                      </MenuList>
+                    </Paper>
+                  </Popover>
+                </>
+              )}
             </>
           ) : (
             <IconButton
@@ -170,6 +280,9 @@ function Nav() {
           )}
         </Toolbar>
       </AppBar>
+
+      {/* Navigation within a drawer */}
+
       <Drawer
         open={toggleDrawer}
         anchor="right"
@@ -280,17 +393,15 @@ function Nav() {
           )}
 
           {user.id && (
-            <>
-              <Button
-                color="primary"
-                onClick={() => {
-                  dispatch({ type: "LOGOUT" });
-                  setToggleDrawer(false);
-                }}
-              >
-                Log Out
-              </Button>
-            </>
+            <Button
+              color="primary"
+              onClick={() => {
+                dispatch({ type: "LOGOUT" });
+                setToggleDrawer(false);
+              }}
+            >
+              Log Out
+            </Button>
           )}
         </div>
       </Drawer>

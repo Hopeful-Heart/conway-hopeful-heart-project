@@ -22,7 +22,7 @@
   border-collapse: collapse !important;
   margin-top: -1px !important;
   margin-left: -1px !important;
-  overflow: scroll !important;
+  overflow-y: auto !important;
 }
 
 .react-calendar__tile p {
@@ -35,6 +35,12 @@
 
 .react-calendar__tile--now {
   background: white !important;
+  color: rgb(251, 182, 114) !important;
+  font-weight: bold;
+}
+
+.react-calendar__tile--now:hover {
+  background: #e6e6e6 !important;
 }
 
 .react-calendar__tile--active {
@@ -43,7 +49,11 @@
 }
 
 .react-calendar__month-view__days__day--weekend {
-  color: #d10000 !important;
+  color: black !important;
+}
+
+.calendar-event {
+  color: black !important
 }
 
 .nd-event {

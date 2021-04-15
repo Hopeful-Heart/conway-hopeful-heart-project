@@ -26,7 +26,7 @@ function Notifications() {
   const handleExited = () => {
     setShow(false);
   };
-  
+
   useEffect(() => {
     getToken(setTokenFound, setToken);
     onMessageListener()
@@ -40,7 +40,7 @@ function Notifications() {
       })
       .catch((err) => console.log("failed: ", err));
   }, [show, notification]);
-  
+
   function addClientToken(event, props) {
     event.preventDefault();
     setNotificationToggle(false);
@@ -53,6 +53,7 @@ function Notifications() {
     });
     alert('Subscribed To Notifications!')
   }
+
   return (
     <div>
       <Snackbar
@@ -76,7 +77,7 @@ function Notifications() {
           </IconButton>
         }
       />
-      <form style={{ textAlign: "center" }}>
+      {!user.client_token && <form style={{ textAlign: "center" }}>
         <Button
           type="button"
           variant="contained"
@@ -85,7 +86,7 @@ function Notifications() {
         >
           Subscribe to Push Notifications
         </Button>
-      </form>
+      </form>}
     </div>
   );
 }

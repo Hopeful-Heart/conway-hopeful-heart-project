@@ -161,7 +161,7 @@ function EventsPage() {
                   moment(date).format("YYYY-MM-DD") ===
                     moment(event.date).format("YYYY-MM-DD") ? (
                     <p
-                      className={`${event.type}-event`}
+                      className={`${event.type}-event calendar-event`}
                       key={event.id}
                       onClick={(e) => {
                         setAnchorElement(e.target);

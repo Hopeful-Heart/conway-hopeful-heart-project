@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
-
 import {
   makeStyles,
   Paper,
@@ -19,15 +18,18 @@ import {
   Button,
   IconButton,
   Tooltip,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@material-ui/core";
-
 import "./HomePage.css";
-
 import EditUserInfo from "./EditUserInfo";
 import MemorialForm from "./MemorialForm";
 import AddJournal from "./AddJournal";
-
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import InfoIcon from '@material-ui/icons/Info';
 
 function HomePage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
@@ -40,7 +42,7 @@ function HomePage() {
   const [memorialFormToggle, setMemorialFormToggle] = useState(false);
   const [editMemorialToggle, setEditMemorialToggle] = useState(false);
   const [addJournalToggle, setAddJournalToggle] = useState(false);
-
+  const [openTooltip, setOpenTooltip] = useState(false);
   const [anchorElement, setAnchorElement] = useState(null);
   const [popoverEvent, setPopoverEvent] = useState({});
 
@@ -54,6 +56,14 @@ function HomePage() {
   ];
 
   const dispatch = useDispatch();
+
+  const handleOpenTooltip = () => {
+    setOpenTooltip(true);
+  }
+
+  const handleCloseTooltip = () => {
+    setOpenTooltip(false);
+  }
 
   useEffect(() => {
     dispatch({ type: "FETCH_RECENT_EVENTS" });
@@ -208,7 +218,7 @@ function HomePage() {
                       setEditMemorialToggle(true);
                     }}
                   >
-                    Edit Memorial
+                    Edit Details
                   </Button>
                 </div>
                 <div style={{ display: "flex" }}>
@@ -262,18 +272,28 @@ function HomePage() {
                       <AddCircleOutlineIcon />
                     </IconButton>
                   </Tooltip>
+                  <Tooltip title="What is a journal entry for?">
+                    <IconButton
+                      color="primary"
+                      onClick={handleOpenTooltip}
+                    >
+                      <InfoIcon />
+                    </IconButton>
+                  </Tooltip>
                 </h2>
                 {!user.memorial && (
-                  <Button
-                    color="primary"
-                    variant="contained"
-                    onClick={() => {
-                      setHomeDefaultView(false);
-                      setMemorialFormToggle(true);
-                    }}
-                  >
-                    Add a Memorial
-                  </Button>
+                  <Tooltip title="Create Child Memorial">
+                    <Button
+                      color="primary"
+                      variant="contained"
+                      onClick={() => {
+                        setHomeDefaultView(false);
+                        setMemorialFormToggle(true);
+                      }}
+                    >
+                      My Child
+                    </Button>
+                  </Tooltip>
                 )}
               </div>
               {journals.length > 0 ? (
@@ -357,6 +377,28 @@ function HomePage() {
           setHomeDefaultView={setHomeDefaultView}
         />
       )}
+      <Dialog
+        open={openTooltip}
+        onClose={handleCloseTooltip}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"What Is A Journal Entry For?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Journal Entries are a simple and effective way of keeping track of personal feelings/thoughts. 
+            Just like a regular journal you can write whatever you want in here, the only difference is that 
+            if you wish to you can share your journal entries with those you are connected with on this 
+            application! Feel free to write as much or as little as you want, be sure to share your awesome
+            days with those you love as well as reflect on the harder days as you continue your journey in life!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseTooltip} color="primary" autoFocus>
+            Ok
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

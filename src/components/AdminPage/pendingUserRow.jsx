@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from "react-redux";
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import {
+    TableRow,
+    TableCell,
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    Tooltip,
+} from '@material-ui/core'
 
 function PendingUserRow({ user }) {
 
@@ -64,7 +65,7 @@ function PendingUserRow({ user }) {
                 <TableCell align="center">{user.email}</TableCell>
                 <TableCell align="center">{user.phone}</TableCell>
                 <TableCell align="center">{user.state}</TableCell>
-                <TableCell align="center"><Button variant="contained" color="primary" onClick={() => updatePending(user)} style={{ margin: 2.5 }}>Approve</Button><Button variant="contained" color="primary" onClick={() => handleOpenDeny(user)} style={{ margin: 2.5 }}>Deny</Button></TableCell>
+                <TableCell align="center"><Tooltip title="This will approve a user, allowing them to access the full application."><Button variant="contained" color="primary" onClick={() => updatePending(user)} style={{ margin: 2.5 }}>Approve</Button></Tooltip><Tooltip title="This will deny a user access to the application."><Button variant="contained" color="primary" onClick={() => handleOpenDeny(user)} style={{ margin: 2.5 }}>Deny</Button></Tooltip></TableCell>
             </TableRow>
 
             <Dialog

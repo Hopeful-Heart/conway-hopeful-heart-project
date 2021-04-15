@@ -37,10 +37,6 @@ function Notifications() {
           title: payload.notification.title,
           body: payload.notification.body,
         });
-        console.log(
-          `title: ${payload.notification.title},
-          body: ${payload.notification.body}`
-        );
       })
       .catch((err) => console.log("failed: ", err));
   }, [show, notification]);
@@ -57,10 +53,11 @@ function Notifications() {
     });
     alert('Subscribed To Notifications!')
   }
+
   return (
     <div>
       <Snackbar
-        autohide
+        autohide="true"
         open={show}
         onClose={handleClose}
         onExited={handleExited}
@@ -69,18 +66,18 @@ function Notifications() {
           horizontal: 'right',
         }}
         autoHideDuration={6000}
-        message={`From: ${notification.title} Message: ${notification.body}`}
+        message={`Title: ${notification.title} Message: ${notification.body}`}
         action={
           <IconButton
-          aria-label="close"
-          color="inherit"
-          onClick={handleClose}
-        >
-          <CloseIcon />
-        </IconButton>
+            aria-label="close"
+            color="inherit"
+            onClick={handleClose}
+          >
+            <CloseIcon />
+          </IconButton>
         }
       />
-      <form style={{ textAlign: "center" }}>
+      {!user.client_token && <form style={{ textAlign: "center" }}>
         <Button
           type="button"
           variant="contained"
@@ -89,26 +86,9 @@ function Notifications() {
         >
           Subscribe to Push Notifications
         </Button>
-      </form>
+      </form>}
     </div>
   );
 }
 
 export default Notifications;
-/* <Toast
-  onClose={() => setShow(false)}
-  show={show}
-  delay={6000}
-  autohide
-  animation
-  style={{
-    position: "absolute",
-    top: 120,
-    right: 60,
-  }}
->
-  <Toast.Header>
-    <strong>{notification.title}</strong>
-  </Toast.Header>
-  <Toast.Body>{notification.body}</Toast.Body>
-</Toast> */

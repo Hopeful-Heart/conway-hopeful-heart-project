@@ -84,7 +84,7 @@ function AllUsersPage() {
 
   if (toBeApproved[0]) {
     toApproveList = toBeApproved.map((connection) => (
-      <div key={connection.id}>
+      <div style={{textAlign:'center'}}key={connection.id}>
         <p>
           {connection.first_name} {connection.last_name} wants to be a
           connection!

@@ -168,7 +168,7 @@ function Nav() {
                     </Button>
                   )}
                 </div>
-              ) : (
+              ) : routeMatch &&  user.id ? (
                 // app menu navigation for the landing page
                 <>
                   <IconButton
@@ -266,6 +266,14 @@ function Nav() {
                     </Paper>
                   </Popover>
                 </>
+              ) : (
+                <Button
+                  color="secondary"
+                  component={Link}
+                  to={loginLinkData.path}
+                >
+                  {loginLinkData.text}
+                </Button>
               )}
             </>
           ) : (

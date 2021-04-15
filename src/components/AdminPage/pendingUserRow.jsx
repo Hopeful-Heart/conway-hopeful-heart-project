@@ -78,15 +78,15 @@ function PendingUserRow({ user }) {
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
                         Are You Sure You want to deny this user?
-                        </DialogContentText>
+                    </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleCloseDeny} color="primary">
                         Cancel
-                        </Button>
+                    </Button>
                     <Button onClick={() => denyPendingUser(denyUser)} color="primary" autoFocus>
                         Deny
-                        </Button>
+                    </Button>
                 </DialogActions>
             </Dialog>
         </>
